@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShootWaterState : StateTemplate<FishBossAI>
+public class FishBossShootWaterState : StateTemplate<FishBossAI>
 {
 
-    public ShootWaterState(string id, FishBossAI p) : base(id, p)
+    public FishBossShootWaterState(string id, FishBossAI p) : base(id, p)
     {
 
     }

@@ -80,7 +80,7 @@ public class Player : MonoBehaviour
   public  void Attack()
     {
         attack.SetActive(true);
-        AudioManager._instance.PlayAudio("风刃");
+        
     }
     public void GetHurt()//主角受伤
     {
