@@ -79,6 +79,7 @@ public class Player : MonoBehaviour
     }
   public  void Attack()
     {
+        if(!attack.activeSelf)
         attack.SetActive(true);
         
     }

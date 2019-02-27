@@ -36,5 +36,12 @@ public class FSMMachines
         }
         m_curretstate.OnEter();
     }
+   public void Update()
+    {
+        if(m_curretstate!=null)
+        {
+            m_curretstate.OnUpdate();
+        }
+    }
    
 }

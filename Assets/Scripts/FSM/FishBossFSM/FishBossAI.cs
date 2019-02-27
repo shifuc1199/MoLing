@@ -8,7 +8,8 @@ public class FishBossAI : EnemyBase
     [NonSerialized]
     public Animator _anim;
 	// Use this for initialization
-	new void Start () {
+	new void Start ()
+    {
         base.Start();
         _hurtcontroller._HurtCallBack = new HurtCallBack(() => { GetComponent<Rigidbody2D>().AddForce(transform.right * 30, ForceMode2D.Impulse); });
         _anim =GetComponentInChildren<Animator>();
@@ -16,12 +17,16 @@ public class FishBossAI : EnemyBase
         _machine.RegisterState(new FishBossShootWaterState("shootwater", this));
         _machine.ChangeState("idle");
     }
-	
-	// Update is called once per frame
-	void Update () {
-		//if(Input.GetKeyDown(KeyCode.Mouse0))
-  //      {
-  //          _machine.ChangeState("shootwater");
-  //      }
-	}
+    private void LateUpdate()
+    {
+        _machine.Update();
+    }
+    // Update is called once per frame
+    void Update () {
+       
+		if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            _machine.ChangeState("shootwater");
+        }
+    }
 }
