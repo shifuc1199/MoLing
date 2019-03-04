@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-using UnityEngine.Rendering.PostProcessing;
 using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
@@ -13,8 +12,6 @@ public class Player : MonoBehaviour
     private float _movespeed;
     [SerializeField]
     private float _jumpspeed;
-    [SerializeField]
-    private float _flyspeed;
     [SerializeField]
     private float _dashspeed;
     [SerializeField]
@@ -57,12 +54,14 @@ public class Player : MonoBehaviour
     private bool ismoveright = true;
     private bool ismoveleft = true;
     private bool isJump;
+    //冲刺键！！！！！！
     private bool isDown;
     private bool isUp;
+    //
     private bool isMaxDash;
-    private bool ispress;
+ 
     public bool isStop;
-
+ 
     public GameObject attack;
     private GameObject GatherEffect;
     private GameObject GroundEffect;
@@ -163,21 +162,11 @@ public class Player : MonoBehaviour
 
     void Dash()
     {
-
+ 
         if (dashtimer < _dashcooltime)
         {
-            if (isUp)
-            {
-                ispress = false;
-                isUp = false;
-            }
-
-            if (isDown)
-            {
-                ispress = true;
-                isDown = false;
-            }
-
+            isDown = false;
+            isUp = false;
             dashtimer += Time.deltaTime;
             return;
         }
@@ -199,43 +188,51 @@ public class Player : MonoBehaviour
             Inputable = false;
             _rigi.velocity = Vector2.zero;
             _rigi.gravityScale = 0f;
-            isDown = false;
-        }
-        if (isUp)
-        {
-
-            if (dashtime <= 0.2f)
-            {
-                _rigi.velocity = transform.right * 0.7f * _dashspeed;
-            }
-            else
-            {
-                if (dashtime <= _maxdashtime / 2)
-                    dashtime = _maxdashtime / 2;
-                _rigi.velocity = transform.right * dashtime * _dashspeed;
-            }
-            _anim.SetTrigger("isDash");
-            dashtimer = 0;
-            dashtime = 0;
-            isUp = false;
-            ispress = false;
-        }
-        if (Input.GetKey(_dashkey) && !ispress)
-        {
-
             dashtime += Time.deltaTime;
-
             if (dashtime >= _maxdashtime)
             {
+                Debug.Log("超级冲刺!");
                 _anim.SetTrigger("isDash");
-                dashtime = _maxdashtime;
+                dashtime = 0;
                 dashtimer = 0;
                 isMaxDash = true;
-                _rigi.velocity = transform.right * dashtime * _dashspeed;
-                dashtime = 0;
-            }
+                isDown = false;
+                _rigi.AddForce(transform.right * _dashspeed * _maxdashtime * 0.4f, ForceMode2D.Impulse);
+             
 
+            }
         }
+        else
+
+            return;
+
+        if (isUp)
+        {
+            Debug.Log("普通冲刺!");
+            if (dashtime <= 0.2f)
+                {
+                    _rigi.AddForce(transform.right * _dashspeed * 0.2f, ForceMode2D.Impulse);
+                }
+                else
+                {
+                    if (dashtime <= _maxdashtime / 2)
+                        dashtime = _maxdashtime / 2;
+                    _rigi.AddForce(transform.right * _dashspeed * dashtime * 0.4f, ForceMode2D.Impulse);
+                }
+                isDown = false;
+                _anim.SetTrigger("isDash");
+                dashtimer = 0;
+                dashtime = 0;
+                isUp = false;
+                return;
+          
+        }
+
+       
+
+         
+
+      
 
 
     }
@@ -431,6 +428,10 @@ public class Player : MonoBehaviour
         if (isStop)
             return;
         isJump = true;
+    }
+    public void Mobils_Dash_Pressed()
+    {
+
     }
     public void Mobile_Dash_Down()
     {
