@@ -17,8 +17,16 @@ public class Enemy_1_ChaseState : StateTemplate<Enemy_1_Controller>
     }
     public override void OnUpdate()
     {
-
-        Owner.transform.position = Vector3.MoveTowards(Owner.transform.position, Owner._player.position,0.1f);
+        if (Owner._hurtcontroller.isdie)
+            return;
+        if (Mathf.Abs(Mathf.Abs(Owner.transform.position.x) -Mathf.Abs( Owner._player.transform.position.x)) > 15)
+        {
+            Owner._anim.SetBool("run", false);
+            return;
+        }
+             
+        Owner._anim.SetBool("run", true);
+        Owner.transform.position = Vector3.MoveTowards(Owner.transform.position, new Vector3(Owner._player.transform.position.x, Owner.transform.position.y, Owner.transform.position.z), 0.1f);
         if(Owner._player.transform.position.x>Owner.transform.position.x)
         {
             Owner.transform.rotation = Quaternion.identity;

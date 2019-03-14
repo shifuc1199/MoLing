@@ -4,7 +4,8 @@
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -17,3 +18,6 @@ MonoBehaviour:
   - "\u84C4\u529B\u7279\u6548"
   - "\u8E6D\u5899\u8DF3\u7279\u6548"
   - "\u843D\u5730\u7279\u6548"
+  - "\u98DE\u5251\u67AA\u706B\u7279\u6548"
+  - "\u7FA4\u5251"
+  - "\u4E3B\u89D2\u653B\u51FB\u7279\u6548"

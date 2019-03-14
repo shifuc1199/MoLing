@@ -4,34 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
-    public Dropdown dropdown;
-    public GameObject[] BackGround;
-    // Start is called before the first frame update
-    void Start()
+    public static UIManager _instance;
+    public Transform _viewroot;
+    public Dictionary<string, View> ViewList = new Dictionary<string, View>();
+    private void Awake()
     {
+        Init();
+        _instance = this;
+    }
+    void Init()
+    {
+        for (int i = 0; i < _viewroot.childCount; i++)
+        {
+            View view=_viewroot.GetChild(i).GetComponent<View>();
+            ViewList.Add(view.GetType().ToString(), _viewroot.GetChild(i).GetComponent<View>() );
+        }
+    }
+   public View OpenView<T>() where T:View
+    {
+        if (!ViewList.ContainsKey(typeof(T).ToString()))
+        {
+            Debug.LogError("找不到" + typeof(T).ToString());
+            return null;
+        }
+        ViewList[typeof(T).ToString()].gameObject.SetActive(true);
+        return ViewList[typeof(T).ToString()];
+    }
     
-
-    }
-    public void OnValueChange(int index)
-    {
-        if(index==0)
-        {
-            foreach (var item in BackGround)
-            {
-                item.SetActive(false);
-            }
-        }
-        else
-        {
-            foreach (var item in BackGround)
-            {
-                item.SetActive(true);
-             }
-        }
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

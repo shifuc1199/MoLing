@@ -58,7 +58,7 @@ public class GameObjectPool
         else
         {
             temp.SetActive(true);
-          
+         
             temp.transform.rotation = qua;
             temp.transform.parent = parent;
         }
@@ -70,8 +70,12 @@ public class GameObjectPool
         Timer.Register(timer, () =>
         {
             ObjectPool<GameObject> pool = gameobject_pooldic[name];
-            temp.SetActive(false);
-            pool.Add(temp);
+            if (temp != null)
+            {
+                temp.SetActive(false);
+
+                pool.Add(temp);
+            }
         });
     }
 	// Use this for initialization
