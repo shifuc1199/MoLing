@@ -21,7 +21,7 @@ public class SmallEnemy_4_ChaseState : StateTemplate<SmallEnemy_4_Controller>
         if (Owner._hurtcontroller.isdie)
             return;
  
-        if (Vector3.Distance(Owner.transform.position,Owner._player.transform.position) <= 10)
+        if (Vector3.Distance(Owner.transform.position,Owner._player.transform.position) <= 20)
         {
             if (Owner._player.transform.position.x > Owner.transform.position.x)
             {

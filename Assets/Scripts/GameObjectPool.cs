@@ -16,7 +16,7 @@ public class GameObjectPool
     }
     private GameObjectPool()
     {
-        Init(Resources.Load<Effect>("EffectConfig").EffectNames);
+        Init(ConfigManager.effect_config.EffectNames);
     }
     private void Init(List<string> name)
     {
@@ -34,7 +34,7 @@ public class GameObjectPool
  
         if(temp==null)
         {
-            temp = Resources.Load<GameObject>(name);
+            temp = Resources.Load<GameObject>("Effect/" + name);
             temp =UnityEngine.GameObject.Instantiate(temp, parent);
         }
         else
@@ -52,7 +52,7 @@ public class GameObjectPool
     
         if (temp == null)
         {
-            temp = Resources.Load<GameObject>(name);
+            temp = Resources.Load<GameObject>("Effect/"+name);
             temp = UnityEngine.GameObject.Instantiate(temp, parent);
         }
         else
@@ -70,13 +70,13 @@ public class GameObjectPool
         Timer.Register(timer, () =>
         {
             ObjectPool<GameObject> pool = gameobject_pooldic[name];
-            if (temp != null)
+            if (temp != null&&temp.activeSelf)
             {
                 temp.SetActive(false);
 
                 pool.Add(temp);
             }
-        });
+        },null,false,true);
     }
 	// Use this for initialization
 	void Start () {

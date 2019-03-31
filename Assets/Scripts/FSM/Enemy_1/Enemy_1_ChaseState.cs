@@ -5,42 +5,53 @@ using UnityEngine;
 public class Enemy_1_ChaseState : StateTemplate<Enemy_1_Controller>
 {
 
+    int index;
     public Enemy_1_ChaseState(string id, Enemy_1_Controller p) : base(id, p)
     {
 
     }
-    public override void OnEter( )
+    public override void OnEter()
     {
-          
+
 
 
     }
+    bool isarrive = false;
     public override void OnUpdate()
     {
+
+
         if (Owner._hurtcontroller.isdie)
             return;
-        if (Mathf.Abs(Mathf.Abs(Owner.transform.position.x) -Mathf.Abs( Owner._player.transform.position.x)) > 15)
-        {
-            Owner._anim.SetBool("run", false);
+
+        if (isarrive)
             return;
-        }
-             
+
+        Owner.transform.position = Vector3.MoveTowards(Owner.transform.position, new Vector3(Owner.points[index].position.x, Owner.transform.position.y, Owner.transform.position.z), Owner._speed * Time.deltaTime);
         Owner._anim.SetBool("run", true);
-        Owner.transform.position = Vector3.MoveTowards(Owner.transform.position, new Vector3(Owner._player.transform.position.x, Owner.transform.position.y, Owner.transform.position.z), 0.1f);
-        if(Owner._player.transform.position.x>Owner.transform.position.x)
+ 
+        if (Mathf.Abs(Owner.transform.position.x - Owner.points[index].position.x) <= 0.5f)
         {
-            Owner.transform.rotation = Quaternion.identity;
-        }
-        else
-        {
-            Owner.transform.rotation = Quaternion.Euler(0,180,0);
+            isarrive = true;
+            Owner._anim.SetBool("run", false);
+            index++;
+            index %= Owner.points.Length;
+            Timer.Register(2, () =>
+            {
+                isarrive = false;
+                if (Owner == null)
+                    return;
+                if (Owner.points[index].position.x < Owner.transform.position.x)
+                {
+                    Owner.transform.rotation = Quaternion.Euler(0, 180, 0);
+                }
+                else
+                {
+                    Owner.transform.rotation = Quaternion.identity;
+                }
+            });
         }
 
     }
-    public override void OnExit()
-    {
 
-        
-    }
-    
 }

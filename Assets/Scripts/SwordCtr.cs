@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using game;
  public enum AttackType
 {
     单剑发射,
@@ -92,7 +93,7 @@ public class SwordCtr : MonoBehaviour, IAttackable
                     isCanSingal = false;
                     transform.DOLocalMove(new Vector3(4.5f, -1.2f, 0), 0.15f).SetEase(Ease.Linear);
                     transform.DOLocalRotate(Vector3.zero, 0.15f, RotateMode.FastBeyond360).SetEase(Ease.Linear);
-                    Timer.Register(0.25f, () => { Camera.main.DOShakePosition(0.1f, 0.5f); GetComponent<PolygonCollider2D>().enabled = true; ismove = true; _anim.SetTrigger("shoot"); transform.parent = null; });
+                    Timer.Register(0.25f, () => { DOTween.Shake(() => Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset, x => Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset = x, 0.1f, 0.5f); GetComponent<PolygonCollider2D>().enabled = true; ismove = true; _anim.SetTrigger("shoot"); transform.parent = null; });
                     Timer.Register(0.5f, () => { ResetState(); });
                 }
                 break;
@@ -100,14 +101,14 @@ public class SwordCtr : MonoBehaviour, IAttackable
             case AttackType.群剑发射:
                 {
                     isCanMutli = false;
-                    Vector3 aim = parent.transform.position+ new Vector3(parent.transform.right.x * 10, 7, 0);
+                    Vector3 aim = parent.transform.position+ new Vector3(parent.transform.right.x * 10, 10, 0);
                     Debug.Log(aim);
                     GameObject temp = GameObjectPool.GetInstance().GetGameObject("群剑", parent.position, parent.rotation);
                     
                     mutliswordtweeners.Add( temp.transform.DOMove(aim, 0.3f).SetEase(Ease.Linear));
                     mutliswordtweeners.Add(temp.transform.DOLocalRotate(new Vector3(0, 0, -90), 0.1f, RotateMode.FastBeyond360).SetEase(Ease.Linear).SetLoops(-1, LoopType.Incremental));
                     Timer.Register(0.3f, () => {
-                        foreach (var item in mutliswordtweeners)
+                        foreach (var item in mutliswordtweeners)    
                         {
                             item.Kill();
                         }
@@ -152,7 +153,20 @@ public class SwordCtr : MonoBehaviour, IAttackable
     }
     private void OnEnable()
     {
-        this._attackcallback = (t) => { t.GetComponent<Rigidbody2D>().AddForce(t.transform.right * 50, ForceMode2D.Impulse); };
+        this._attackcallback = (t) => {
+            if (game.Scene._instance.player.transform.position.x > t.transform.position.x)
+            {
+                transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else
+            {
+                transform.rotation = Quaternion.identity;
+            }
+            t.GetComponent<Rigidbody2D>().AddForce(t.transform.right * 50, ForceMode2D.Impulse);
+           
+            int a = Random.Range(1, 3);
+            AudioManager._instance.PlayAudio("击中" + a);
+        };
 
        
 

@@ -4,15 +4,8 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+  public virtual void OnCloseClick()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameObject.SetActive(false);
     }
 }

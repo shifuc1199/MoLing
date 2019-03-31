@@ -38,12 +38,14 @@ public class PlayerCtr : MonoBehaviour
     private GameObject StandWall;
     private Rigidbody2D _rigi;
     private Animator _anim;
-    [Header("--------人物攻击----------")]
+    [Header("--------人物固定物体----------")]
     public GameObject Sword;
+    public GameObject SitDownEffect;
+    public GameObject AddHealthEffect;
     private int _jumpindex;
     private float dashtime;
     private float horizontal;
- 
+  
     private float dashtimer;
     private float _gravityscale;
 
@@ -51,15 +53,19 @@ public class PlayerCtr : MonoBehaviour
     private bool isOnWall;
     private bool ismoveright = true;
     private bool ismoveleft = true;
-    private bool isJump;
+  
     //冲刺键！！！！！！
     private bool isDown;
     private bool isUp;
     //
     private bool isMaxDash;
-    
+    bool isSitDown;
     
     public GameObject attack;
+    [Header("--------时间间隔 ----------")]
+    public float attackTimer;//攻击间隔时间
+    public float RecoverHealthTime;//恢复生命时间间隔
+    private bool isCanAttack=true;
     private GameObject GatherEffect;
     private GameObject GroundEffect;
     private GameObject DashEffectTemp;
@@ -68,25 +74,23 @@ public class PlayerCtr : MonoBehaviour
         //  _healthindex = HealthImage.Length;
         
         _anim = GetComponentInChildren<Animator>();
-        _rigi = GetComponent<Rigidbody2D>();
+        _rigi = GetComponentInChildren<Rigidbody2D>();
         ResetPoint = transform.position;
         _gravityscale = _rigi.gravityScale;
         
     }
+     
   public  void Attack()
     {
-        
-        attack.GetComponent<Animator>().SetTrigger("attack");
+        if (Inputable&& isCanAttack)
+        {
+            attack.SetActive(true);
+            isCanAttack = false;
+           
+        }
         
     }
-    public void GetHurt()//主角受伤
-    {
-       
-            
-        Camera.main.transform.DOShakePosition(0.5f, 1f, 10, 90);
-
-     
-    }
+  
     IEnumerator Rotate(Quaternion euler)
     {
         yield return new WaitForSeconds(0.1f);
@@ -129,6 +133,7 @@ public class PlayerCtr : MonoBehaviour
 
         if (horizontal != 0&&!isOnWall)
         {
+            if(!isForwardWall)
             _rigi.velocity = new Vector2(horizontal * _movespeed, _rigi.velocity.y);
 
         }
@@ -142,7 +147,8 @@ public class PlayerCtr : MonoBehaviour
 
     void Dash()
     {
- 
+       
+
         if (dashtimer < _dashcooltime)
         {
             isDown = false;
@@ -234,7 +240,7 @@ public class PlayerCtr : MonoBehaviour
         if (DashEffectTemp == null || !DashEffectTemp.activeSelf)
         {
 
-            DashEffectTemp = GameObjectPool.GetInstance().GetGameObject("冲刺特效", transform.position + new Vector3(transform.right.x * 0.5f, 0.5f, 0), transform.rotation);
+            DashEffectTemp = GameObjectPool.GetInstance().GetGameObject("冲刺特效", transform.position + new Vector3(transform.right.x * 0.5f, -1.25f, 0), Quaternion.Euler(180-transform.eulerAngles.y, 90, 90));
             GameObjectPool.GetInstance().ReleaseGameObject("冲刺特效", DashEffectTemp, 0.5f);
 
 
@@ -256,7 +262,7 @@ public class PlayerCtr : MonoBehaviour
         if (DashEffectTemp == null)
         {
 
-            DashEffectTemp = GameObjectPool.GetInstance().GetGameObject("冲刺特效", transform.position + new Vector3(transform.right.x * 0.5f, 0.5f, 0), transform.rotation);
+            DashEffectTemp = GameObjectPool.GetInstance().GetGameObject("冲刺特效", transform.position + new Vector3(transform.right.x * 0.5f, -1.25f, 0), Quaternion.Euler(180 - transform.eulerAngles.y, 90,90));
 
              GameObjectPool.GetInstance().ReleaseGameObject("冲刺特效",DashEffectTemp, 0.25f);
         }
@@ -293,20 +299,21 @@ public class PlayerCtr : MonoBehaviour
     {
  
         _rigi.gravityScale = 1f;
-
+     //   _jump_key_press_timer = _maxjumptimer;
         _rigi.velocity = Vector2.zero;
        
     }
 
     public void OnWallExit()
     {
-        
+       
         _rigi.gravityScale = _gravityscale;
         _jumpindex = 1;
         //_rigi.sharedMaterial.friction = 1;
     }
     IEnumerator MoveControlRight()
     {
+      
         ismoveright = false;
         yield return new WaitForSeconds(0.25f);
         ismoveright = true;
@@ -317,69 +324,59 @@ public class PlayerCtr : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         ismoveleft = true;
     }
-     
+  public  bool isForwardWall = false;
     public void OnWallUpdate()
     {
-       // _rigi.sharedMaterial.friction = 0;
-        if (isJump)
-        {
-            GameObject temp = GameObjectPool.GetInstance().GetGameObject("蹭墙跳特效", OnWallJumpEffectPos.transform.position, transform.rotation);
-            GameObjectPool.GetInstance().ReleaseGameObject("蹭墙跳特效", temp, 0.5f);
-            if (horizontal > 0)
-                {
-                    StartCoroutine(MoveControlRight());
-                
-                }
-                if (horizontal < 0)
-                {
-                    StartCoroutine(MoveControlleft());
-                }
-         
-        }else
-        {
+        
+        // _rigi.sharedMaterial.friction = 0;
+      
             if (horizontal == 0&&_rigi.velocity.y<0)
                 _rigi.velocity = new Vector2(0, _rigi.velocity.y);
-        }
+        
       
     }
-
+    // key down 计时  按下的时间 如果超过最大时间 直接按照最大高度起跳
+    // key up 判断 是否超过最大时间 如果超过的话  什么都不做  否则 按照按下的时间 进行跳跃
     void Jump()
     {
-       if(isJump)
-             {
-            if (isOnWall || isGround || (_jumpindex < _maxjumpindex))
+        if (isjumpstate)
+        { 
+            if (_jumpindex == 1 && !isOnWall)
             {
-               
-                if (_jumpindex == 1&&!isOnWall )
+                if (!PlayerInfo.info.SkillDic["doublejump"])
                 {
-                    if (!PlayerInfo.info.SkillDic["doublejump"])
-                    {
-                        isJump = false;
-                        return;
-                    }
-                       
-                    GameObject  temp=GameObjectPool.GetInstance().GetGameObject("二段跳特效", transform);
-                    AudioManager._instance.PlayAudio("二段跳");
-                    temp.transform.localPosition = new Vector3(-0.5f, -3, 0);
-                    GameObjectPool.GetInstance().ReleaseGameObject("二段跳特效", temp, 1.5f);
+                    return;
                 }
-                _rigi.gravityScale = _gravityscale;
-                AudioManager._instance.PlayAudio("跳跃");
-                 _rigi.velocity = Vector2.zero;
-                _jumpindex++;
-               
-                if (isOnWall&&!isGround)
-                {   
-                    _rigi.velocity = new Vector2(-transform.right.x*10, _jumpspeed);
-                }
-                else
-                {
-                    _rigi.velocity = new Vector2(_rigi.velocity.x, _jumpspeed);
-                }
+                GameObject temp = GameObjectPool.GetInstance().GetGameObject("二段跳特效", transform);
+                AudioManager._instance.PlayAudio("二段跳");
+                temp.transform.localPosition = new Vector3(-0.5f, -3, 0);
+                GameObjectPool.GetInstance().ReleaseGameObject("二段跳特效", temp, 1.5f);
+            }
+        _rigi.gravityScale = _gravityscale;
+        AudioManager._instance.PlayAudio("跳跃");
+       
+        _jumpindex++;
+
+        if (isOnWall && !isGround)
+        {
+            
+            if (horizontal > 0)
+            {
+                StartCoroutine(MoveControlRight());
 
             }
-            isJump = false;
+            if (horizontal < 0)
+            {
+                StartCoroutine(MoveControlleft());
+            }
+            _rigi.velocity = new Vector2(-transform.right.x * 5, _rigi.velocity.y);
         }
+            isjumpstate = false;
+    }
+ 
+           
+            
+       
     }
 
 
@@ -395,31 +392,137 @@ public class PlayerCtr : MonoBehaviour
       
 
     }
+    
     public void GroundAndWallCheck()
     {
         isGround = Physics2D.OverlapCircle(CheckGround.position, 0.1f, LayerMask.GetMask("ground"));
-        isOnWall = Physics2D.OverlapCircle(CheckWall.position, 0.1f, LayerMask.GetMask("ground"));
+        isForwardWall =
+            Physics2D.Linecast(transform.position, transform.right + transform.position, LayerMask.GetMask("ground")) ||
+            Physics2D.Linecast(transform.position + new Vector3(0, -1f, 0), transform.right + transform.position + new Vector3(0, -1, 0), LayerMask.GetMask("ground")) ||
+              Physics2D.Linecast(transform.position + new Vector3(0, -2f, 0), transform.right + transform.position + new Vector3(0, -2f, 0), LayerMask.GetMask("ground"));
+       
+
+        isOnWall = Physics2D.OverlapCircle(CheckWall.position, 0.1f, LayerMask.GetMask("ground")) && PlayerInfo.info. SkillDic["walljump"];
         if (isGround)
-        {
-          _jumpindex = 0;
+        { 
+            _jumpindex = 0;
         }
     }
 
-
-
-
-    public void Mobile_Jump()
+    float _jump_key_press_timer = 0;
+    public float _maxjumptimer;
+    bool ispressjump = false;
+    bool isjumpstate = false;
+    public void Mobile_Jump_Up()
     {
+         
         if (!Inputable)
             return;
-        isJump = true;
+      
+
+
+        _jump_key_press_timer = 0;
+
+        ispressjump = false;
+    }
+
+    public void Mobile_Jump_Stay()
+    {
+       
+        if (!Inputable)
+            return;
+        if (!ispressjump)
+            return;
+      
+        if (_jump_key_press_timer<_maxjumptimer)
+        {
+           
+            _jump_key_press_timer += Time.deltaTime;
+            if(!isOnWall)
+            _rigi.velocity += new Vector2(0, 40*Time.deltaTime );
+
+        }
+        else
+        {
+ 
+            ispressjump = false;
+
+
+        }
+      
+
+    }
+
+    public void Mobile_Jump_Down()
+    {
+       
+        if (!Inputable)
+            return;
+
+        if (isOnWall || isGround || (_jumpindex < _maxjumpindex))
+        {
+           
+            if (_jumpindex == 1 && !isOnWall)
+            {
+                 if(!PlayerInfo.info.SkillDic["doublejump"])
+                {
+                    return;
+                }
+            }
+
+            GameObject temp = GameObjectPool.GetInstance().GetGameObject("跳跃灰尘", transform.position-new Vector3(0,1f,0),Quaternion.identity);
+      
+            GameObjectPool.GetInstance().ReleaseGameObject("跳跃灰尘", temp, 1.5f);
+
+            _rigi.velocity = Vector2.zero;
+            ispressjump = true;
+            isjumpstate = true;
+            _rigi.velocity += new Vector2(0,_jumpspeed);
+          
+        }
+    }
+     public void OnStandExit()
+    {
+        recovertimer = 0;
+        isSitDown = false;
+        Inputable = true;
+    }
+    public void OnStandEnter()
+    {
+        isSitDown = true;
+        
+        Inputable = false;
+    }
+    public void Mobile_Sit_Down()
+    {
+        if (GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health == GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth)
+        {
+            return;
+        }
+        if (Inputable)
+        {
+            Timer.Register(0.5f, () => { SitDownEffect.SetActive(true);   });
+            _anim.SetTrigger("down");
+        }
+        else
+        {
+             SitDownEffect.SetActive(false); 
+            _anim.SetTrigger("up");
+        }
     }
     public void Mobile_Sword_Mutli_Shoot()
     {
+       
+
         if ( !isOnWall && Sword.GetComponent<SwordCtr>().isCanMutli)
         {
+            if (PlayerInfo.info.mp >= 20)
+            {
+              PlayerInfo.info.  MinusMP(20);
+            }
+            else
+                return;
             Sword.GetComponent<SwordCtr>().Skill(AttackType.群剑发射);
-
             if (!isGround)
             {
                 Inputable = false;
@@ -429,9 +532,7 @@ public class PlayerCtr : MonoBehaviour
             Timer.Register(0.2f, () =>
             {
 
-                GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("飞剑枪火特效", transform);
-                temp2.transform.localPosition = new Vector3(1.5f, -1.5f, 0);
-                GameObjectPool.GetInstance().ReleaseGameObject("飞剑枪火特效", temp2, 1.5f);
+              
                 Timer.Register(0.25f, () =>
                 {
                     Inputable = true;
@@ -443,9 +544,17 @@ public class PlayerCtr : MonoBehaviour
     }
     public void  Mobile_Sword_Shoot()
     {
+       
+
         if (!isOnWall &&Sword.GetComponent<SwordCtr>().isCanSingal)
         {
-         
+            if (PlayerInfo.info.mp >= 20)
+            {
+                PlayerInfo.info.MinusMP(10);
+            }
+            else
+                return;
+
             Sword.GetComponent<SwordCtr>().Skill(AttackType.单剑发射);
 
 
@@ -458,8 +567,7 @@ public class PlayerCtr : MonoBehaviour
             Timer.Register(0.2f, () =>
             {
               
-                GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("飞剑枪火特效", transform);
-                temp2.transform.localPosition = new Vector3(1.5f, -1.5f, 0);
+                GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("飞剑枪火特效", transform.position+new Vector3(transform.right.x*2,-0.7f,0), Quaternion.Euler(0,-90,90));
                 GameObjectPool.GetInstance().ReleaseGameObject("飞剑枪火特效", temp2, 1.5f);
                 Timer.Register(0.25f, () =>
                 {
@@ -475,56 +583,127 @@ public class PlayerCtr : MonoBehaviour
 
     public void Mobile_Dash_Down()
     {
-      
+        if (!Inputable)
+            return;
+
         isDown = true;
     }
     public void Mobile_Dash_Up()
     {
-       
+ 
 
         isUp = true;
         isMaxDash = false;
     }
+    float timer;
+    float recovertimer;
+
+    public void SitDownAddHealth(int amount)
+    {
+        PlayerInfo.info.AddHealth(amount);
+        AddHealthEffect.SetActive(true);
+        Timer.Register(1, () => { AddHealthEffect.SetActive(false); });
+        if (GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health == GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth)
+        {
+            SitDownEffect.SetActive(false);
+            _anim.SetTrigger("up");
+        }
+    }
+
     private void Update()
     {
-      
+        if(isSitDown)
+        {
+             recovertimer += Time.deltaTime;
+            if(recovertimer>=RecoverHealthTime)
+            {
+                recovertimer = 0;
+                SitDownAddHealth(1);
+            }
+        }
+
+        if(!isCanAttack)
+        {
+            timer += Time.deltaTime;
+            if(timer>=attackTimer)
+            {
+                isCanAttack = true;
+                timer = 0;
+            }
+        }
+        if (_rigi.velocity.y<0&&!isOnWall)
+        {
+
+            _rigi.velocity += Vector2.up * Physics2D.gravity.y * 1f * Time.deltaTime;
+            
+        }
+        else if (_rigi.velocity.y > 0 && !isjumpstate)
+        {
+            _rigi.velocity += Vector2.up * Physics2D.gravity.y * (  1) * Time.deltaTime;
+        }
 
         GroundAndWallCheck();
-       
-        //if (Input.GetKeyDown(_jumpkey))
-        //{
-        //    isJump = true;
-        //}
-        //if (Input.GetKeyDown(_dashkey))
-        //{
-        //    isDown = true;
-        //}
-        //if (Input.GetKeyUp(_dashkey))
-        //{
-        //    isUp = true;
-        //    isMaxDash = false;     
-        //}
         
-       if(ETCInput.GetAxis("Horizontal")>0)
+
+        if (Input.GetKeyDown(KeyCode.J))
         {
-            horizontal = 1;
+            Attack();
+        }
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            Mobile_Jump_Down();
+        }
+        if (Input.GetKeyUp(KeyCode.K))
+        {
+            Mobile_Jump_Up();
+        }
+        if (Input.GetKey(KeyCode.K))
+        {
+            Mobile_Jump_Stay();
+        }
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            isDown = true;
+        }
+        if (Input.GetKeyUp(KeyCode.L))
+        {
+            isUp = true;
+            isMaxDash = false;
+        }
+
+        horizontal = Input.GetAxisRaw("Horizontal");
+       
+#if UNITY_ANDROID
+        if (ETCInput.GetAxis("Horizontal")>0)
+        {
+             
+                horizontal = 1;
         }
         else if (ETCInput.GetAxis("Horizontal") < 0)
         {
-            horizontal = -1;
+           
+                horizontal = -1;
         }
        else if (ETCInput.GetAxis("Horizontal") ==0)
         {
-            horizontal = 0;
+             
+                horizontal = 0;
         }
-    }
-    
+#endif
+
+#if UNITY_EDITOR
        
-  
-    
+        horizontal = Input.GetAxisRaw("Horizontal");
+#endif
+
+    }
+
+
+
+
     void FixedUpdate()
     {
-
+         
         Sword.SetActive(PlayerInfo.info.ItemDic["sword"]);
         AnimSet();
       
@@ -532,7 +711,7 @@ public class PlayerCtr : MonoBehaviour
         if (Inputable)
         { 
             Move();
-            Jump(); 
+            Jump();
         }
 
         Dash();

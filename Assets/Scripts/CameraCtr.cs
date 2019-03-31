@@ -15,14 +15,7 @@ public class CameraCtr : MonoBehaviour {
 	// Update is called once per frame
 	void LateUpdate () {
         Vector3 temp = _player.transform.position + _offset;
-        if (temp.y < -223)
-        {
-            temp = new Vector3(temp.x, -223, temp.z);
-        }
-        if (temp.x > 320)
-        {
-            temp = new Vector3(320, temp.y, temp.z);
-        }
+        
         transform.position = Vector3.Lerp(transform.position, temp, Time.deltaTime * _speed);
          
 	}

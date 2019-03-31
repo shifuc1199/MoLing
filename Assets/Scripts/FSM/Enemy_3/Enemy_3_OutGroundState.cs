@@ -25,7 +25,7 @@ public class Enemy_3_OutGroundState : StateTemplate<Enemy_3_Controller>
             if(!Owner.IsInvoking())
             Owner.InvokeRepeating("Attack", .5f, 2);
         }
-        else if (Mathf.Abs(Mathf.Abs(Owner.transform.position.x) - Mathf.Abs(Owner._player.transform.position.x))> 20)
+        else if (Mathf.Abs(Mathf.Abs(Owner.transform.position.x) - Mathf.Abs(Owner._player.transform.position.x))> 40)
         {
             Owner.CancelInvoke();
             Owner._machine.ChangeState("in");

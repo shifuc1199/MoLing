@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 1611480152}
   - component: {fileID: 1611480151}
   - component: {fileID: 2120445490}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: "\u5C38\u86F9\u5C0F\u602A"
   m_TagString: enemy
   m_Icon: {fileID: 0}
@@ -197,3 +197,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxhealth: 100
+  hitoffable: 0
+  _anim: {fileID: 0}

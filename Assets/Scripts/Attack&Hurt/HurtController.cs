@@ -9,15 +9,23 @@ public class HurtController : IHurtable {
         MaxHealth = maxhealth;
         Health = MaxHealth;
     }
-   
+    public HurtController(float health, float maxhelath)
+    {
+        MaxHealth = maxhelath;
+        Health = health;
+    }
     public float Health { get; set; }
     public float MaxHealth { get; set; }
     public HurtCallBack _HurtCallBack { get; set; }
     public DieCallBack _DieCallBack { get; set; }
     public bool isdie = false;
+    public bool isInvincible = false;
     public void GetHurt(float attack)
     {
         if (isdie)
+            return;
+
+        if (isInvincible)
             return;
 
         this.Health -= attack;
@@ -26,6 +34,7 @@ public class HurtController : IHurtable {
 
             _HurtCallBack();
         }
+
         if (Health <= 0)
         {
             if (_DieCallBack != null)
@@ -35,5 +44,6 @@ public class HurtController : IHurtable {
             }
             isdie = true;
         }
+       
     }
 }

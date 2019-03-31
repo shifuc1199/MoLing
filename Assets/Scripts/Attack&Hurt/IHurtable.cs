@@ -11,4 +11,5 @@ public interface IHurtable
      HurtCallBack _HurtCallBack { get; set; }
     DieCallBack _DieCallBack { get; set; }
     void GetHurt(float attack);
+     
 }

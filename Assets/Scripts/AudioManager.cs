@@ -28,9 +28,15 @@ public class AudioManager : MonoBehaviour {
         return -1;
     }
 
+    public void PlayCV(AudioClip clip)
+    {
+        Audio.clip = clip;
+        Audio.Play();
 
- 
-   
+
+    }
+
+
 
     public void PlayAudio(string name)
     {

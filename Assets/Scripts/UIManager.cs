@@ -20,7 +20,27 @@ public class UIManager : MonoBehaviour
             ViewList.Add(view.GetType().ToString(), _viewroot.GetChild(i).GetComponent<View>() );
         }
     }
-   public View OpenView<T>() where T:View
+    public T GetView<T>() where T : View
+    {
+        if (!ViewList.ContainsKey(typeof(T).ToString()))
+        {
+            Debug.LogError("找不到" + typeof(T).ToString());
+            return null;
+        }
+     
+        return ViewList[typeof(T).ToString()] as T;
+    }
+    public bool IsOpening<T>() where T : View
+    {
+        if (!ViewList.ContainsKey(typeof(T).ToString()))
+        {
+            Debug.LogError("找不到" + typeof(T).ToString());
+            return false;
+        }
+
+        return ViewList[typeof(T).ToString()].gameObject.activeSelf;
+    }
+    public T OpenView<T>() where T:View
     {
         if (!ViewList.ContainsKey(typeof(T).ToString()))
         {
@@ -28,7 +48,16 @@ public class UIManager : MonoBehaviour
             return null;
         }
         ViewList[typeof(T).ToString()].gameObject.SetActive(true);
-        return ViewList[typeof(T).ToString()];
+        return ViewList[typeof(T).ToString()] as T;
     }
-    
+    public T CloseView<T>() where T : View
+    {
+        if (!ViewList.ContainsKey(typeof(T).ToString()))
+        {
+            Debug.LogError("找不到" + typeof(T).ToString());
+            return null;
+        }
+        ViewList[typeof(T).ToString()].gameObject.SetActive(false);
+        return ViewList[typeof(T).ToString()] as T;
+    }
 }

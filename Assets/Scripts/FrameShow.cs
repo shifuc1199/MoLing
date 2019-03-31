@@ -32,7 +32,7 @@ public class FrameShow : MonoBehaviour
     {
         style.fontSize = guiFontSize;
         style.normal.textColor = textColor;
-        GUI.Label(new Rect(300f, 200f, 500f, 300f), this.label, this.style);
+        GUI.Label(new Rect(350f, 0f, 500f, 300f), this.label, this.style);
     }
  
 }

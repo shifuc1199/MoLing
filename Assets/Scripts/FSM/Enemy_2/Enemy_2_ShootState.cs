@@ -1,18 +1,34 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class Enemy_2_ShootState : MonoBehaviour
+using DG.Tweening;
+public class Enemy_2_ShootState : StateTemplate<Enemy_2_Controller>
 {
-    // Start is called before the first frame update
-    void Start()
+    int index = 0;
+    public Enemy_2_ShootState(string id, Enemy_2_Controller p) : base(id, p)
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
+    }
+    public override void OnEter()
     {
-        
+      
+        Owner.InvokeRepeating("ShootAnim", 0, 3f);
+
+    }
+    public override void OnUpdate()
+    {
+        if (Owner._hurtcontroller.isdie)
+            return;
+
+
+         
+
+
+    }
+   
+    public override void OnExit()
+    {
+
+        Owner.CancelInvoke();
     }
 }

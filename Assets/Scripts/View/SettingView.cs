@@ -5,44 +5,15 @@ using UnityEngine;
 public class SettingView : View
 {
     public Behaviour[] behaviours;
-    public GameObject[] LowBackGround;
-    public GameObject[] MediumBackGround;
-    public GameObject[] Effects;
-    public GameObject Lights;
-    public Material _mat;
+
+    public GameObject Effect;
+    public GameObject background;
     // Start is called before the first frame update
     void Start()
     {
 
     }
-    public void On_BackGround_ValueChange(int index)
-    {
-        if (index == 0)
-        {
-            foreach (var item in LowBackGround)
-            {
-                item.SetActive(true);
-            }
-        }
-        else if (index == 1)
-        {
-            foreach (var item in LowBackGround)
-            {
-                item.SetActive(true);
-            }
-            foreach (var item in MediumBackGround)
-            {
-                item.SetActive(false);
-            }
-        }
-        else
-        {
-            foreach (var item in LowBackGround)
-            {
-                item.SetActive(false);
-            }
-        }
-    }
+    
     public void On_CameraPost_ValueChange(int index)
     {
         if (index == 0)
@@ -64,34 +35,22 @@ public class SettingView : View
     {
         if (index == 0)
         {
-            foreach (var item in Effects)
-            {
-                item.SetActive(true);
-            }
+            Effect.SetActive(true);
         }
         else
         {
-            foreach (var item in Effects)
-            {
-                item.SetActive(false);
-            }
+            Effect.SetActive(false);
         }
     }
-    public void On_Light_ValueChange(int index)
+    public void On_BacnGround_ValueChange(int index)
     {
         if (index == 0)
         {
-            _mat.shader = Shader.Find("Sprites/Diffuse");
-
-            Lights.SetActive(true);
-
+            background.SetActive(true);
         }
         else
         {
-            _mat.shader = Shader.Find("Sprites/Default");
-
-            Lights.SetActive(false);
-
+            background.SetActive(false);
         }
     }
 }

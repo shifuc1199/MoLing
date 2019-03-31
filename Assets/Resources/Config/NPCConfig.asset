@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dde4eaff1b420d24b82d752340667046, type: 3}
+  m_Name: NPCConfig
+  m_EditorClassIdentifier: 
+  npcs:
+  - ID: 1
+    talks:
+    - talker_name: "\u7236\u4EB2"
+      contenct: "\u513F\u5B50\uFF0C\u4F60\u600E\u4E48\u6765\u5230\u8FD9\u91CC\u4E86"
+      talk_clip: {fileID: 8300000, guid: dfb8eb02d96864f4a8b07d9701f104b9, type: 3}
+      _callback_name: 
+    - talker_name: "\u6211"
+      contenct: "\u7236\u4EB2\uFF0C\u56E0\u4E3A\u6211\u5728\u5BB6\u592A\u65E0\u804A\u4E86"
+      talk_clip: {fileID: 8300000, guid: 57b925e474fd6c94a97210cc510236c0, type: 3}
+      _callback_name: 
+    - talker_name: "\u7236\u4EB2"
+      contenct: "\u4F60\u8FD9\u4E2A\u5B69\u5B50\uFF0C\u5728\u5BB6\u73A9\u7535\u8111\u591A\u8212\u670D\u554A"
+      talk_clip: {fileID: 8300000, guid: f2030aab72b526341967b904cadd8a82, type: 3}
+      _callback_name: 
