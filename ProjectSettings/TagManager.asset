@@ -8,6 +8,7 @@ TagManager:
   - fish
   - playerhurt
   - enemyhurt
+  - trap
   layers:
   - Default
   - TransparentFX
@@ -18,12 +19,12 @@ TagManager:
   - 
   - 
   - ground
-  - wall
-  - camera
-  - background
-  - tree
-  - butterfly
-  - die
+  - enemy
+  - trigger
+  - attack
+  - 
+  - 
+  - 
   - 
   - 
   - 
@@ -44,4 +45,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Particle
+    uniqueID: 339323773
     locked: 0
