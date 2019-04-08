@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class NPCCtr : MonoBehaviour
+public interface IInteractClick
+{
+    void InteractClick();
+}
+public class NPCCtr : MonoBehaviour, IInteractClick
 {
     public int ID;
     public GameObject btn;
@@ -26,17 +29,19 @@ public class NPCCtr : MonoBehaviour
             btn.SetActive(false);
         }
     }
-    public void TalkBtnOnClick()
-    {
-     NPC npc=   ConfigManager.npc_config.npcs.Find((a) => { return a.ID == ID; });
-
-     DialogView view=   UIManager._instance.OpenView<DialogView>();
-     view.SetContenct(npc.talks.ToArray());
     
-    }
     // Update is called once per frame
     void Update()
     {
         
+    }
+
+    public void InteractClick()
+    {
+        NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == ID; });
+        btn.SetActive(false);
+        DialogView view = UIManager._instance.OpenView<DialogView>();
+        view.SetContenct(npc.talks.ToArray());
+
     }
 }

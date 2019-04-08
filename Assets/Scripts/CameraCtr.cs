@@ -5,18 +5,17 @@ using UnityEngine;
 public class CameraCtr : MonoBehaviour {
     public Transform _player;
     public float _speed;
-    Vector3 _offset;
+    float _offset_x;
 	// Use this for initialization
 	void Start () {
-        
-        _offset = transform.position - _player.transform.position;
+
+        _offset_x = transform.position.x - _player.transform.position.x;
 	}
 	
 	// Update is called once per frame
 	void LateUpdate () {
-        Vector3 temp = _player.transform.position + _offset;
         
-        transform.position = Vector3.Lerp(transform.position, temp, Time.deltaTime * _speed);
+        transform.position = Vector3.Lerp(transform.position, new Vector3(_player.transform.position.x+ _offset_x,transform.position.y,transform.position.z), Time.deltaTime * _speed);
          
 	}
 }

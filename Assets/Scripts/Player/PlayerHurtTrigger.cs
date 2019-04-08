@@ -44,6 +44,7 @@ public class PlayerHurtTrigger : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
 
         if (collision.gameObject.tag == "playerhurt" || collision.gameObject.tag == "trap")
         {

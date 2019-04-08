@@ -27,7 +27,7 @@ MonoBehaviour:
       height: 0
     _leftCaps:
     - serializedVersion: 2
-      x: 0.0078125
+      x: 0.016601562
       y: 0
       width: 0
       height: 0
@@ -83,10 +83,10 @@ MonoBehaviour:
     - 0
     _bodies:
     - serializedVersion: 2
-      x: 0.0078125
+      x: 0.016601562
       y: 0
-      width: 0.9921875
-      height: 0.921875
+      width: 0.98339844
+      height: 1
     _bodyWeights: []
     _yOffsetPercent: -0.04
     _colliderOffset: 0

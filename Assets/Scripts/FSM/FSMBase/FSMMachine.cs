@@ -36,6 +36,10 @@ public class FSMMachines
         }
         m_curretstate.OnEter();
     }
+    public bool NowStateIs(string id)
+    {
+        return m_curretstate == m_states[id];
+    }
     public FSMState GetState(string id)
     {
         if (!m_states.ContainsKey(id))

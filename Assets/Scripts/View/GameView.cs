@@ -20,7 +20,7 @@ public class GameView : View
     // Update is called once per frame
     void Update()
     {
-        //dash.SetActive(PlayerInfo.info.SkillDic["dash"]);
+        dash.SetActive(PlayerInfo.info.SkillDic["dash"]);
         singalsword.SetActive(PlayerInfo.info.ItemDic["sword"]);
         multisword.SetActive(PlayerInfo.info.ItemDic["sword"]);
     }

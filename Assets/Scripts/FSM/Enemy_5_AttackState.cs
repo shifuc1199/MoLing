@@ -20,7 +20,10 @@ public class Enemy_5_AttackState : StateTemplate<Enemy_5_Controller>
    public void Enemy_Dash()
     {
         isarrive = false;
-       
+        if (Owner == null)
+            return;
+        if (Owner._hurtcontroller.isdie)
+            return;
         Owner._anim.SetBool("run", true);
         if (Owner._player.transform.position.x < Owner.transform.position.x)
         {
@@ -33,6 +36,7 @@ public class Enemy_5_AttackState : StateTemplate<Enemy_5_Controller>
         aim_x = -Owner.transform.right.x * Owner.dash_x + Owner.transform.position.x;
 
     }
+   
     public override void OnUpdate()
     {
          

@@ -397,9 +397,10 @@ public class PlayerCtr : MonoBehaviour
     {
         isGround = Physics2D.OverlapCircle(CheckGround.position, 0.1f, LayerMask.GetMask("ground"));
         isForwardWall =
+             Physics2D.Linecast(transform.position + new Vector3(0, 0.5f, 0), transform.right + transform.position, LayerMask.GetMask("ground"))||
             Physics2D.Linecast(transform.position, transform.right + transform.position, LayerMask.GetMask("ground")) ||
             Physics2D.Linecast(transform.position + new Vector3(0, -1f, 0), transform.right + transform.position + new Vector3(0, -1, 0), LayerMask.GetMask("ground")) ||
-              Physics2D.Linecast(transform.position + new Vector3(0, -2f, 0), transform.right + transform.position + new Vector3(0, -2f, 0), LayerMask.GetMask("ground"));
+           Physics2D.Linecast(transform.position + new Vector3(0, -2f, 0), transform.right + transform.position + new Vector3(0, -2f, 0), LayerMask.GetMask("ground"));
        
 
         isOnWall = Physics2D.OverlapCircle(CheckWall.position, 0.1f, LayerMask.GetMask("ground")) && PlayerInfo.info. SkillDic["walljump"];
@@ -439,7 +440,7 @@ public class PlayerCtr : MonoBehaviour
            
             _jump_key_press_timer += Time.deltaTime;
             if(!isOnWall)
-            _rigi.velocity += new Vector2(0, 40*Time.deltaTime );
+            _rigi.velocity += new Vector2(0, Multi_speed * Time.deltaTime );
 
         }
         else
@@ -452,7 +453,7 @@ public class PlayerCtr : MonoBehaviour
       
 
     }
-
+    public float Multi_speed;
     public void Mobile_Jump_Down()
     {
        
@@ -567,7 +568,7 @@ public class PlayerCtr : MonoBehaviour
             Timer.Register(0.2f, () =>
             {
               
-                GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("飞剑枪火特效", transform.position+new Vector3(transform.right.x*2,-0.7f,0), Quaternion.Euler(0,-90,90));
+                GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("飞剑枪火特效", transform.position+new Vector3(transform.right.x*4,-0.7f,0), Quaternion.Euler(0,-90,90));
                 GameObjectPool.GetInstance().ReleaseGameObject("飞剑枪火特效", temp2, 1.5f);
                 Timer.Register(0.25f, () =>
                 {

@@ -53,7 +53,7 @@ public class PlayerAttack : MonoBehaviour,IAttackable {
             int a = Random.Range(1, 3);
             AudioManager._instance.PlayAudio("击中"+a);
             game.Scene._instance.player.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
-            game.Scene._instance.player.GetComponent<Rigidbody2D>().AddForce(-game.Scene._instance.player.transform.right * 15, ForceMode2D.Impulse);
+            game.Scene._instance.player.GetComponent<Rigidbody2D>().AddForce(-game.Scene._instance.player.transform.right * 5, ForceMode2D.Impulse);
         };
     }
     

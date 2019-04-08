@@ -16,11 +16,13 @@ public class EnemyBase : MonoBehaviour
         _hurtcontroller = new HurtController(_maxhealth);
     }
     List<Timer> timers = new List<Timer>();
-    private void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.tag=="enemyhurt" || collision.gameObject.tag == "trap")
+        Debug.Log("受伤!");
+        if (collision.gameObject.tag=="enemyhurt" || collision.gameObject.tag == "trap")
         {
-            if(collision.gameObject.GetComponent<IAttackable>()._attackcallback!=null)
+          
+            if (collision.gameObject.GetComponent<IAttackable>()._attackcallback!=null)
             {
              
                 collision.gameObject.GetComponent<IAttackable>()._attackcallback(gameObject);

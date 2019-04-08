@@ -17,21 +17,21 @@ public class Number : MonoBehaviour
     }
     public void ResetNumber()
     {
-        this.y = (int)((startpos.x - GameCtr.gamectr.start) / GameCtr.gamectr.offset);
-        this.x = (int)((-startpos.y - GameCtr.gamectr.start) / GameCtr.gamectr.offset);
+        this.y = (int)((startpos.x - RiddleGameCtr.gamectr.start) / RiddleGameCtr.gamectr.offset);
+        this.x = (int)((-startpos.y - RiddleGameCtr.gamectr.start) / RiddleGameCtr.gamectr.offset);
         GetComponent<RectTransform>().anchoredPosition = startpos;
     }
     void Start()
     {
 
          
-        this.y = (int)((GetComponent<RectTransform>().anchoredPosition.x - GameCtr.gamectr.start) / GameCtr.gamectr.offset);
-        this.x = (int)((-GetComponent<RectTransform>().anchoredPosition.y - GameCtr.gamectr.start) / GameCtr.gamectr.offset);
+        this.y = (int)((GetComponent<RectTransform>().anchoredPosition.x - RiddleGameCtr.gamectr.start) / RiddleGameCtr.gamectr.offset);
+        this.x = (int)((-GetComponent<RectTransform>().anchoredPosition.y - RiddleGameCtr.gamectr.start) / RiddleGameCtr.gamectr.offset);
         EventTrigger trigger = gameObject.AddComponent<EventTrigger>();
         EventTrigger.Entry entry = new EventTrigger.Entry();
         entry.eventID = EventTriggerType.PointerDown;
      
-        UnityAction<BaseEventData> callback = new UnityAction<BaseEventData>((t) => {GameCtr.gamectr. FindEmpty(x, y); });
+        UnityAction<BaseEventData> callback = new UnityAction<BaseEventData>((t) => { RiddleGameCtr.gamectr. FindEmpty(x, y); });
         entry.callback.AddListener(callback);
         trigger.triggers.Add(entry);
     }

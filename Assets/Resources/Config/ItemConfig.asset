@@ -16,4 +16,12 @@ MonoBehaviour:
   - name: "\u5B9D\u5251"
     des: "\u4E00\u628A\u5B9D\u5251"
     ID: sword
-    itemsprite: {fileID: 21300028, guid: 1b933de2deb985f4eb62c0dd5f683ba6, type: 3}
+    itemsprite: {fileID: 21300000, guid: 2231205301035a840b9b1c8591460e34, type: 2}
+  - name: "\u8E6C\u5899\u8DF3\u79D8\u7C4D"
+    des: "\u83B7\u5F97\u4EE5\u540E\u53EF\u4EE5\u722C\u5899\u8FDB\u884C\u8E6C\u5899\u8DF3\u8DC3"
+    ID: walljump
+    itemsprite: {fileID: 21300000, guid: ff67abee9ff82554e85821cb2428c8d1, type: 3}
+  - name: "\u51B2\u523A\u79D8\u7C4D"
+    des: "\u83B7\u5F97\u4EE5\u540E\u53EF\u4EE5\u8FDB\u884C\u77ED\u8DDD\u79BB\u51B2\u523A"
+    ID: dash
+    itemsprite: {fileID: 21300000, guid: 57d4c2ead39e07d43a8378fbe84b2a56, type: 3}
