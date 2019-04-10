@@ -41,7 +41,7 @@ public class PlayerCtr : MonoBehaviour
     [Header("--------人物固定物体----------")]
     public GameObject Sword;
     public GameObject SitDownEffect;
-    public GameObject AddHealthEffect;
+ 
     private int _jumpindex;
     private float dashtime;
     private float horizontal;
@@ -598,21 +598,35 @@ public class PlayerCtr : MonoBehaviour
     }
     float timer;
     float recovertimer;
+    
 
     public void SitDownAddHealth(int amount)
     {
         PlayerInfo.info.AddHealth(amount);
-        AddHealthEffect.SetActive(true);
-        Timer.Register(1, () => { AddHealthEffect.SetActive(false); });
-        if (GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health == GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth)
+      
+        if (PlayerInfo.info.isMaxHealth())
         {
             SitDownEffect.SetActive(false);
             _anim.SetTrigger("up");
         }
     }
+   
+    public void Mobile_EatMedichine(int amount)//使用药品
+    {
+        if (UIManager._instance.GetView<GameView>().MedichineAmount==0)
+            return;
+        if (UIManager._instance.GetView<GameView>().Medichine_Cool)
+            return;
+            if (PlayerInfo.info.isMaxHealth())
+            return;
 
+        UIManager._instance.GetView<GameView>().MedichineAmount--;
+        PlayerInfo.info.AddHealth(amount);
+       UIManager._instance.GetView<GameView>().Medichine_Cool = true;
+    }
     private void Update()
     {
+        
         if(isSitDown)
         {
              recovertimer += Time.deltaTime;

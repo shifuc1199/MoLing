@@ -14,8 +14,9 @@ public class FishBoss_Controller : EnemyBase
     public Transform shootpos;
     public Transform[] dashpos;
     public Transform[] shootmovepos;
-   
+    public GameObject BossTrigger;
     public Transform diePos;
+    public GameObject DashBook;
     // Start is called before the first frame update
     new void Start()
     {
@@ -25,6 +26,8 @@ public class FishBoss_Controller : EnemyBase
         _hurtcontroller._DieCallBack = new DieCallBack(() => {
             _anim.SetTrigger("disappear");
             CancelInvoke();
+            game.Scene._instance.ChangeCamera(0);
+           
             Timer.Register(1, () => { transform.position = new Vector3(diePos.position.x, diePos.position.y+15); _anim.SetTrigger("die"); GetComponent<BoxCollider2D>().enabled = false;Timer.Register(0.5f, () => { transform.DOMoveY(diePos.position.y, 0.5f).SetEase(Ease.Linear);Timer.Register(0.5f, () =>
             {
                
@@ -32,7 +35,7 @@ public class FishBoss_Controller : EnemyBase
 
             });
             });  });
-            Timer.Register(4.5f, () => { _anim.SetTrigger("diedisappear"); });
+            Timer.Register(4.5f, () => { _anim.SetTrigger("diedisappear"); DashBook.SetActive(true); BossTrigger.SetActive(false); });
             Destroy(gameObject,5);
         });
         _hurtcontroller._HurtCallBack = new HurtCallBack(() => {

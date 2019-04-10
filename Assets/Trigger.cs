@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 public class Trigger : MonoBehaviour
 {
     public Vector3 pos;
@@ -16,9 +17,7 @@ public class Trigger : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player")
         {
-            DOTween.To(() => game.Scene._instance.VirtualCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Lens.FieldOfView, x => game.Scene._instance.VirtualCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().m_Lens.FieldOfView = x, 70,1);
-          //  Timer.Register(1, () => { game.Scene._instance.VirtualCamera.GetComponent<Cinemachine.CinemachineVirtualCamera>().enabled = false; });
-           Boss.SetActive(true);
+          Boss.SetActive(true);
             foreach (var item in Walls)
             {
                 item.SetActive(true);

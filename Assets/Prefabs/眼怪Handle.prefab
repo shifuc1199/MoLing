@@ -57,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7687341225183741583}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -108.65, y: -310.8, z: -1.0518967}
+  m_LocalPosition: {x: -0.98999023, y: -20.600006, z: -1.0518967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7687341223572883949}
@@ -87,7 +87,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7687341225246986425}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -99.76, y: -310.8, z: -1.0518967}
+  m_LocalPosition: {x: 7.9, y: -20.6, z: -1.0518967}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7687341223572883949}
@@ -108,12 +108,12 @@ PrefabInstance:
     - target: {fileID: 799437230700663080, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -104.3
+      value: 3.3600082
       objectReference: {fileID: 0}
     - target: {fileID: 799437230700663080, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -310.8
+      value: -20.600006
       objectReference: {fileID: 0}
     - target: {fileID: 799437230700663080, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
@@ -123,17 +123,17 @@ PrefabInstance:
     - target: {fileID: 799437230700663080, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 799437230700663080, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 799437230700663080, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 799437230700663080, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
@@ -167,8 +167,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 799437230700663083, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
-      propertyPath: _player
-      value: 
+      propertyPath: hitoffable
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 799437230700663083, guid: 268e056658ce38349a8d756a9a842697,
+        type: 3}
+      propertyPath: _speed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 799437230700663083, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}

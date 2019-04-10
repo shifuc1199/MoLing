@@ -13,6 +13,7 @@ public class PlayerInfo : MonoBehaviour
     public float mp;
     public Dictionary<string, bool> ItemDic = new Dictionary<string, bool>();
     public  Dictionary<string, bool> SkillDic = new Dictionary<string, bool>();
+    public GameObject AddHealthEffect;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -23,15 +24,24 @@ public class PlayerInfo : MonoBehaviour
         }
         if (SkillDic.Count==0)
         {
-            SkillDic.Add("doublejump", false);
+            SkillDic.Add("doublejump", true);
             SkillDic.Add("dash", false);
             SkillDic.Add("walljump", false);
         }
     }
-
+  public bool isMaxHealth()
+    {
+        return GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health == GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth;
+    }
     public void AddHealth(int amount)
     {
+        if (GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health + amount >= GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth)
+            GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health = GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth;
+        else
         GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health += amount;
+
+        AddHealthEffect.SetActive(true);
+        Timer.Register(1, () => { AddHealthEffect.SetActive(false); });
         PlayerInfo.info.health = GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health;
         UIManager._instance.GetView<PlayerInfoView>().SetLifeHead();
     }

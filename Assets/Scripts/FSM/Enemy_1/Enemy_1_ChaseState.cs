@@ -36,7 +36,7 @@ public class Enemy_1_ChaseState : StateTemplate<Enemy_1_Controller>
             Owner._anim.SetBool("run", false);
             index++;
             index %= Owner.points.Length;
-            Timer.Register(2, () =>
+            Timer.Register(1, () =>
             {
                 isarrive = false;
                 if (Owner == null)
