@@ -19,10 +19,25 @@ public  class ConfigManager
         }
         set { _npcconfig = value; }
     }
-
+    private static ShopItemConfig _shopitemconfig;
     private static  NPCConfig _npcconfig;
     private static Effect _effect_config;
     private static ItemConfig _item_config;
+    public static ShopItemConfig shopitemconfig
+    {
+        get
+        {
+            if (_shopitemconfig == null)
+            {
+                return _shopitemconfig = Resources.Load<ShopItemConfig>("Config/ShopItemConfig");
+            }
+            else
+            {
+                return _shopitemconfig;
+            }
+        }
+        set { _shopitemconfig = value; }
+    }
     public static ItemConfig item_config
     {
         get
@@ -53,4 +68,8 @@ public  class ConfigManager
         }
         set { _effect_config = value; }
     }
+    
 }
+
+
+ 

@@ -5,18 +5,24 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class GameView : View
 {
+    public GameObject mechine;
+    public GameObject sitdown;
     public GameObject dash;
     public GameObject singalsword;
     public GameObject multisword;
     public Text MedichineAmountText;
-    public float MedichineAmount=3;
+   
     public float MedichineCool_Time;
     public bool Medichine_Cool;
     public Image Medichine_CoolImage;
+    public Text Run_away_text;
+    public float Run_away_Time;
+    float Run_away_timer;
+    bool Run_away;
     // Start is called before the first frame update
     void Start()
     {
-       
+        Run_away_timer = Run_away_Time;
     }
     public void ResetScene()
     {
@@ -24,10 +30,19 @@ public class GameView : View
     }
     
     float Medichine_Time;
- 
+   public void Start_Run_Away()
+    {
+        Run_away = true;
+    }
     // Update is called once per frame
     void Update()
     {
+        if (Run_away)
+        {
+            Run_away_timer -= Time.deltaTime;
+            Run_away_text.text = (int)Run_away_timer + "秒后坍塌";
+
+        }
         if (Medichine_Cool)
         {
             Medichine_CoolImage.fillAmount = MedichineCool_Time - Medichine_Time;
@@ -40,10 +55,11 @@ public class GameView : View
             }
           
         }
-
-        MedichineAmountText.text = MedichineAmount.ToString();
+        mechine.SetActive(PlayerInfo.info.ItemDic["drug"] !=0);
+        sitdown.SetActive(PlayerInfo.info.SkillDic["sitdown"]);
+        MedichineAmountText.text = PlayerInfo.info.ItemDic["drug"].ToString();
         dash.SetActive(PlayerInfo.info.SkillDic["dash"]);
-        singalsword.SetActive(PlayerInfo.info.ItemDic["sword"]);
-        multisword.SetActive(PlayerInfo.info.ItemDic["sword"]);
+        singalsword.SetActive(PlayerInfo.info.ItemDic["sword"]!=0);
+        multisword.SetActive(PlayerInfo.info.ItemDic["sword"]!=0);
     }
 }

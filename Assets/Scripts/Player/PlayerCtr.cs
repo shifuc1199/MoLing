@@ -613,14 +613,14 @@ public class PlayerCtr : MonoBehaviour
    
     public void Mobile_EatMedichine(int amount)//使用药品
     {
-        if (UIManager._instance.GetView<GameView>().MedichineAmount==0)
+        if (PlayerInfo.info.ItemDic["drug"] ==0)
             return;
         if (UIManager._instance.GetView<GameView>().Medichine_Cool)
             return;
             if (PlayerInfo.info.isMaxHealth())
             return;
 
-        UIManager._instance.GetView<GameView>().MedichineAmount--;
+        PlayerInfo.info.ItemDic["drug"]--;
         PlayerInfo.info.AddHealth(amount);
        UIManager._instance.GetView<GameView>().Medichine_Cool = true;
     }
@@ -719,7 +719,7 @@ public class PlayerCtr : MonoBehaviour
     void FixedUpdate()
     {
          
-        Sword.SetActive(PlayerInfo.info.ItemDic["sword"]);
+        Sword.SetActive(PlayerInfo.info.ItemDic["sword"]!=0);
         AnimSet();
       
 

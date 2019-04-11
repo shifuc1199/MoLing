@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
+    public int Money;
     public static PlayerInfo info;
     [Header("----------------生命值---------------")]
     public  float health;
@@ -11,7 +12,7 @@ public class PlayerInfo : MonoBehaviour
     [Header("----------------魔法值---------------")]
     public float max_mp;
     public float mp;
-    public Dictionary<string, bool> ItemDic = new Dictionary<string, bool>();
+    public Dictionary<string, int> ItemDic = new Dictionary<string, int>();
     public  Dictionary<string, bool> SkillDic = new Dictionary<string, bool>();
     public GameObject AddHealthEffect;
     // Start is called before the first frame update
@@ -20,11 +21,14 @@ public class PlayerInfo : MonoBehaviour
         info = this;
         if (ItemDic.Count == 0)
         {
-            ItemDic.Add("sword", false);
+            ItemDic.Add("drug", 0);
+            ItemDic.Add("sword", 0);
         }
         if (SkillDic.Count==0)
         {
-            SkillDic.Add("doublejump", true);
+ 
+            SkillDic.Add("sitdown", false);
+            SkillDic.Add("doublejump", false);
             SkillDic.Add("dash", false);
             SkillDic.Add("walljump", false);
         }

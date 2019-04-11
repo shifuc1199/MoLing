@@ -6,6 +6,7 @@ using game;
 using Cinemachine;
 public class EnemyBase : MonoBehaviour
 {
+    public int AddMoney;
     public float _maxhealth;
     public HurtController _hurtcontroller;
     public bool hitoffable=false;
@@ -33,16 +34,26 @@ public class EnemyBase : MonoBehaviour
             Time.timeScale = 0f;
             timers.Add( Timer.Register(0.1f, () => { Time.timeScale = 1;   },null,false,true));
             DOTween.Shake(() => Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset, x => Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset = x, 0.1f, 0.5f);
-            timers.Add(Timer.Register(0.25f, () => { GetComponentInChildren<SpriteRenderer>().material.DisableKeyword("_EMISSION"); }));
-            GetComponentInChildren<SpriteRenderer>().material.EnableKeyword("_EMISSION");
-             
+            timers.Add(Timer.Register(0.25f, () => {
+                foreach (var item in GetComponentsInChildren<SpriteRenderer>())
+                {
+                    item.material.DisableKeyword("_EMISSION");
+                }
+            }));
+          
+            foreach (var item in GetComponentsInChildren<SpriteRenderer>())
+            {
+                item.material.EnableKeyword("_EMISSION");
+            }
             _hurtcontroller.GetHurt(collision.gameObject.GetComponent<IAttackable>().Attack);
         }
     }
     private void OnDestroy()
     {
+        PlayerInfo.info.Money += AddMoney;
         foreach (var item in timers)
         {
+       
             item.Cancel();
         }
     }

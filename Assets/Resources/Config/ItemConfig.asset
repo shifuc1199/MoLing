@@ -29,3 +29,7 @@ MonoBehaviour:
     des: "\u5728\u7A7A\u4E2D\u53EF\u4EE5\u989D\u5916\u8FDB\u884C\u4E00\u6B21\u8DF3\u8DC3"
     ID: doublejump
     itemsprite: {fileID: 21300000, guid: b5191840974478145ab9ef036ef1e49d, type: 3}
+  - name: "\u8C03\u606F\u4E4B\u6CD5"
+    des: "\u5728\u53D7\u4F24\u4E4B\u65F6\u53EF\u8FDB\u884C\u8C03\u606F\u8FDB\u884C\u6062\u590D"
+    ID: sitdown
+    itemsprite: {fileID: 21300000, guid: b2868458b139fbd4ca0bcf04adc1414a, type: 3}

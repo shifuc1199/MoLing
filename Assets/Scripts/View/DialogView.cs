@@ -9,10 +9,11 @@ public class DialogView : View
     public Text name_text;
     public Text contenct_text;
     public Image head;
+    string _callback_name;
     Talk[] talk;
     int index = 0;
     Tweener tweener;
-  public  bool icomplete = false;
+  
     // Start is called before the first frame update
     void Start()
     {
@@ -37,7 +38,11 @@ public class DialogView : View
             }
             else
             {
-                icomplete = true;
+                if(_callback_name!="")
+                {
+                    NPCManager._intance.Npc_CompleteCallBack[_callback_name]();
+                }
+                index = 0;
                 gameObject.SetActive(false);
                 UIManager._instance.GetView<GameView>().gameObject.SetActive(true);
                 Scene._instance.player.Inputable = true;
@@ -52,8 +57,9 @@ public class DialogView : View
         tweener = contenct_text.DOText(talk.contenct, talk.contenct.Length / 10).SetEase(Ease.Linear);
         name_text.text = talk.talker_name;
     }
-    public void SetContenct(Talk[] talk)
+    public void SetContenct(string _callback_name,Talk[] talk)
     {
+        this._callback_name = _callback_name;
         UIManager._instance.GetView<GameView>().gameObject.SetActive(false);
         Scene._instance.player.Inputable = false;
       this.talk= talk;

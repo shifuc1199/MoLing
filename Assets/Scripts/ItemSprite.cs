@@ -45,10 +45,7 @@ public class ItemSprite : MonoBehaviour,IInteractClick
 
             UIManager._instance.OpenView<TipView>().SetItem(item);
             Destroy(gameObject);
-            if (PlayerInfo.info.ItemDic.ContainsKey(ID))
-                PlayerInfo.info.ItemDic[ID] = true;
-            if (PlayerInfo.info.SkillDic.ContainsKey(ID))
-                PlayerInfo.info.SkillDic[ID] = true;
+           
             Time.timeScale = 0;
         });
     }

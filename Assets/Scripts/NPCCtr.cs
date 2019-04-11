@@ -7,7 +7,9 @@ public interface IInteractClick
 }
 public class NPCCtr : MonoBehaviour, IInteractClick
 {
+    public bool isCanRepeatTalk;
     public int ID;
+    bool isTalkOneTime = false;
     public GameObject btn;
     // Start is called before the first frame update
     void Start()
@@ -18,7 +20,7 @@ public class NPCCtr : MonoBehaviour, IInteractClick
     {
         if (collision.gameObject.tag == "Player")
         {
-            if(!UIManager._instance.GetView<DialogView>().icomplete)
+            if(isCanRepeatTalk|| !isTalkOneTime)
             btn.SetActive(true);
         }
     }
@@ -39,9 +41,9 @@ public class NPCCtr : MonoBehaviour, IInteractClick
     public void InteractClick()
     {
         NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == ID; });
-        btn.SetActive(false);
+        btn.SetActive(isCanRepeatTalk);
         DialogView view = UIManager._instance.OpenView<DialogView>();
-        view.SetContenct(npc.talks.ToArray());
-
+        view.SetContenct(npc._callback_name,npc.talks.ToArray());
+        isTalkOneTime = true;
     }
 }
