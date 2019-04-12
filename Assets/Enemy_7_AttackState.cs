@@ -23,12 +23,13 @@ public class Enemy_7_AttackState : StateTemplate<Enemy_7_Controller>
     }
     public void Enemy_Dash()
     {
-        isarrive = false;
+        
         if (Owner == null)
             return;
         if (Owner._hurtcontroller.isdie)
             return;
-        Owner._anim.SetBool("attack",true);
+        Owner._anim.SetBool("attack", true);
+        Timer.Register(1, () => { isarrive = false; });
         if (Owner._player.transform.position.x > Owner.transform.position.x)
         {
             Owner.transform.rotation = Quaternion.identity;

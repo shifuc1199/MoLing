@@ -45,6 +45,7 @@ public class GameObjectPool
      
         return temp;
     }
+    
     public GameObject GetGameObject(string name,Vector3 positon,Quaternion qua, Transform parent = null)
     {
         ObjectPool<GameObject> pool = gameobject_pooldic[name];
@@ -54,14 +55,16 @@ public class GameObjectPool
         {
             temp = Resources.Load<GameObject>("Effect/"+name);
             temp = UnityEngine.GameObject.Instantiate(temp, parent);
+           
+ 
         }
         else
         {
             temp.SetActive(true);
-         
-            temp.transform.rotation = qua;
+  
             temp.transform.parent = parent;
         }
+        temp.transform.rotation = qua;
         temp.transform.position = positon;
         return temp;
     }
