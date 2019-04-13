@@ -22,7 +22,7 @@ public class TipView : View
     }
     public void OnClick()
     {
-      
+      if(game.Scene._instance.player.GetComponentInChildren<Animator>().IsAnim("PlayerDown"))
         game.Scene._instance.player.GetComponentInChildren<Animator>().SetTrigger("up");
         Time.timeScale = 1;
         button.GetComponent<Image>().raycastTarget = false;

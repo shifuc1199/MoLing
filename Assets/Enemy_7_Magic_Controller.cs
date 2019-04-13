@@ -16,7 +16,7 @@ public class Enemy_7_Magic_Controller : EnemyBase
         _anim = GetComponent<Animator>();
         _machine.RegisterState(new Enemy_7_Magic_AttackState("attack", this));
         _machine.RegisterState(new Enemy_7_Magic_PartolState("partol", this));
-        _machine.ChangeState("attack");
+        _machine.ChangeState("partol");
 
         _hurtcontroller._HurtCallBack += () =>
         {
@@ -40,7 +40,8 @@ public class Enemy_7_Magic_Controller : EnemyBase
         GameObjectPool.GetInstance().ReleaseGameObject("FireBall", temp2, 1f);
     }
     void ShootMagic()
-    {
+    {if (_hurtcontroller.isdie)
+            return;
         _anim.SetTrigger("attack");
     }
 

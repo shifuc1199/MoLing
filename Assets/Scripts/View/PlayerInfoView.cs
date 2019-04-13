@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.UI;
 public class PlayerInfoView : View
 {
+    public Text AddMonetText;
     public Text MoneyText;
     public GameObject[] lifehead;
     public Image mpsli;
@@ -40,6 +41,16 @@ public class PlayerInfoView : View
 
             lifehead[i].transform.GetChild(1).gameObject.SetActive(true);
         }
+    }
+    public void SetAddMoney(int addmonet)
+    {
+        AddMonetText.text = "+"+addmonet.ToString();
+        if(addmonet>0)
+        Timer.Register(0.5f, () => { PlayerInfo.info.Money += addmonet; });
+        else
+            PlayerInfo.info.Money += addmonet;
+        AddMonetText.gameObject.SetActive(true);
+        Timer.Register(1, () => { AddMonetText.gameObject.SetActive(false); });
     }
     public void SetMpSlider()
     {

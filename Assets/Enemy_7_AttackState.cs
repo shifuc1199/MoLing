@@ -13,12 +13,12 @@ public class Enemy_7_AttackState : StateTemplate<Enemy_7_Controller>
     }
     float aim_x;
     Timer timer;
-    bool isarrive = false;
+    bool isarrive = true;
    
     public override void OnEter()
     {
 
-       
+        isarrive = true;
         Enemy_Dash();
     }
     public void Enemy_Dash()
@@ -54,7 +54,7 @@ public class Enemy_7_AttackState : StateTemplate<Enemy_7_Controller>
         {
             isarrive = true;
             Owner._anim.SetBool("attack", false);
-            timer = Timer.Register(2, () => { Enemy_Dash(); });
+            timer = Timer.Register(1, () => { Enemy_Dash(); });
 
         }
         else

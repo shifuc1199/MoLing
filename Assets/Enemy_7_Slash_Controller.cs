@@ -2,24 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_7_Controller : EnemyBase
+public class Enemy_7_Slash_Controller : EnemyBase
 {
-    
-    public float _speed;
+  
     public Animator _anim;
-    public Transform[] points;
-    public Transform _player;
-    public float dash_x;
+ 
     public int Sprite_ID;
-    // Start is called before the first frame update
     new void Start()
     {
         base.Start();
         _anim = GetComponent<Animator>();
-        _machine.RegisterState(new Enemy_7_AttackState("attack", this));
-        _machine.RegisterState(new Enemy_7_PartolState("partol",this));
+        _machine.RegisterState(new Enemy_7_SlashState("attack", this));
+        _machine.RegisterState(new Enemy_7_SlashIdleState("partol", this));
         _machine.ChangeState("partol");
-        _player = game.Scene._instance.player.transform;
+
         _hurtcontroller._HurtCallBack += () =>
         {
             GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("主角攻击特效", transform.position, Quaternion.identity);
@@ -32,20 +28,23 @@ public class Enemy_7_Controller : EnemyBase
             _anim.SetTrigger("die");
             Destroy(gameObject, 1.5f);
         };
-        
+
     }
     [ContextMenu("Change")]
-    public  void ChangeCharacter()
+    public void ChangeCharacter()
     {
         SpriteRenderer[] Body_Sprites = GetComponentsInChildren<SpriteRenderer>();
         foreach (var item in Body_Sprites)
         {
-            Debug.Log("Enemy_Character/Vector Parts 1" + item.gameObject.name);
-            item.sprite = Resources.Load<Sprite>("Sprite/Enemy_Character/Vector Parts "+ Sprite_ID + "/" +item.gameObject.name);
+           
+            item.sprite = Resources.Load<Sprite>("Sprite/Enemy_Character/Vector Parts " + Sprite_ID + "/" + item.gameObject.name);
         }
-     
+
     }
-
-
-   
+    void SlashAttack()
+    {
+        if (_hurtcontroller.isdie)
+            return;
+        _anim.SetTrigger("attack");
+    }
 }

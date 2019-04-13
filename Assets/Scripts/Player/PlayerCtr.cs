@@ -291,7 +291,7 @@ public class PlayerCtr : MonoBehaviour
     public void OnIdleEnter()
     {
         _rigi.gravityScale = _gravityscale;
-        _rigi.velocity = Vector2.zero;
+       
 
 
     }

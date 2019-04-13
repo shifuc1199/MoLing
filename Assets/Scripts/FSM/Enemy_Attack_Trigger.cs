@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy_6_Attack_Trigger : MonoBehaviour
+public class Enemy_Attack_Trigger : MonoBehaviour
 {
-    public Enemy_6_Controller controller;
+    public EnemyBase controller;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,7 +32,10 @@ public class Enemy_6_Attack_Trigger : MonoBehaviour
             if (controller._hurtcontroller.isdie)
                 return;
 
+             
             controller._machine.ChangeState("partol");
+           
+
 
         }
     }

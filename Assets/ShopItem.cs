@@ -11,11 +11,7 @@ public class ShopItemData
     public int price;
     
 }
-[CreateAssetMenu(fileName ="ShopItemConfig")]
-public class ShopItemConfig:ScriptableObject
-{
-    public List<ShopItemData> Datas = new List<ShopItemData>();
-}
+ 
 
 public class ShopItem : MonoBehaviour
 {
@@ -42,8 +38,12 @@ public class ShopItem : MonoBehaviour
     }
     public void Buy()
     {
-        PlayerInfo.info.Money -= BuyAmount * data.price;
+        UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(-(BuyAmount * data.price));  
         PlayerInfo.info.ItemDic[ID]+=BuyAmount;
+      
+        BuyAmount = 1;
+        UIManager._instance.OpenView<PromptView>();
+        CheckCanBuy();
     }
     void CheckCanBuy()
     {

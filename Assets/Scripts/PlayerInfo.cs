@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerInfo : MonoBehaviour
 {
+   
     public int Money;
     public static PlayerInfo info;
     [Header("----------------生命值---------------")]
@@ -30,7 +31,7 @@ public class PlayerInfo : MonoBehaviour
             SkillDic.Add("sitdown", false);
             SkillDic.Add("doublejump", false);
             SkillDic.Add("dash", false);
-            SkillDic.Add("walljump", false);
+            SkillDic.Add("walljump", true);
         }
     }
   public bool isMaxHealth()
