@@ -29,7 +29,7 @@ public class PlayerInfo : MonoBehaviour
         {
  
             SkillDic.Add("sitdown", false);
-            SkillDic.Add("doublejump", false);
+            SkillDic.Add("doublejump", true);
             SkillDic.Add("dash", false);
             SkillDic.Add("walljump", true);
         }

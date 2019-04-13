@@ -10,6 +10,7 @@ namespace game
         public GameObject[] VirtualCameras;
         public GameObject VirtualCamera;
         public PlayerCtr player;
+        public Transform ForestPoint;
         private void Awake()
         {
             _instance = this;
@@ -25,6 +26,13 @@ namespace game
                 else
                 VirtualCameras[i].SetActive(true);
             }
+        }
+        public void ChangeScene()
+        {
+            player.Inputable = false;
+            UIManager._instance.OpenView<MaskView>();
+            Timer.Register(1,() => { player.Inputable = true; player.transform.position = ForestPoint.position; });
+          
         }
         public void ChangeCamera(int index)
         {

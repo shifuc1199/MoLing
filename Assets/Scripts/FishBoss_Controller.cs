@@ -36,9 +36,8 @@ public class FishBoss_Controller : EnemyBase
             });
             });  });
             Timer.Register(4.5f, () => {
-                NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == 2; });
-                DialogView view = UIManager._instance.OpenView<DialogView>();
-                view.SetContenct(npc._callback_name, npc.talks.ToArray()); _anim.SetTrigger("diedisappear"); game.Scene._instance.ChangeCamera(0); DashBook.SetActive(true); BossTrigger.SetActive(false); });
+                
+                _anim.SetTrigger("diedisappear"); game.Scene._instance.ChangeCamera(0); DashBook.SetActive(true); BossTrigger.SetActive(false); });
             Destroy(gameObject,5);
 
          

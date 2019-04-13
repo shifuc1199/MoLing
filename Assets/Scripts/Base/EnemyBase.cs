@@ -50,10 +50,9 @@ public class EnemyBase : MonoBehaviour
     }
     private void OnDestroy()
     {
-     UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(AddMoney);
+      //  UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(AddMoney);
         foreach (var item in timers)
         {
-       
             item.Cancel();
         }
     }

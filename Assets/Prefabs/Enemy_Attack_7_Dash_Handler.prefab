@@ -545,13 +545,13 @@ MonoBehaviour:
   AddMoney: 0
   _maxhealth: 5
   hitoffable: 0
-  _speed: 10
+  _speed: 7
   _anim: {fileID: 0}
   points:
   - {fileID: 1467409915530487955}
   - {fileID: 1467409916411324637}
   _player: {fileID: 0}
-  dash_x: 15
+  dash_x: 10
   Sprite_ID: 8
 --- !u!50 &5304354472727959459
 Rigidbody2D:
@@ -1434,12 +1434,12 @@ GameObject:
   m_Component:
   - component: {fileID: 5037021174086572181}
   m_Layer: 0
-  m_Name: Enemy_Attack_7_Handler
+  m_Name: Enemy_Attack_7_Dash_Handler
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5037021174086572181
 Transform:
   m_ObjectHideFlags: 0
