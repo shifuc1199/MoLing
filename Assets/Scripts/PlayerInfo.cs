@@ -29,15 +29,17 @@ public class PlayerInfo : MonoBehaviour
         {
  
             SkillDic.Add("sitdown", false);
-            SkillDic.Add("doublejump", true);
+            SkillDic.Add("doublejump", false);
             SkillDic.Add("dash", false);
-            SkillDic.Add("walljump", true);
+            SkillDic.Add("walljump", false);
         }
     }
+
   public bool isMaxHealth()
     {
         return GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health == GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth;
     }
+
     public void AddHealth(int amount)
     {
         if (GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health + amount >= GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth)
@@ -50,11 +52,13 @@ public class PlayerInfo : MonoBehaviour
         PlayerInfo.info.health = GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health;
         UIManager._instance.GetView<PlayerInfoView>().SetLifeHead();
     }
+
     public void MinusMP(int amount)
     {
         mp -= amount;
         UIManager._instance.GetView<PlayerInfoView>().SetMpSlider();
     }
+
     public void AddMP(int amount)
     {
         if (mp >= max_mp)
@@ -68,14 +72,6 @@ public class PlayerInfo : MonoBehaviour
         mp += amount;
         UIManager._instance.GetView<PlayerInfoView>().SetMpSlider();
     }
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    
 }

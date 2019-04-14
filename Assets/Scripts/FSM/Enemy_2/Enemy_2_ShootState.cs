@@ -12,7 +12,7 @@ public class Enemy_2_ShootState : StateTemplate<Enemy_2_Controller>
     public override void OnEter()
     {
       
-        Owner.InvokeRepeating("ShootAnim", 0, 3f);
+        Owner.InvokeRepeating("ShootAnim", 0, 1.75f);
 
     }
     public override void OnUpdate()

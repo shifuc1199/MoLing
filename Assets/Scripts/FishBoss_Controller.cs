@@ -17,17 +17,16 @@ public class FishBoss_Controller : EnemyBase
     public GameObject BossTrigger;
     public Transform diePos;
     public GameObject DashBook;
+    Vector3 startpos;
     // Start is called before the first frame update
     new void Start()
     {
         base.Start();
-      
-        _anim = GetComponent<Animator>();
+       
+          _anim = GetComponent<Animator>();
         _hurtcontroller._DieCallBack = new DieCallBack(() => {
             _anim.SetTrigger("disappear");
             CancelInvoke();
-          
-           
             Timer.Register(1, () => { transform.position = new Vector3(diePos.position.x, diePos.position.y+15); _anim.SetTrigger("die"); GetComponent<BoxCollider2D>().enabled = false;Timer.Register(0.5f, () => { transform.DOMoveY(diePos.position.y, 0.5f).SetEase(Ease.Linear);Timer.Register(0.5f, () =>
             {
                
@@ -38,9 +37,7 @@ public class FishBoss_Controller : EnemyBase
             Timer.Register(4.5f, () => {
                 
                 _anim.SetTrigger("diedisappear"); game.Scene._instance.ChangeCamera(0); DashBook.SetActive(true); BossTrigger.SetActive(false); });
-            Destroy(gameObject,5);
-
-         
+            Destroy(gameObject,5);  
 
         });
         _hurtcontroller._HurtCallBack = new HurtCallBack(() => {
@@ -55,8 +52,27 @@ public class FishBoss_Controller : EnemyBase
         _machine.RegisterState(new FishBoss_ShootState("shoot", this));
         _machine.RegisterState(new FishBoss_DashDownState("dashdown", this));
         _machine.RegisterState(new FishBoss_AttackState("attack", this));
-        ReleaseSkill();
         
+        
+    }
+    private void OnEnable()
+    {
+        ReleaseSkill();
+    }
+    public void ResetBoss()
+    {
+        CancelInvoke();
+        BossTrigger.GetComponent<Trigger>().ResetTrigger();
+        gameObject.SetActive(false);
+    }
+    private void OnDisable()
+    {
+        CancelInvoke();
+        NextTimer.Cancel();
+    }
+    private void OnDestroy()
+    {
+        CancelInvoke();
     }
     public void HideCollider()
     {
@@ -69,6 +85,7 @@ public class FishBoss_Controller : EnemyBase
 
     }
     int lastindex;
+    Timer NextTimer;
     public void ReleaseSkill()
     {
         int index = UnityEngine.Random.Range(0, 3);
@@ -80,20 +97,20 @@ public class FishBoss_Controller : EnemyBase
         switch (skillname[index])
         {
             case "shoot":
-                Timer.Register(4
+                NextTimer= Timer.Register(4
                     , () => { ReleaseSkill(); });
                 break;
             case "dashdown":
-                Timer.Register(2.5f, () => { ReleaseSkill(); });
+                NextTimer= Timer.Register(2.5f, () => { ReleaseSkill(); });
                 break;
             case "attack":
-                Timer.Register(3.5f, () => { ReleaseSkill(); });
+                NextTimer= Timer.Register(3.5f, () => { ReleaseSkill(); });
                 break;
             default:
                 break;
         }
         lastindex = index;
-        Debug.Log("转状态:" + skillname[index]);
+ 
         _machine.ChangeState(skillname[index]);
     }
    

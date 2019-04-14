@@ -542,8 +542,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b542aa6e17ff3774080cb83d8b975cdf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AddMoney: 0
-  _maxhealth: 5
+  AddMoney: 5
+  _maxhealth: 8
   hitoffable: 0
   _speed: 7
   _anim: {fileID: 0}
@@ -551,7 +551,7 @@ MonoBehaviour:
   - {fileID: 1467409915530487955}
   - {fileID: 1467409916411324637}
   _player: {fileID: 0}
-  dash_x: 10
+  dash_x: 15
   Sprite_ID: 8
 --- !u!50 &5304354472727959459
 Rigidbody2D:
@@ -1439,7 +1439,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &5037021174086572181
 Transform:
   m_ObjectHideFlags: 0

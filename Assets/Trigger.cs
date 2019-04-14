@@ -13,11 +13,18 @@ public class Trigger : MonoBehaviour
     {
         
     }
+    public void ResetTrigger()
+    {
+        foreach (var item in Walls)
+        {
+            item.SetActive(false);
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag=="Player")
         {
-          Boss.SetActive(true);
+            Boss.SetActive(true);
             foreach (var item in Walls)
             {
                 item.SetActive(true);

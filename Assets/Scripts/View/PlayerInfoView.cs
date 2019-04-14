@@ -44,13 +44,17 @@ public class PlayerInfoView : View
     }
     public void SetAddMoney(int addmonet)
     {
+        if (AddMonetText == null)
+            return;
         AddMonetText.text = "+"+addmonet.ToString();
         if(addmonet>0)
         Timer.Register(0.5f, () => { PlayerInfo.info.Money += addmonet; });
         else
             PlayerInfo.info.Money += addmonet;
         AddMonetText.gameObject.SetActive(true);
-        Timer.Register(1, () => { AddMonetText.gameObject.SetActive(false); });
+        Timer.Register(1, () => {
+            if (AddMonetText == null)
+                return; AddMonetText.gameObject.SetActive(false); });
     }
     public void SetMpSlider()
     {

@@ -77,7 +77,7 @@ public class PlayerHurtTrigger : MonoBehaviour
                   GetComponent<Rigidbody2D>().gravityScale = 0;
                   GetComponentInChildren<Animator>().SetTrigger("die");
                   UIManager._instance.OpenView<DieView>();
-                  Timer.Register(2, () => { UnityEngine.SceneManagement.SceneManager.LoadScene(SceneManager.GetActiveScene().name); }, null, false, true );
+                  Timer.Register(2, () => { game.Scene._instance.ResetGame(); }, null, false, true );
               }
               );
                   _hurtcontroller._HurtCallBack = new HurtCallBack(

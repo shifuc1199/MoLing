@@ -16,4 +16,4 @@ MonoBehaviour:
   - ID: drug
     icon: {fileID: 21300000, guid: 55d2adef0a5f24d42a9dc3440e14bf04, type: 3}
     des: "\u6062\u590D\u4E00\u70B9\u751F\u547D\u503C"
-    price: 5
+    price: 10

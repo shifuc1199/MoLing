@@ -19,7 +19,7 @@ public class EnemyBase : MonoBehaviour
     List<Timer> timers = new List<Timer>();
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("受伤!");
+ 
         if (collision.gameObject.tag=="enemyhurt" || collision.gameObject.tag == "trap")
         {
           
@@ -50,7 +50,7 @@ public class EnemyBase : MonoBehaviour
     }
     private void OnDestroy()
     {
-      //  UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(AddMoney);
+        UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(AddMoney);
         foreach (var item in timers)
         {
             item.Cancel();

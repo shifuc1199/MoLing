@@ -44,7 +44,7 @@ public class Enemy_2_Controller : EnemyBase
             (transform.position+transform.up*8).y),new Vector2(player.transform.position.x,transform.position.y-2)
         };
 
-        float timer = Mathf.Sqrt(Mathf.Pow((transform.position + transform.right * 3 + transform.up * 8).magnitude, 2) + Mathf.Pow((player.transform.position-transform.position).x, 2))/150;
+        float timer = Mathf.Sqrt(Mathf.Pow((transform.position + transform.right * 3 + transform.up * 8).magnitude, 2) + Mathf.Pow((player.transform.position-transform.position).x, 2))/100;
 
         GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("尸蛹攻击", transform.position+new Vector3(0,3.5f), Quaternion.Euler(0, 0, 90));
         GameObjectPool.GetInstance().ReleaseGameObject("尸蛹攻击", temp2, timer);
