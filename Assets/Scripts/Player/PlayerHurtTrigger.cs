@@ -67,11 +67,15 @@ public class PlayerHurtTrigger : MonoBehaviour
     {
         player = GetComponent<PlayerCtr>();
         _rigi = GetComponent<Rigidbody2D>();
-        _hurtcontroller = new HurtController(PlayerInfo.info.health,PlayerInfo.info.maxhelath);
+        _hurtcontroller = new HurtController(PlayerInfoController._instance.pi.health, PlayerInfoController._instance.pi.maxhelath);
         _hurtcontroller._DieCallBack = new DieCallBack(
               () =>
               {
-             
+
+                  GetComponent<PlayerCtr>().SitDownEffect.SetActive(false);
+                  GetComponent<PlayerCtr>().recovertimer = 0;
+                      GetComponent<PlayerCtr>().isSitDown = false;
+                
                   player.Inputable = false;
                   GetComponent<Rigidbody2D>().velocity = Vector2.zero;
                   GetComponent<Rigidbody2D>().gravityScale = 0;
@@ -83,7 +87,14 @@ public class PlayerHurtTrigger : MonoBehaviour
                   _hurtcontroller._HurtCallBack = new HurtCallBack(
             () =>
             {
-                 
+                if (GetComponent<PlayerCtr>().isSitDown)
+                {
+                    GetComponentInChildren<Animator>().SetTrigger("up");
+
+                    GetComponent<PlayerCtr>().    recovertimer = 0;
+                    GetComponent<PlayerCtr>().isSitDown = false;
+                    GetComponent<PlayerCtr>().  Inputable = true;
+                }
                 GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("主角攻击特效", transform.position, Quaternion.identity);
 
                 AudioManager._instance.PlayAudio("受伤");
@@ -91,12 +102,12 @@ public class PlayerHurtTrigger : MonoBehaviour
                 Timer.Register(0.25f, () => { GetComponentInChildren<SpriteRenderer>().material.DisableKeyword("_EMISSION"); },null,false,true);
                 GetComponentInChildren<SpriteRenderer>().material.EnableKeyword("_EMISSION");
                 DOTween.Shake(()=>game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset, x => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset = x, 0.1f,2);
-                PlayerInfo.info.health = _hurtcontroller.Health;
+                PlayerInfoController._instance.pi.health = _hurtcontroller.Health;
                 player.Inputable = false;
                 _hurtcontroller.isInvincible = true;
                 Camera.main.GetComponent<VignetteAndChromaticAberration>().enabled = true;
                 Camera.main.GetComponent<VignetteAndChromaticAberration>().chromaticAberration =25;
-                UIManager._instance.GetView<PlayerInfoView>().SetLifeHead();
+              
                 Time.timeScale = 0.5f;
                 _rigi.velocity = Vector2.zero;
                 _rigi.AddForce((-transform.right + transform.up) * 30, ForceMode2D.Impulse);
@@ -121,6 +132,8 @@ public class PlayerHurtTrigger : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
+     
+        _hurtcontroller.MaxHealth = PlayerInfoController._instance.pi.ItemDic["maxhealth"] + 4;
+        PlayerInfoController._instance.pi.maxhelath = _hurtcontroller.MaxHealth;
+    }
 }

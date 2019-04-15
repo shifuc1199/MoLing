@@ -6,7 +6,7 @@ public class Enemy_7_Slash_Controller : EnemyBase
 {
   
     public Animator _anim;
- 
+    public Transform _player;
     public int Sprite_ID;
     new void Start()
     {
@@ -46,5 +46,15 @@ public class Enemy_7_Slash_Controller : EnemyBase
         if (_hurtcontroller.isdie)
             return;
         _anim.SetTrigger("attack");
+
+
+        if (_player.transform.position.x > transform.position.x)
+        {
+           transform.rotation = Quaternion.identity;
+        }
+        else
+        {
+           transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
     }
 }

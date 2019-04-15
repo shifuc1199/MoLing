@@ -15,8 +15,7 @@ public class Enemy_7_SlashState : StateTemplate<Enemy_7_Slash_Controller>
     }
 
     public override void OnUpdate()
-    {
-         
+    { 
     }
     public override void OnExit()
     {

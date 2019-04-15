@@ -53,13 +53,13 @@ public class PlayerCtr : MonoBehaviour
     private bool isOnWall;
     private bool ismoveright = true;
     private bool ismoveleft = true;
-  
+    private PlayerInfoController pic;
     //冲刺键！！！！！！
     private bool isDown;
     private bool isUp;
     //
     private bool isMaxDash;
-    bool isSitDown;
+    public bool isSitDown;
     
     public GameObject attack;
     [Header("--------时间间隔 ----------")]
@@ -72,7 +72,7 @@ public class PlayerCtr : MonoBehaviour
     private void Awake()
     {
         //  _healthindex = HealthImage.Length;
-        
+        pic = GetComponent<PlayerInfoController>();
         _anim = GetComponentInChildren<Animator>();
         _rigi = GetComponentInChildren<Rigidbody2D>();
         ResetPoint = transform.position;
@@ -343,7 +343,7 @@ public class PlayerCtr : MonoBehaviour
         { 
             if (_jumpindex == 1 && !isOnWall)
             {
-                if (!PlayerInfo.info.SkillDic["doublejump"])
+                if (!PlayerInfoController._instance.pi.SkillDic["doublejump"])
                 {
                     return;
                 }
@@ -403,7 +403,7 @@ public class PlayerCtr : MonoBehaviour
            Physics2D.Linecast(transform.position + new Vector3(0, -2f, 0), transform.right + transform.position + new Vector3(0, -2f, 0), LayerMask.GetMask("ground"));
        
 
-        isOnWall = Physics2D.OverlapCircle(CheckWall.position, 0.1f, LayerMask.GetMask("ground")) && PlayerInfo.info. SkillDic["walljump"];
+        isOnWall = Physics2D.OverlapCircle(CheckWall.position, 0.1f, LayerMask.GetMask("ground")) && PlayerInfoController._instance.pi. SkillDic["walljump"];
         if (isGround)
         { 
             _jumpindex = 0;
@@ -465,7 +465,7 @@ public class PlayerCtr : MonoBehaviour
            
             if (_jumpindex == 1 && !isOnWall)
             {
-                 if(!PlayerInfo.info.SkillDic["doublejump"])
+                 if(!PlayerInfoController._instance.pi.SkillDic["doublejump"])
                 {
                     return;
                 }
@@ -484,6 +484,8 @@ public class PlayerCtr : MonoBehaviour
     }
      public void OnStandExit()
     {
+       
+        GetComponent<PlayerCtr>().SitDownEffect.SetActive(false);
         recovertimer = 0;
         isSitDown = false;
         Inputable = true;
@@ -496,6 +498,8 @@ public class PlayerCtr : MonoBehaviour
     }
     public void Mobile_Sit_Down()
     {
+        if (!(_anim.IsAnim("Idle")|| _anim.IsAnim("PlayerDown")))
+            return;
         if (GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health == GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth)
         {
             return;
@@ -517,9 +521,9 @@ public class PlayerCtr : MonoBehaviour
 
         if ( !isOnWall && Sword.GetComponent<SwordCtr>().isCanMutli)
         {
-            if (PlayerInfo.info.mp >= 20)
+            if (PlayerInfoController._instance.pi.mp >= 20)
             {
-              PlayerInfo.info.  MinusMP(20);
+               pic.MinusMP(20);
             }
             else
                 return;
@@ -549,9 +553,9 @@ public class PlayerCtr : MonoBehaviour
 
         if (!isOnWall &&Sword.GetComponent<SwordCtr>().isCanSingal)
         {
-            if (PlayerInfo.info.mp >= 20)
+            if (PlayerInfoController._instance.pi.mp >= 20)
             {
-                PlayerInfo.info.MinusMP(10);
+                pic.MinusMP(10);
             }
             else
                 return;
@@ -597,14 +601,14 @@ public class PlayerCtr : MonoBehaviour
         isMaxDash = false;
     }
     float timer;
-    float recovertimer;
+   public float recovertimer;
     
 
     public void SitDownAddHealth(int amount)
     {
-        PlayerInfo.info.AddHealth(amount);
+        pic.AddHealth(amount);
       
-        if (PlayerInfo.info.isMaxHealth())
+        if (pic.isMaxHealth())
         {
             SitDownEffect.SetActive(false);
             _anim.SetTrigger("up");
@@ -613,15 +617,15 @@ public class PlayerCtr : MonoBehaviour
    
     public void Mobile_EatMedichine(int amount)//使用药品
     {
-        if (PlayerInfo.info.ItemDic["drug"] ==0)
+        if (PlayerInfoController._instance.pi.ItemDic["drug"] ==0)
             return;
         if (UIManager._instance.GetView<GameView>().Medichine_Cool)
             return;
-            if (PlayerInfo.info.isMaxHealth())
+            if (pic.isMaxHealth())
             return;
 
-        PlayerInfo.info.ItemDic["drug"]--;
-        PlayerInfo.info.AddHealth(amount);
+        PlayerInfoController._instance.pi.ItemDic["drug"]--;
+        pic.AddHealth(amount);
        UIManager._instance.GetView<GameView>().Medichine_Cool = true;
     }
     private void Update()
@@ -629,7 +633,8 @@ public class PlayerCtr : MonoBehaviour
         
         if(isSitDown)
         {
-             recovertimer += Time.deltaTime;
+            
+            recovertimer += Time.deltaTime;
             if(recovertimer>=RecoverHealthTime)
             {
                 recovertimer = 0;
@@ -719,7 +724,7 @@ public class PlayerCtr : MonoBehaviour
     void FixedUpdate()
     {
          
-        Sword.SetActive(PlayerInfo.info.ItemDic["sword"]!=0);
+        Sword.SetActive(PlayerInfoController._instance.pi.ItemDic["sword"]!=0);
         AnimSet();
       
 

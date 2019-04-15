@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AddMoney: 5
-  _maxhealth: 8
+  _maxhealth: 5
   hitoffable: 0
   _speed: 7
   _anim: {fileID: 0}
@@ -568,7 +568,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 10
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 20
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1

@@ -10,18 +10,23 @@ namespace game
         public GameObject[] VirtualCameras;
         public GameObject VirtualCamera;
         public PlayerCtr player;
-        public Vector3 LastPos;
+       
         public Transform ForestPoint;
         public GameObject Fish;
         private void Awake()
         {
             _instance = this;
-            LastPos = player.transform.position;
+          
             VirtualCamera = VirtualCameras[0];
+             
         }
         public void SavePos(GameObject trans)
         {
-            LastPos = new Vector2(trans.transform.position.x, trans.transform.position.y);
+            if (trans.transform.GetChild(0).gameObject.activeSelf)
+                return;
+
+            SaveData.Save();
+          
             trans.transform.GetChild(0).gameObject.SetActive(true);
             trans.transform.GetChild(1).gameObject.SetActive(true);
         }
@@ -36,10 +41,10 @@ namespace game
             player.GetComponent<PlayerHurtTrigger>()._hurtcontroller.isdie = false;
             player.GetComponent<PlayerHurtTrigger>()._hurtcontroller.isInvincible = false;
             player.GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health = player.GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth;
-            PlayerInfo.info.health = player.GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health;
-            UIManager._instance.GetView<PlayerInfoView>().SetLifeHead();
+            PlayerInfoController._instance.pi.health = player.GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health;
+            player.GetComponentInChildren<Animator>().SetTrigger("reset");
             player.Inputable = true;
-            player.transform.position = LastPos;
+            player.transform.position = SaveData.data._playerpos.ToVector3();
             if(Fish!=null&Fish.activeSelf)
             ResetGameByBoss();
         }

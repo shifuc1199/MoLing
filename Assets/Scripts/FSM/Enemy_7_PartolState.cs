@@ -28,6 +28,7 @@ public class Enemy_7_PartolState : StateTemplate<Enemy_7_Controller>
       
     }
     bool isarrive = false;
+    Timer timer;
     public override void OnUpdate()
     {
         if (Owner._hurtcontroller.isdie)
@@ -44,7 +45,7 @@ public class Enemy_7_PartolState : StateTemplate<Enemy_7_Controller>
             isarrive = true;
             index++;
             index %= Owner.points.Length;
-            Timer.Register(1.5f, () =>
+            timer= Timer.Register(1.5f, () =>
             {
                 if (Owner == null)
                     return;
@@ -70,7 +71,9 @@ public class Enemy_7_PartolState : StateTemplate<Enemy_7_Controller>
     public override void OnExit()
     {
         Owner._anim.SetBool("walk", false);
-        
-        
+        if(timer!=null)
+        timer.Cancel();
+
+
     }
 }

@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.IO;
 public class AudioManager : MonoBehaviour {
     public static AudioManager _instance;
     private AudioSource Audio;
+    public AudioSource BGMSource;
     public AudioClip[] audioclips;
     private void Awake()
     {
@@ -16,6 +17,7 @@ public class AudioManager : MonoBehaviour {
     void Start () {
         DontDestroyOnLoad(gameObject);
 	}
+  
     int FindIndex(string name)
     {
         for (int i = 0; i < audioclips.Length; i++)
@@ -27,13 +29,15 @@ public class AudioManager : MonoBehaviour {
         }
         return -1;
     }
-
+    public void PlayBgm(AudioClip clip)
+    {
+        BGMSource.clip = clip;
+        BGMSource.Play();
+    }
     public void PlayCV(AudioClip clip)
     {
         Audio.clip = clip;
         Audio.Play();
-
-
     }
 
 

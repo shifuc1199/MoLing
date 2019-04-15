@@ -915,7 +915,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8803236126082005186}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.932205, y: -2.6191254, z: 0.03022345}
+  m_LocalPosition: {x: 5.932205, y: -2.16, z: 0.03022345}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 8808757166297203448}
@@ -1005,7 +1005,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AddMoney: 3
-  _maxhealth: 5
+  _maxhealth: 3
   hitoffable: 0
   _anim: {fileID: 0}
   Sprite_ID: 4

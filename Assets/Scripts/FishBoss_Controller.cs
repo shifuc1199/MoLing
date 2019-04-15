@@ -17,6 +17,7 @@ public class FishBoss_Controller : EnemyBase
     public GameObject BossTrigger;
     public Transform diePos;
     public GameObject DashBook;
+    public int ShootCount;
     Vector3 startpos;
     // Start is called before the first frame update
     new void Start()
@@ -46,7 +47,12 @@ public class FishBoss_Controller : EnemyBase
 
         
             GameObjectPool.GetInstance().ReleaseGameObject("主角攻击特效", temp2, 0.5f);
-
+            if(_machine.NowStateIs("dashdown"))
+            {
+                ReleaseSkill();
+                if(NextTimer!=null)
+                NextTimer.Cancel();
+            }
 
         });
         _machine.RegisterState(new FishBoss_ShootState("shoot", this));
@@ -97,7 +103,7 @@ public class FishBoss_Controller : EnemyBase
         switch (skillname[index])
         {
             case "shoot":
-                NextTimer= Timer.Register(4
+                NextTimer= Timer.Register(5
                     , () => { ReleaseSkill(); });
                 break;
             case "dashdown":
@@ -151,10 +157,15 @@ public class FishBoss_Controller : EnemyBase
         }
         return Index;
     }
+    [NonSerialized]
+   public int ShootIndex=0;
     public void Shoot()
     {
+        if (ShootIndex >= ShootCount)
+            return;
+
         _anim.SetTrigger("shoot");
-         
+        ShootIndex++;
     }
     public void ShootWaterBall()
     {

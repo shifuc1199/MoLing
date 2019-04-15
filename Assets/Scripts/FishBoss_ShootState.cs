@@ -44,5 +44,6 @@ public class FishBoss_ShootState : StateTemplate<FishBoss_Controller>
             timer.Cancel();
         Owner.CancelInvoke("Shoot");
         Owner._anim.SetTrigger("disappear");
+        Owner.ShootIndex = 0;
     }
 }

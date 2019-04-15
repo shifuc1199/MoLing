@@ -12,21 +12,21 @@ public class PlayerInfoView : View
     // Start is called before the first frame update
     void Start()
     {
-        SetLifeHead();
+      
         SetMpSlider();
     }
     public void SetLifeHead()
     {
-        for (int i = (int)PlayerInfo.info.maxhelath; i <lifehead.Length ; i++)
+        for (int i = (int)PlayerInfoController._instance.pi.maxhelath; i <lifehead.Length ; i++)
         {
             lifehead[i].SetActive(false);
         }
-        for (int i = 0; i < (int)PlayerInfo.info.maxhelath; i++)
+        for (int i = 0; i < (int)PlayerInfoController._instance.pi.maxhelath; i++)
         {
  
             lifehead[i].SetActive(true);
         }
-        for (int i = (int)PlayerInfo.info.health; i < lifehead.Length; i++)
+        for (int i = (int)PlayerInfoController._instance.pi.health; i < lifehead.Length; i++)
             {
                if (i < 0)
                  return;
@@ -34,7 +34,7 @@ public class PlayerInfoView : View
                 lifehead[i].transform.GetChild(1).gameObject.SetActive(false);
             }
 
-        for (int i = 0; i < (int)PlayerInfo.info.health; i++)
+        for (int i = 0; i < (int)PlayerInfoController._instance.pi.health; i++)
         {
             if (i >= lifehead.Length)
                 return;
@@ -48,9 +48,9 @@ public class PlayerInfoView : View
             return;
         AddMonetText.text = "+"+addmonet.ToString();
         if(addmonet>0)
-        Timer.Register(0.5f, () => { PlayerInfo.info.Money += addmonet; });
+        Timer.Register(0.5f, () => { PlayerInfoController._instance.pi.Money += addmonet; });
         else
-            PlayerInfo.info.Money += addmonet;
+            PlayerInfoController._instance.pi.Money += addmonet;
         AddMonetText.gameObject.SetActive(true);
         Timer.Register(1, () => {
             if (AddMonetText == null)
@@ -58,11 +58,12 @@ public class PlayerInfoView : View
     }
     public void SetMpSlider()
     {
-        mpsli.DOFillAmount(PlayerInfo.info.mp / PlayerInfo.info.max_mp, 0.5f);
+        mpsli.DOFillAmount(PlayerInfoController._instance.pi.mp / PlayerInfoController._instance.pi.max_mp, 0.5f);
     }
     // Update is called once per frame
     void Update()
     {
-        MoneyText.text = PlayerInfo.info.Money.ToString();
+        SetLifeHead();
+        MoneyText.text = PlayerInfoController._instance.pi.Money.ToString();
     }
 }

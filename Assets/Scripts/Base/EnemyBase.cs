@@ -48,6 +48,7 @@ public class EnemyBase : MonoBehaviour
             _hurtcontroller.GetHurt(collision.gameObject.GetComponent<IAttackable>().Attack);
         }
     }
+
     private void OnDestroy()
     {
         UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(AddMoney);

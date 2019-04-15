@@ -18,7 +18,7 @@ public class BagView : View
     // Update is called once per frame
     void Update()
     {
-        MoneyText.text = PlayerInfo.info.Money.ToString();
+        MoneyText.text = PlayerInfoController._instance.pi.Money.ToString();
 
 
     }

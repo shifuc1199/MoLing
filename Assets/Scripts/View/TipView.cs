@@ -28,10 +28,10 @@ public class TipView : View
         button.GetComponent<Image>().raycastTarget = false;
         GetComponent<CanvasGroup>().DOFade(0, 1);
         Timer.Register(1, () => {
-            if (PlayerInfo.info.ItemDic.ContainsKey(_item.ID))
-                PlayerInfo.info.ItemDic[_item.ID]++;
-            if (PlayerInfo.info.SkillDic.ContainsKey(_item.ID))
-                PlayerInfo.info.SkillDic[_item.ID] = true;
+            if (PlayerInfoController._instance.pi.ItemDic.ContainsKey(_item.ID))
+                PlayerInfoController._instance.pi.ItemDic[_item.ID]++;
+            if (PlayerInfoController._instance.pi.SkillDic.ContainsKey(_item.ID))
+                PlayerInfoController._instance.pi.SkillDic[_item.ID] = true;
             button.GetComponent<Image>().DOFade(0,0);
             nametext.DOFade(0, 0);
             icon.DOFade(0, 0);
