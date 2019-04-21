@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using DG.Tweening;
 public class AudioManager : MonoBehaviour {
     public static AudioManager _instance;
     private AudioSource Audio;
     public AudioSource BGMSource;
     public AudioClip[] audioclips;
+ 
     private void Awake()
     {
         _instance = this;
@@ -29,10 +31,17 @@ public class AudioManager : MonoBehaviour {
         }
         return -1;
     }
-    public void PlayBgm(AudioClip clip)
+    
+    public void PlayBgm(string name)
     {
-        BGMSource.clip = clip;
-        BGMSource.Play();
+        DOTween.To(() => BGMSource.volume, x =>BGMSource.volume = x, 0, 1);
+        Timer.Register(1, () =>
+        {
+            DOTween.To(() => BGMSource.volume, x => BGMSource.volume = x, 1, 1);
+            BGMSource.clip = audioclips[FindIndex(name)];
+            BGMSource.Play();
+        });
+      
     }
     public void PlayCV(AudioClip clip)
     {

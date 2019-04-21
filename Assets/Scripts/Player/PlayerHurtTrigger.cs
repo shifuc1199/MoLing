@@ -71,7 +71,7 @@ public class PlayerHurtTrigger : MonoBehaviour
         _hurtcontroller._DieCallBack = new DieCallBack(
               () =>
               {
-
+                  GetComponent<PlayerCtr>()._jump_key_press_timer = 0;
                   GetComponent<PlayerCtr>().SitDownEffect.SetActive(false);
                   GetComponent<PlayerCtr>().recovertimer = 0;
                       GetComponent<PlayerCtr>().isSitDown = false;
@@ -110,7 +110,7 @@ public class PlayerHurtTrigger : MonoBehaviour
               
                 Time.timeScale = 0.5f;
                 _rigi.velocity = Vector2.zero;
-                _rigi.AddForce((-transform.right + transform.up) * 30, ForceMode2D.Impulse);
+                _rigi.AddForce((-transform.right + transform.up) * 20, ForceMode2D.Impulse);
                
                 Timer.Register(0.25f, () =>
                 {
@@ -133,7 +133,7 @@ public class PlayerHurtTrigger : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
      
-        _hurtcontroller.MaxHealth = PlayerInfoController._instance.pi.ItemDic["maxhealth"] + 4;
+        _hurtcontroller.MaxHealth =( PlayerInfoController._instance.pi.EquipItemDic.ContainsKey("head")?1:0 )+ (PlayerInfoController._instance.pi.EquipItemDic.ContainsKey("cloth") ? 1 : 0) + 4;
         PlayerInfoController._instance.pi.maxhelath = _hurtcontroller.MaxHealth;
     }
 }

@@ -18,8 +18,13 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: 55d2adef0a5f24d42a9dc3440e14bf04, type: 3}
     des: "\u6062\u590D\u4E00\u70B9\u751F\u547D\u503C"
     price: 10
-  - amount: 4
-    ID: maxhealth
+  - amount: 2
+    ID: head
     icon: {fileID: 21300010, guid: bbc36530b0ce17243b904392de9e2b75, type: 3}
+    des: "\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
+    price: 0
+  - amount: 2
+    ID: cloth
+    icon: {fileID: 21300000, guid: 62a7795a952daec44adf8400530385be, type: 3}
     des: "\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
     price: 0

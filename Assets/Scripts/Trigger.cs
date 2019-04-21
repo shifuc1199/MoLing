@@ -5,6 +5,7 @@ using DG.Tweening;
 using UnityEngine.Events;
 public class Trigger : MonoBehaviour
 {
+    
     public Vector3 pos;
     public GameObject  Boss;
     public GameObject[] Walls;
@@ -24,6 +25,9 @@ public class Trigger : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player")
         {
+            UIManager._instance.GetView<StartView>().SetTitle("邪恶之鱼");
+            AudioManager._instance.PlayBgm("鱼Boss");
+           
             Boss.SetActive(true);
             foreach (var item in Walls)
             {

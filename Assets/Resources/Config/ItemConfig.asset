@@ -33,3 +33,11 @@ MonoBehaviour:
     des: "\u5728\u53D7\u4F24\u4E4B\u65F6\u53EF\u8FDB\u884C\u8C03\u606F\u8FDB\u884C\u6062\u590D"
     ID: sitdown
     itemsprite: {fileID: 21300000, guid: b2868458b139fbd4ca0bcf04adc1414a, type: 3}
+  - name: "\u7CBE\u81F4\u5934\u76D4"
+    des: "\u589E\u5F3A\u4E00\u70B9\u6700\u5927\u751F\u547D\u503C"
+    ID: head
+    itemsprite: {fileID: 21300012, guid: bbc36530b0ce17243b904392de9e2b75, type: 3}
+  - name: "\u7CBE\u81F4\u8863\u670D"
+    des: "\u589E\u5F3A\u4E00\u70B9\u6700\u5927\u751F\u547D\u503C"
+    ID: cloth
+    itemsprite: {fileID: 21300000, guid: 3e2c1617c76ec214d9e0d1df564ee2bd, type: 3}

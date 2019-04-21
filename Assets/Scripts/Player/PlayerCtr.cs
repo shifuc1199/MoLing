@@ -410,7 +410,7 @@ public class PlayerCtr : MonoBehaviour
         }
     }
 
-    float _jump_key_press_timer = 0;
+  public  float _jump_key_press_timer = 0;
     public float _maxjumptimer;
     bool ispressjump = false;
     bool isjumpstate = false;
@@ -723,8 +723,8 @@ public class PlayerCtr : MonoBehaviour
 
     void FixedUpdate()
     {
-         
-        Sword.SetActive(PlayerInfoController._instance.pi.ItemDic["sword"]!=0);
+        
+        Sword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.ContainsKey("sword"));
         AnimSet();
       
 

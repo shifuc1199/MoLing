@@ -17,7 +17,7 @@ MonoBehaviour:
     talks:
     - talker_name: "\u8001\u8005"
       contenct: "\u6709\u7F18\u4EBA\uFF0C\u65E2\u7136\u6211\u4EEC\u76F8\u9047\uFF0C\u90A3\u4E48\u6211\u4EEC\u5C31\u662F\u6709\u7F18\u4EBA\uFF0C\u4E34\u6B7B\u4E4B\u9645\u6211\u5C06\u6B64\u8C03\u606F\u4E4B\u6CD5\u4F20\u6388\u4E8E\u4F60\uFF01\u4F60\u53EF\u6536\u597D\u4E86\uFF01"
-      talk_clip: {fileID: 8300000, guid: 422b8357dba8aa147b31c14afe06c6af, type: 3}
+      talk_clip: {fileID: 0}
     _callback_name: sit_down_teach
   - ID: 2
     talks:
@@ -29,5 +29,11 @@ MonoBehaviour:
     talks:
     - talker_name: "\u964C\u751F\u4EBA"
       contenct: "\u4F60\u597D\u554A\uFF0C\u5C0F\u4F19\u5B50\uFF0C\u6211\u8FD9\u91CC\u6709\u4E9B\u5B9D\u8D1D\uFF0C\u4F60\u8981\u4E0D\u8981\u770B\u770B\uFF0C\u5F88\u4FBF\u5B9C\u7684"
-      talk_clip: {fileID: 8300000, guid: 422b8357dba8aa147b31c14afe06c6af, type: 3}
+      talk_clip: {fileID: 0}
     _callback_name: shop_talk
+  - ID: 100
+    talks:
+    - talker_name: "\u4E3B\u89D2"
+      contenct: "\u7A7A\u4E2D\u7684\u6C14\u6D41\u6709\u4E9B\u4E0D\u7A33\u5B9A\uFF0C\u770B\u6765\u8FD9\u6D1E\u7A74\u91CC\u9762\u4E00\u5B9A\u6709\u4EC0\u4E48\u53E4\u602A\u7684\u4E1C\u897F\uFF0C\u603B\u4E4B\u5148\u56DB\u5904\u770B\u770B\u5427"
+      talk_clip: {fileID: 0}
+    _callback_name: 

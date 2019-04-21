@@ -18,7 +18,7 @@ public class Enemy_2_Attack_Ctr : MonoBehaviour
         {
             Destroy(gameObject);
 
-                GameObject temp3 = GameObjectPool.GetInstance().GetGameObject("小火", transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity);
+                GameObject temp3 = GameObjectPool.GetInstance().GetGameObject("小火", transform.position + new Vector3(0, 0.25f, 0), Quaternion.identity);
                 GameObjectPool.GetInstance().ReleaseGameObject("小火", temp3, 1f);
  
         }

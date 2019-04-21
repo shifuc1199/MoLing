@@ -32,4 +32,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/LoadingScene.unity
     guid: 572bb372ae6958345959adf96290c8b4
+  - enabled: 1
+    path: "Assets/\u5F00\u573A\u8DD1\u9177.unity"
+    guid: 8639ed14581eb0144b3aa6bd84a51591
+  - enabled: 1
+    path: Assets/StartAnim.unity
+    guid: ea59433af2624d74a91e2f1f79a855ff
   m_configObjects: {}

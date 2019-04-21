@@ -17,6 +17,7 @@ public class PlayerInfoView : View
     }
     public void SetLifeHead()
     {
+       
         for (int i = (int)PlayerInfoController._instance.pi.maxhelath; i <lifehead.Length ; i++)
         {
             lifehead[i].SetActive(false);

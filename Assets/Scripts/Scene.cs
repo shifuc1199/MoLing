@@ -19,6 +19,16 @@ namespace game
           
             VirtualCamera = VirtualCameras[0];
              
+            if(!SaveData.isHaveData())
+            {
+                Timer.Register(3, () =>
+                {
+                    NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == 100; });
+                    DialogView view = UIManager._instance.OpenView<DialogView>();
+                    view.SetContenct(npc._callback_name, npc.talks.ToArray());
+                });
+               
+            }
         }
         public void SavePos(GameObject trans)
         {
@@ -45,7 +55,7 @@ namespace game
             player.GetComponentInChildren<Animator>().SetTrigger("reset");
             player.Inputable = true;
             player.transform.position = SaveData.data._playerpos.ToVector3();
-            if(Fish!=null&Fish.activeSelf)
+            if(Fish!=null&&Fish.activeSelf)
             ResetGameByBoss();
         }
         public void ChangeCamera(GameObject gam)
@@ -61,9 +71,10 @@ namespace game
         }
         public void ChangeScene()
         {
+            AudioManager._instance.PlayBgm("森林");
             player.Inputable = false;
             UIManager._instance.OpenView<MaskView>();
-            Timer.Register(1,() => { player.Inputable = true; player.transform.position = ForestPoint.position; });
+            Timer.Register(1,() => { UIManager._instance.OpenView<StartView>().SetTitle("神秘之森"); player.Inputable = true; player.transform.position = ForestPoint.position; });
           
         }
         public void ChangeCamera(int index)

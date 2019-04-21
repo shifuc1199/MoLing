@@ -5,10 +5,10 @@ TagManager:
   serializedVersion: 2
   tags:
   - enemy
-  - fish
   - playerhurt
   - enemyhurt
   - trap
+  - rock
   layers:
   - Default
   - TransparentFX

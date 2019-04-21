@@ -18,19 +18,24 @@ public class FishBoss_Controller : EnemyBase
     public Transform diePos;
     public GameObject DashBook;
     public int ShootCount;
-    Vector3 startpos;
+  public  Vector3 startpos;
     // Start is called before the first frame update
+    private void Awake()
+    {
+        startpos = transform.localPosition;
+           _anim = GetComponent<Animator>();
+    }
     new void Start()
     {
         base.Start();
        
-          _anim = GetComponent<Animator>();
+         
         _hurtcontroller._DieCallBack = new DieCallBack(() => {
             _anim.SetTrigger("disappear");
             CancelInvoke();
             Timer.Register(1, () => { transform.position = new Vector3(diePos.position.x, diePos.position.y+15); _anim.SetTrigger("die"); GetComponent<BoxCollider2D>().enabled = false;Timer.Register(0.5f, () => { transform.DOMoveY(diePos.position.y, 0.5f).SetEase(Ease.Linear);Timer.Register(0.5f, () =>
             {
-               
+                AudioManager._instance.PlayBgm("普通");
                 DOTween.Shake(() => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset, x => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset = x, 0.3f, 1f);
 
             });
@@ -47,28 +52,44 @@ public class FishBoss_Controller : EnemyBase
 
         
             GameObjectPool.GetInstance().ReleaseGameObject("主角攻击特效", temp2, 0.5f);
-            if(_machine.NowStateIs("dashdown"))
+            if(_anim.IsAnim("下冲出现"))
             {
+                if (NextTimer != null)
+                    NextTimer.Cancel();
                 ReleaseSkill();
-                if(NextTimer!=null)
-                NextTimer.Cancel();
+              
             }
 
         });
-        _machine.RegisterState(new FishBoss_ShootState("shoot", this));
-        _machine.RegisterState(new FishBoss_DashDownState("dashdown", this));
-        _machine.RegisterState(new FishBoss_AttackState("attack", this));
+       
         
         
     }
     private void OnEnable()
     {
-        ReleaseSkill();
+        isReset = false;
+        _machine.RegisterState(new FishBoss_ShootState("shoot", this));
+        _machine.RegisterState(new FishBoss_DashDownState("dashdown", this));
+        _machine.RegisterState(new FishBoss_AttackState("attack", this));
+        Timer.Register(2f, () => { _anim.SetTrigger("disappear"); });
+        Timer.Register(3f, () => { ReleaseSkill(); });
+    
     }
+    bool isReset = false;
     public void ResetBoss()
     {
+        isReset = true;
+        _machine.ResetState();
+        ShootIndex = 0;
+        lastindex = 0;
+        _hurtcontroller.Health = _hurtcontroller.MaxHealth;
         CancelInvoke();
+        if (NextTimer != null)
+         NextTimer.Cancel();
         BossTrigger.GetComponent<Trigger>().ResetTrigger();
+        transform.rotation = Quaternion.identity;
+        gameObject.transform.localPosition = startpos;
+        _anim.SetTrigger("idle");
         gameObject.SetActive(false);
     }
     private void OnDisable()
@@ -82,11 +103,13 @@ public class FishBoss_Controller : EnemyBase
     }
     public void HideCollider()
     {
+        AudioManager._instance.PlayAudio("消失");
         GetComponent<BoxCollider2D>().enabled = false;
     
     }
     public void ShowCollider()
     {
+        AudioManager._instance.PlayAudio("出现");
         GetComponent<BoxCollider2D>().enabled = true;
 
     }
@@ -116,13 +139,25 @@ public class FishBoss_Controller : EnemyBase
                 break;
         }
         lastindex = index;
- 
+         if(!isReset)
         _machine.ChangeState(skillname[index]);
     }
    
-    public   void OnCollisionEnter2D(Collision2D collision)
+    public  new void OnTriggerEnter2D(Collider2D collision)
     {
-       
+        if (collision.gameObject.tag == "Player")
+        {
+            if (collision.gameObject.transform.position.x > transform.position.x)
+            {
+                collision.gameObject.transform.rotation = Quaternion.Euler(0, 180, 0);
+            }
+            else
+            {
+                collision.gameObject.transform.rotation = Quaternion.identity;
+            }
+            collision.gameObject.GetComponent<PlayerHurtTrigger>()._hurtcontroller.GetHurt(1);
+        }
+        base.OnTriggerEnter2D(collision);
         if (collision.gameObject.layer ==LayerMask.NameToLayer( "ground")&&_machine.NowStateIs("dashdown")&&!(_machine.GetState("dashdown") as FishBoss_DashDownState).isProduce)
         {
               DOTween.Shake(() =>game. Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset, x => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset = x, 0.3f, 1f);
@@ -169,6 +204,7 @@ public class FishBoss_Controller : EnemyBase
     }
     public void ShootWaterBall()
     {
+        AudioManager._instance.PlayAudio("水球");
         DOTween.Shake(() => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset, x => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset = x, 0.3f, 1f);
         GameObject temp = GameObjectPool.GetInstance().GetGameObject("水球", shootpos.position, shootpos.rotation);
         temp.transform.right = ( player.transform.position- transform.position ).normalized;

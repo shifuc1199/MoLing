@@ -48,6 +48,12 @@ public class FSMMachines
         }
         return m_states[id];
     }
+    public void ResetState()
+    {
+        m_states.Clear();
+        m_laststate = null;
+        m_curretstate = null;
+    }
    public void Update()
     {
         if(m_curretstate!=null)

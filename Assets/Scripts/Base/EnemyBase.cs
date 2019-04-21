@@ -19,7 +19,7 @@ public class EnemyBase : MonoBehaviour
     List<Timer> timers = new List<Timer>();
     public void OnTriggerEnter2D(Collider2D collision)
     {
- 
+        
         if (collision.gameObject.tag=="enemyhurt" || collision.gameObject.tag == "trap")
         {
           

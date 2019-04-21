@@ -21,26 +21,31 @@ public class ShopItem : MonoBehaviour
     public Text Des;
     public Text BuyAmount_text;
     public int BuyAmount;
-    public string ID;
+ 
     public Button BuyButton;
     private ShopItemData data;
     public void Start()
     {
-        Debug.Log(ID);
-        Debug.Log(ConfigManager.shopitemconfig==null);
-        data = ConfigManager.shopitemconfig.Datas.Find((a) => { return a.ID == ID; });
-        Init();
+       
     }
-    void Init()
+    private void OnEnable()
     {
-        this.Item_Icon.sprite = data.icon;
-      
         CheckCanBuy();
+    }
+   public void Init(ShopItemData _data)
+    {
+        this.data = _data;
+        this.Item_Icon.sprite = data.icon;
+        CheckCanBuy();
+
     }
     public void Buy()
     {
         UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(-(BuyAmount * data.price));
-        PlayerInfoController._instance.pi.ItemDic[ID]+=BuyAmount;
+        if(PlayerInfoController._instance.pi.ItemDic.ContainsKey(data.ID))
+        PlayerInfoController._instance.pi.ItemDic[data.ID] +=BuyAmount;
+        if (!PlayerInfoController._instance.pi.BagItemDic.ContainsKey(data.ID))
+            PlayerInfoController._instance.pi.BagItemDic.Add(data.ID,ConfigManager.item_config.items.Find(a=> { return a.ID == data.ID; }));
         data.amount -= BuyAmount;
          BuyAmount = 1;
         UIManager._instance.OpenView<PromptView>();
@@ -49,9 +54,11 @@ public class ShopItem : MonoBehaviour
     }
     void CheckCanBuy()
     {
+        if (data == null)
+            return;
         if (data.amount == 0)
             Destroy(gameObject);
-        Des.text = data.des + "剩余数量: " + data.amount;
+        Des.text = data.des + "\n剩余数量: " + data.amount;
         Price.text = (BuyAmount * data.price).ToString();
         if (BuyAmount * data.price <= PlayerInfoController._instance.pi.Money)
         {

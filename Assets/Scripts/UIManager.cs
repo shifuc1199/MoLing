@@ -17,6 +17,7 @@ public class UIManager : MonoBehaviour
         for (int i = 0; i < _viewroot.childCount; i++)
         {
             View view=_viewroot.GetChild(i).GetComponent<View>();
+ 
             ViewList.Add(view.GetType().ToString(), _viewroot.GetChild(i).GetComponent<View>() );
         }
     }
