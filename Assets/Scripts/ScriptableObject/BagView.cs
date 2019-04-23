@@ -53,7 +53,7 @@ public class BagView : View
         foreach (var item in PlayerInfoController._instance.pi.BagItemDic)
         {
  
-            Item _item= ConfigManager.item_config.items.Find((a) => { return a.ID == item.Key; });
+            Item _item= ConfigManager.item_config.items.Find((a) => { return a.ID == item; });
 
             if (itemlist.Contains(_item))
                 continue;

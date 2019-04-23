@@ -11,17 +11,17 @@ public class PlayerInfoController : MonoBehaviour
     private void Awake()
     {
         _instance = this;
- 
-        //if (SaveData.isHaveData())
-        //{
 
-        //    pi = SaveData.data.info;
-        //}
-        //else
-        //{
-        //    pi = new PlayerInfo();
-        //}
-        pi = new PlayerInfo();
+        if (SaveData.isHaveData())
+        {
+
+            pi = SaveData.data.info;
+        }
+        else
+        {
+            pi = new PlayerInfo();
+        }
+
         if (pi.ItemDic.Count == 0)
         {
             
@@ -43,12 +43,12 @@ public class PlayerInfoController : MonoBehaviour
     }
     void Start()
     {
-        //if (SaveData.isHaveData())
-        //{
+        if (SaveData.isHaveData())
+        {
 
-        //    transform.position = SaveData.data._playerpos.ToVector3();
-        //}
-        
+            transform.position = SaveData.data._playerpos.ToVector3();
+        }
+
     }
     public bool isMaxHealth()
     {

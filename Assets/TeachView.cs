@@ -7,12 +7,12 @@ public class TeachView : View
     public int Index;
     public List<Image> Targets=new List<Image>();
     public RectGuidanceController controller;
-
+    public GameObject[] TipText;
     private void Start()
     {
         controller.UpdateTarget(Targets[Index]);
     }
-    public void NextEquipTeach()
+    public void NextEquipTeach ()
     {
 
         if (!gameObject.activeSelf)
@@ -25,6 +25,9 @@ public class TeachView : View
             OnCloseClick();
             return;
         }
+        TipText[Index-1].SetActive(false);
+        Timer.Register(0.5f, () => { TipText[Index].SetActive(true); });
+       
         controller.UpdateTarget(Targets[Index]);
     }
 }

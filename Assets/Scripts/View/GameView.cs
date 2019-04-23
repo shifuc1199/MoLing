@@ -59,7 +59,7 @@ public class GameView : View
         sitdown.SetActive(PlayerInfoController._instance.pi.SkillDic["sitdown"]);
         MedichineAmountText.text = PlayerInfoController._instance.pi.ItemDic["drug"].ToString();
         dash.SetActive(PlayerInfoController._instance.pi.SkillDic["dash"]);
-        singalsword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.ContainsKey("sword"));
-        multisword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.ContainsKey("sword"));
+        singalsword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.Contains("sword"));
+        multisword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.Contains("sword"));
     }
 }

@@ -78,6 +78,7 @@ public class FishBoss_Controller : EnemyBase
     bool isReset = false;
     public void ResetBoss()
     {
+        AudioManager._instance.PlayBgm("普通");
         isReset = true;
         _machine.ResetState();
         ShootIndex = 0;

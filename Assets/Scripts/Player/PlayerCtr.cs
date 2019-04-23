@@ -93,7 +93,7 @@ public class PlayerCtr : MonoBehaviour
   
     IEnumerator Rotate(Quaternion euler)
     {
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0f);
         transform.localRotation = euler;
     }
     void Move()
@@ -724,7 +724,7 @@ public class PlayerCtr : MonoBehaviour
     void FixedUpdate()
     {
         
-        Sword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.ContainsKey("sword"));
+        Sword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.Contains("sword"));
         AnimSet();
       
 

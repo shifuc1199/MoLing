@@ -42,7 +42,8 @@ public class DialogView : View
                 {
                     NPCManager._intance.Npc_CompleteCallBack[_callback_name]();
                 }
-                index = 0;
+                AudioManager._instance.StopTalk();
+              index = 0;
                 gameObject.SetActive(false);
                 UIManager._instance.GetView<GameView>().gameObject.SetActive(true);
                 Scene._instance.player.Inputable = true;

@@ -15,8 +15,8 @@ public class PlayerInfo
     public Dictionary<string, bool> Teach = new Dictionary<string, bool>();
     public Dictionary<string, int> ItemDic = new Dictionary<string, int>();
     public Dictionary<string, bool> SkillDic = new Dictionary<string, bool>();
-    public Dictionary<string, Item> EquipItemDic = new Dictionary<string, Item>();
-    public Dictionary<string, Item> BagItemDic = new Dictionary<string, Item>();
+    public List<string> EquipItemDic = new List<string>();
+    public List<string> BagItemDic = new List<string>();
 
 
 }

@@ -133,7 +133,7 @@ public class PlayerHurtTrigger : MonoBehaviour
 	// Update is called once per frame
 	void Update () {
      
-        _hurtcontroller.MaxHealth =( PlayerInfoController._instance.pi.EquipItemDic.ContainsKey("head")?1:0 )+ (PlayerInfoController._instance.pi.EquipItemDic.ContainsKey("cloth") ? 1 : 0) + 4;
+        _hurtcontroller.MaxHealth =( PlayerInfoController._instance.pi.EquipItemDic.Contains("head")?1:0 )+ (PlayerInfoController._instance.pi.EquipItemDic.Contains("cloth") ? 1 : 0) + 4;
         PlayerInfoController._instance.pi.maxhelath = _hurtcontroller.MaxHealth;
     }
 }

@@ -8,5 +8,6 @@ public class Item
     public string des;
     public string ID;
     public ItemType type;
+    [System.NonSerialized]
     public Sprite itemsprite;
 }

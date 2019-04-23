@@ -31,7 +31,10 @@ public class AudioManager : MonoBehaviour {
         }
         return -1;
     }
-    
+    public void StopTalk()
+    {
+        Audio.Stop();
+    }
     public void PlayBgm(string name)
     {
         DOTween.To(() => BGMSource.volume, x =>BGMSource.volume = x, 0, 1);

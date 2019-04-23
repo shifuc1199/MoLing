@@ -16,13 +16,13 @@ public class ItemUI : MonoBehaviour
     {
         if (isEquip)
         {
-            PlayerInfoController._instance.pi.BagItemDic.Add(item.ID, item);
+            PlayerInfoController._instance.pi.BagItemDic.Add(item.ID);
             PlayerInfoController._instance.pi.EquipItemDic.Remove(item.ID);
             transform.parent = UIManager._instance.GetView<BagView>().UnEquipmentRoot;
         }
         else
         {
-            PlayerInfoController._instance.pi.EquipItemDic.Add(item.ID, item);
+            PlayerInfoController._instance.pi.EquipItemDic.Add(item.ID);
             PlayerInfoController._instance.pi.BagItemDic.Remove(item.ID);
             transform.parent = UIManager._instance.GetView<BagView>().EquipmentRoot;
         }

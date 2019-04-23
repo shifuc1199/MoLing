@@ -84,8 +84,7 @@ public class RectGuidanceController : MonoBehaviour
        
         _targetOffsetX = Vector2.Distance(WorldToCanvasPos(canvas, _corners[0]), WorldToCanvasPos(canvas, _corners[3])) / 2f;
         _targetOffsetY = Vector2.Distance(WorldToCanvasPos(canvas, _corners[0]), WorldToCanvasPos(canvas, _corners[1])) / 2f;
-        _targetOffsetX += 5;
-        _targetOffsetY += 5;
+       
         //计算高亮显示区域的中心
         float x = _corners[0].x + ((_corners[3].x - _corners[0].x) / 2f);
         float y = _corners[0].y + ((_corners[1].y - _corners[0].y) / 2f);
