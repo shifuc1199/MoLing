@@ -7,5 +7,6 @@ public class Item
     public string name;
     public string des;
     public string ID;
+    public ItemType type;
     public Sprite itemsprite;
 }

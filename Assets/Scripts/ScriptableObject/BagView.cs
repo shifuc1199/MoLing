@@ -14,14 +14,26 @@ public class BagView : View
     // Start is called before the first frame update
     void Start()
     {
-        
+
+    }
+    public override void OnCloseClick()
+    {
+
+        base.OnCloseClick();
+        UIManager._instance.GetView<TeachView>().NextEquipTeach();
+    }
+    public new void OnOpenClick()
+    {
+        base.OnOpenClick();
+ 
+        UIManager._instance.GetView<TeachView>().NextEquipTeach();
     }
     public void Equip()
     {
         if(SelectGameObject!=null)
         {
             SelectGameObject.GetComponent<ItemUI>().Equip();
-        
+            UIManager._instance.GetView<TeachView>().NextEquipTeach();
         }
     }
    
@@ -31,11 +43,7 @@ public class BagView : View
         TipText.text = "";
         TipText.DOText("<color=#FF0000>" + item.name + "</color>" + ":" + item.des, 0.5f).SetEase(Ease.Linear);
     }
-    public override void OnCloseClick()
-    {
-        GetComponent<Animator>().SetTrigger("close");
-        Timer.Register(0.7f, () => { gameObject.SetActive(false); });
-    }
+    
     private void OnEnable()
     {
         InitBag();
@@ -54,6 +62,7 @@ public class BagView : View
             {
                 itemlist.Add(_item);
                 GameObject itemui=   Instantiate(   Resources.Load<GameObject>("Prefab/ItemUI"), UnEquipmentRoot);
+               
                 itemui.GetComponent<ItemUI>().Init(_item);
             }
         }

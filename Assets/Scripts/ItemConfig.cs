@@ -5,4 +5,5 @@ using UnityEngine;
 public class ItemConfig :ScriptableObject
 {
     public List<Item> items = new List<Item>();
+
 }

@@ -10,9 +10,13 @@ public class ShopItemData
     public Sprite icon;
     public string des;
     public int price;
-    
+    public ItemType type;
 }
- 
+public enum ItemType
+{
+    Equipment,
+    Item
+}
 
 public class ShopItem : MonoBehaviour
 {
@@ -46,8 +50,13 @@ public class ShopItem : MonoBehaviour
         PlayerInfoController._instance.pi.ItemDic[data.ID] +=BuyAmount;
         if (!PlayerInfoController._instance.pi.BagItemDic.ContainsKey(data.ID))
             PlayerInfoController._instance.pi.BagItemDic.Add(data.ID,ConfigManager.item_config.items.Find(a=> { return a.ID == data.ID; }));
+
         data.amount -= BuyAmount;
          BuyAmount = 1;
+        if(data.type==ItemType.Equipment)
+        {
+            UIManager._instance.GetView<ShopView>().isBuyEquip = true;
+        }
         UIManager._instance.OpenView<PromptView>();
         CheckCanBuy();
         

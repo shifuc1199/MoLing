@@ -28,6 +28,10 @@ public class PlayerInfoController : MonoBehaviour
             pi. ItemDic.Add("drug", 0);
          
         }
+        if(pi.Teach.Count==0)
+        {
+            pi.Teach.Add("Equip", false);
+        }
         if (pi.SkillDic.Count == 0)
         {
 

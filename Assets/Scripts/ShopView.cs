@@ -5,10 +5,22 @@ using UnityEngine;
 public class ShopView : View
 {
     public Transform root;
+    public bool isBuyEquip = false;
     // Start is called before the first frame update
     void Start()
     {
         InitShopView();
+    }
+    public override void OnCloseClick()
+    {
+    
+        base.OnCloseClick();
+        if(!PlayerInfoController._instance.pi.Teach["Equip"]&& isBuyEquip)
+        {
+            UIManager._instance.OpenView<TeachView>();
+        }
+        isBuyEquip = false;
+
     }
     void InitShopView()
     {

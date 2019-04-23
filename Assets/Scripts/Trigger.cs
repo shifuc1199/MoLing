@@ -25,6 +25,9 @@ public class Trigger : MonoBehaviour
     {
         if(collision.gameObject.tag=="Player")
         {
+            if (Boss.activeSelf)
+                return;
+
             UIManager._instance.GetView<StartView>().SetTitle("邪恶之鱼");
             AudioManager._instance.PlayBgm("鱼Boss");
            

@@ -11,7 +11,10 @@ public class TrapArrow : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if(collision.gameObject.tag=="Player")
+        {
+            GameObjectPool.GetInstance().ReleaseGameObject(gameObject.name.Split('(')[0], gameObject, 0);
+        }
     }
     // Update is called once per frame
     void Update()

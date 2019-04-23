@@ -33,6 +33,10 @@ public class ItemUI : MonoBehaviour
     }
      public void OnClick()
     {
+        
+        UIManager._instance.GetView<TeachView>().NextEquipTeach();
+
+
         if (UIManager._instance.GetView<BagView>().SelectGameObject == gameObject)
             return;
 

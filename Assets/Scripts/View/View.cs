@@ -8,4 +8,8 @@ public class View : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+    public virtual void OnOpenClick()
+    {
+        gameObject.SetActive(true);
+    }
 }
