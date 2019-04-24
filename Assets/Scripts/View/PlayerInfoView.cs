@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class PlayerInfoView : View
 {
     public Text AddMonetText;
-    public Text MoneyText;
+    public Text MoneyText; public Text ShopMoneyText;
     public GameObject[] lifehead;
     public Image mpsli;
     // Start is called before the first frame update
@@ -65,6 +65,7 @@ public class PlayerInfoView : View
     void Update()
     {
         SetLifeHead();
+        ShopMoneyText.text = PlayerInfoController._instance.pi.Money.ToString();
         MoneyText.text = PlayerInfoController._instance.pi.Money.ToString();
     }
 }

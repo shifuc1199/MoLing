@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 public class LoadingCtr : MonoBehaviour
 {
-    public string LevelName;
+    public static string LevelName;
     AsyncOperation operation;
     // Start is called before the first frame update
     void Start()

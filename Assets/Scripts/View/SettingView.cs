@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class SettingView : View
 {
     public Behaviour[] behaviours;
@@ -30,6 +30,15 @@ public class SettingView : View
                 item.enabled = false;
             }
         }
+    }
+    public void BackToMenu()
+    {
+       
+        SceneManager.LoadScene("StartScene");
+    }
+    public void ExitGame()
+    {
+        Application.Quit();
     }
     public void On_Effect_ValueChange(int index)
     {

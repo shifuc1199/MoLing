@@ -35,6 +35,7 @@ public class RiddleGameCtr : MonoBehaviour
     public List<int> number = new List<int>();
     public void CreateMap(int id)
     {
+       
         for (int i = 0; i < Length*Length-1; i++)
         {
             number.Add(i/4+1);
@@ -149,7 +150,7 @@ public class RiddleGameCtr : MonoBehaviour
             }
            
             RiddleDictionry[RiddleID].isComplete = true;
-            Timer.Register(1.5f,()=> { UIManager._instance.CloseView<NumberGameView>(); });
+            Timer.Register(1.5f,()=> {ResetGame(); UIManager._instance.CloseView<NumberGameView>(); });
         }
     }
     public bool CheckWin()

@@ -23,12 +23,14 @@ public class StartUI : MonoBehaviour
         Timer.Register(3, () =>
         {
             SaveData.Load();
+            LoadingCtr.LevelName = "Cave";
             SceneManager.LoadScene("LoadingScene");
         });
          
     }
     public void NewGame()
     {
+     
         if(SaveData.isHaveData())
         {
             SaveData.NewGame();

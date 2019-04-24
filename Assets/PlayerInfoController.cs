@@ -36,9 +36,9 @@ public class PlayerInfoController : MonoBehaviour
         {
 
             pi. SkillDic.Add("sitdown", false);
-            pi. SkillDic.Add("doublejump", false);
+            pi. SkillDic.Add("doublejump", true);
             pi.SkillDic.Add("dash", false);
-            pi. SkillDic.Add("walljump", false);
+            pi. SkillDic.Add("walljump", true);
         }
     }
     void Start()

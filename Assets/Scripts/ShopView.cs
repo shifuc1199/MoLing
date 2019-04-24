@@ -10,7 +10,8 @@ public class ShopView : View
     public Text BuyAmount_text;
     public int BuyAmount;
     public Button BuyButton;
-
+    public Button AddButton;
+    public Button MinusButton;
     public GameObject BackMask;
     public Transform root;
     public GameObject SelectItem;
@@ -89,11 +90,13 @@ public class ShopView : View
         Price.text = (BuyAmount * SelectItem.GetComponent<ShopItem>().data.price).ToString();
         if (BuyAmount * SelectItem.GetComponent<ShopItem>().data.price <= PlayerInfoController._instance.pi.Money)
         {
+            AddButton.interactable = true;
             BuyButton.GetComponentInChildren<Text>().text = "购买";
             BuyButton.interactable = true;
         }
         else
         {
+            AddButton.interactable = false;
             BuyButton.GetComponentInChildren<Text>().text = "没钱";
             BuyButton.interactable = false;
         }
@@ -123,6 +126,7 @@ public class ShopView : View
     }
     private void Update()
     {
+     
         BuyAmount_text.text = BuyAmount.ToString();
     }
     

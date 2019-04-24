@@ -14,7 +14,7 @@ public class RunManager : MonoBehaviour
     void ChangeToLoading()
     {
         Mask.SetActive(true);
-        Timer.Register(2, () => { SceneManager.LoadScene("LoadingScene"); });
+        Timer.Register(2, () => { LoadingCtr.LevelName = "Cave"; SceneManager.LoadScene("LoadingScene"); });
     }
     // Update is called once per frame
     void Update()

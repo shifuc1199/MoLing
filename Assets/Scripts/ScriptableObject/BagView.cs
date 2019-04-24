@@ -11,6 +11,7 @@ public class BagView : View
     public Text TipText;
     public GameObject SelectGameObject = null;
     List<Item> itemlist = new List<Item>();
+     List<Item> Equipmentitemlist = new List<Item>();
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +33,7 @@ public class BagView : View
     {
         if(SelectGameObject!=null)
         {
+            Equipmentitemlist.Add(SelectGameObject.GetComponent<ItemUI>().item);
             SelectGameObject.GetComponent<ItemUI>().Equip();
             UIManager._instance.GetView<TeachView>().NextEquipTeach();
         }
@@ -63,6 +65,24 @@ public class BagView : View
                 itemlist.Add(_item);
                 GameObject itemui=   Instantiate(   Resources.Load<GameObject>("Prefab/ItemUI"), UnEquipmentRoot);
                
+                itemui.GetComponent<ItemUI>().Init(_item);
+            }
+        }
+
+
+        foreach (var item in PlayerInfoController._instance.pi.EquipItemDic)
+        {
+
+            Item _item = ConfigManager.item_config.items.Find((a) => { return a.ID == item; });
+          
+            if (Equipmentitemlist.Contains(_item))
+                continue;
+
+            if (_item != null)
+            {
+                Equipmentitemlist.Add(_item);
+                GameObject itemui = Instantiate(Resources.Load<GameObject>("Prefab/ItemUI"), EquipmentRoot);
+
                 itemui.GetComponent<ItemUI>().Init(_item);
             }
         }

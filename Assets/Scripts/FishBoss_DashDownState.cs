@@ -20,6 +20,7 @@ public class FishBoss_DashDownState : StateTemplate<FishBoss_Controller>
         
             Owner.transform.position = new Vector3(Owner.player.transform.position.x, Owner.dash_y+Owner.transform.parent.position.y, Owner.transform.position.z);
             Owner._anim.SetTrigger("dash");
+
             dashtimer = Timer.Register(1f, () => { isdash = false; });
         });
        

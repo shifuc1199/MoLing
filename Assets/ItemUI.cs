@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class ItemUI : MonoBehaviour
 {
-    Item item;
+   public Item item;
 
     bool isEquip = false;
     // Start is called before the first frame update

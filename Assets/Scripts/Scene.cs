@@ -30,6 +30,10 @@ namespace game
                
             }
         }
+        private void OnApplicationQuit()
+        {
+            SaveData.Save();
+        }
         public void SavePos(GameObject trans)
         {
             if (trans.transform.GetChild(0).gameObject.activeSelf)
