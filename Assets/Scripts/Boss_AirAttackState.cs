@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Boss_AirAttackState : StateTemplate<Boss_Controller>
 {
+    int index;
     Timer airattacktimer;
     bool isairattack = false;
     public Boss_AirAttackState(string id, Boss_Controller p) : base(id, p)
@@ -17,9 +18,9 @@ public class Boss_AirAttackState : StateTemplate<Boss_Controller>
 
         Timer.Register(1, () =>
         {
-
-           // Owner.transform.position = new Vector3(Owner.player.transform.position.x, Owner.dash_y + Owner.transform.parent.position.y, Owner.transform.position.z);
-            Owner._anim.SetTrigger("appear");
+            index = Owner.GetDashPointIndex();
+            Owner.transform.eulerAngles = new Vector3(0, 180 * (index - 1), 0);
+            Owner.transform.position = Owner.dashpos[index].position;
             airattacktimer = Timer.Register(1f, () => { isairattack = true; Owner._anim.SetTrigger("airattack"); });
         });
 
@@ -40,6 +41,6 @@ public class Boss_AirAttackState : StateTemplate<Boss_Controller>
             return;
         isairattack = false;
 
-          Owner._anim.SetTrigger("disappear");
+       //   Owner._anim.SetTrigger("disappear");
     }
 }

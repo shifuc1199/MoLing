@@ -10,7 +10,8 @@ namespace game
         public GameObject[] VirtualCameras;
         public GameObject VirtualCamera;
         public PlayerCtr player;
-       
+        public GameObject[] SaveDoors;
+        public Dictionary<int, bool> DoorDic = new Dictionary<int, bool>();
         public Transform ForestPoint;
         public GameObject Fish;
         private void Awake()
@@ -18,32 +19,29 @@ namespace game
             _instance = this;
           
             VirtualCamera = VirtualCameras[0];
-             
-            if(!SaveData.isHaveData())
+
+            if (!SaveData.isHaveData())
             {
+
                 Timer.Register(3, () =>
                 {
                     NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == 100; });
                     DialogView view = UIManager._instance.OpenView<DialogView>();
                     view.SetContenct(npc._callback_name, npc.talks.ToArray());
                 });
-               
+                for (int i = 0; i < SaveDoors.Length; i++)
+                {
+                    DoorDic.Add(SaveDoors[i].GetComponent<SaveDoor>().id, false);
+                }
             }
+            else
+                DoorDic = SaveData.data.Doors;
         }
-        private void OnApplicationQuit()
-        {
-            SaveData.Save();
-        }
-        public void SavePos(GameObject trans)
-        {
-            if (trans.transform.GetChild(0).gameObject.activeSelf)
-                return;
-
-            SaveData.Save();
-          
-            trans.transform.GetChild(0).gameObject.SetActive(true);
-            trans.transform.GetChild(1).gameObject.SetActive(true);
-        }
+        //private void OnApplicationQuit()
+        //{
+        //    SaveData.Save(false);
+        //}
+   
         public void ResetGameByBoss()
         {
             ChangeCamera(0);
@@ -58,7 +56,7 @@ namespace game
             PlayerInfoController._instance.pi.health = player.GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health;
             player.GetComponentInChildren<Animator>().SetTrigger("reset");
             player.Inputable = true;
-            player.transform.position = SaveData.data._playerpos.ToVector3();
+            player.transform.position = SaveData.isHaveData()?SaveData.data._playerpos.ToVector3():player.ResetPoint;
             if(Fish!=null&&Fish.activeSelf)
             ResetGameByBoss();
         }

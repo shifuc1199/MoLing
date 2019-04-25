@@ -56,7 +56,7 @@ public class PlayerCtr : MonoBehaviour
     private PlayerInfoController pic;
     //冲刺键！！！！！！
     private bool isDown;
-    private bool isUp;
+    public bool isUp;
     //
     private bool isMaxDash;
     public bool isSitDown;
@@ -181,6 +181,7 @@ public class PlayerCtr : MonoBehaviour
                 _anim.SetTrigger("isDash");
                 dashtime = 0;
                 dashtimer = 0;
+                
                 isMaxDash = true;
                 isDown = false;
                 _rigi.AddForce(transform.right * _dashspeed * _maxdashtime * 0.4f, ForceMode2D.Impulse);
@@ -189,8 +190,7 @@ public class PlayerCtr : MonoBehaviour
             }
         }
         else
-
-            return;
+        return;
 
         if (isUp)
         {
@@ -595,10 +595,14 @@ public class PlayerCtr : MonoBehaviour
     }
     public void Mobile_Dash_Up()
     {
- 
+        if (isMaxDash)
+        {
+            isMaxDash = false;
+            return;
+        }
 
         isUp = true;
-        isMaxDash = false;
+        
     }
     float timer;
    public float recovertimer;
@@ -687,8 +691,12 @@ public class PlayerCtr : MonoBehaviour
         }
         if (Input.GetKeyUp(KeyCode.L))
         {
+            if (isMaxDash)
+            {
+                isMaxDash = false;
+                return;
+            }
             isUp = true;
-            isMaxDash = false;
         }
 
         horizontal = Input.GetAxisRaw("Horizontal");

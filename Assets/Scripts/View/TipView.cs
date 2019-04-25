@@ -28,15 +28,22 @@ public class TipView : View
         button.GetComponent<Image>().raycastTarget = false;
         GetComponent<CanvasGroup>().DOFade(0, 1);
         Timer.Register(1, () => {
-            if (PlayerInfoController._instance.pi.ItemDic.ContainsKey(_item.ID))
-                PlayerInfoController._instance.pi.ItemDic[_item.ID]++;
-            if (PlayerInfoController._instance.pi.SkillDic.ContainsKey(_item.ID))
-                PlayerInfoController._instance.pi.SkillDic[_item.ID] = true;
+           
+
             button.GetComponent<Image>().DOFade(0,0);
             nametext.DOFade(0, 0);
             icon.DOFade(0, 0);
             destext.DOFade(0, 0);
             gameObject.SetActive(false); game.Scene._instance.player.Inputable = true; GetComponent<CanvasGroup>().alpha = 1; },null,false,true);
+
+        if (PlayerInfoController._instance.pi.ItemDic.ContainsKey(_item.ID))
+            PlayerInfoController._instance.pi.ItemDic[_item.ID]++;
+            
+       else if (PlayerInfoController._instance.pi.SkillDic.ContainsKey(_item.ID))
+            PlayerInfoController._instance.pi.SkillDic[_item.ID] = true;
+
+        else if (!PlayerInfoController._instance.pi.BagItemDic.Contains(_item.ID))
+            PlayerInfoController._instance.pi.BagItemDic.Add(_item.ID);
     }
     public void SetItem(Item item)
     {

@@ -7,13 +7,14 @@ public class ShowTeachTip : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+      
     }
     public void SetText(string text)
     {
         gameObject.SetActive(true);
+        text = text.Replace("\\n", "\n");
         GetComponent<Text>().text = text;
-
+      
     }
     // Update is called once per frame
     void Update()

@@ -64,6 +64,7 @@ public class ShopView : View
         UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(-(BuyAmount * SelectItem.GetComponent<ShopItem>().data.price));
         if (PlayerInfoController._instance.pi.ItemDic.ContainsKey(SelectItem.GetComponent<ShopItem>().data.ID))
             PlayerInfoController._instance.pi.ItemDic[SelectItem.GetComponent<ShopItem>().data.ID] += BuyAmount;
+
         if (!PlayerInfoController._instance.pi.BagItemDic.Contains(SelectItem.GetComponent<ShopItem>().data.ID))
             PlayerInfoController._instance.pi.BagItemDic.Add(SelectItem.GetComponent<ShopItem>().data.ID);
 

@@ -26,13 +26,16 @@ public class SerilizedVector3
 [System.Serializable]
 public class GameData
 {
-
+    public Dictionary<int, bool> Doors = new Dictionary<int, bool>();
     public SerilizedVector3 _playerpos=new SerilizedVector3();
     public PlayerInfo info;
-    public void UpdateData()
+
+    public void UpdateData(bool IncludePos = true)
     {
+        Doors = game.Scene._instance.DoorDic; 
         info = PlayerInfoController._instance.pi;
-        _playerpos .Copy( game.Scene._instance.player.transform.position);
+        if (IncludePos)
+       _playerpos .Copy( game.Scene._instance.player.transform.position);
     }
 }
 public class SaveData 
