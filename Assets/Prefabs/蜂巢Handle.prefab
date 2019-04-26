@@ -30,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5936989124702410565}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.56, y: 6.67, z: 0}
+  m_LocalPosition: {x: -10.26, y: -10.94, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 1}
   m_Children: []
   m_Father: {fileID: 5936989124782638328}
@@ -162,8 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55018e31d73f246469e7afc69e9f04f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AddMoney: 0
   _maxhealth: 5
-  hitoffable: 0
+  hitoffable: 1
   MaxSmallBeeAmount: 5
   SmallBeeAmount: 0
 --- !u!114 &5936989124950396334
@@ -269,39 +270,39 @@ MonoBehaviour:
   upDirection: {x: 0, y: 1, z: 0}
   tweenRigidbody: 0
   wps:
-  - {x: 89.72309, y: 6.5105247, z: 0}
-  - {x: 89.90844, y: -1.6160903, z: 0}
-  - {x: 104.81322, y: 6.14092, z: 0}
-  - {x: 104.80592, y: -2.1642227, z: 0}
-  - {x: 96.83881, y: 0.953557, z: 0}
+  - {x: 446.26328, y: -276.7704, z: 0}
+  - {x: 446.88416, y: -269.0484, z: 0}
+  - {x: 467.30905, y: -278.25507, z: 0}
+  - {x: 465.50113, y: -268.51526, z: 0}
+  - {x: 457.53687, y: -273.57843, z: 0}
   fullWps: []
   path:
     wpLengths:
     - 0
-    - 9.108139
-    - 8.128729
-    - 16.802488
-    - 8.305146
-    - 8.55543
+    - 12.907602
+    - 7.7469053
+    - 22.403996
+    - 9.906181
+    - 9.437436
     type: 0
     subdivisionsXSegment: 10
     subdivisions: 60
     wps:
-    - {x: 96.54, y: 0.47000027, z: 0}
-    - {x: 89.72309, y: 6.5105247, z: 0}
-    - {x: 89.90844, y: -1.6160903, z: 0}
-    - {x: 104.81322, y: 6.14092, z: 0}
-    - {x: 104.80592, y: -2.1642227, z: 0}
-    - {x: 96.83881, y: 0.953557, z: 0}
+    - {x: 458.94, y: -274.34, z: 0}
+    - {x: 446.26328, y: -276.7704, z: 0}
+    - {x: 446.88416, y: -269.0484, z: 0}
+    - {x: 467.30905, y: -278.25507, z: 0}
+    - {x: 465.50113, y: -268.51526, z: 0}
+    - {x: 457.53687, y: -273.57843, z: 0}
     controlPoints: []
-    length: 50.899933
+    length: 62.40212
     isFinalized: 1
     timesTable:
     - 0
-    - 0.17894207
-    - 0.33864224
-    - 0.6687505
-    - 0.83191663
+    - 0.20684558
+    - 0.33099046
+    - 0.6900167
+    - 0.8487642
     - 1
     lengthsTable: []
   inspectorMode: 0
@@ -313,7 +314,7 @@ MonoBehaviour:
   showIndexes: 1
   showWpLength: 0
   pathColor: {r: 1, g: 1, b: 1, a: 0.5}
-  lastSrcPosition: {x: 96.54, y: 0.47000027, z: 0}
+  lastSrcPosition: {x: 458.94, y: -274.34, z: 0}
   wpsDropdown: 1
   dropToFloorOffset: 0
 --- !u!1 &5936989124782638335
@@ -374,7 +375,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5936989125548295618}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -13.59, y: -11.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 5936989124782638328}
@@ -395,7 +396,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0.025440216, y: 0.26973343}
   serializedVersion: 2
-  m_Radius: 10.114704
+  m_Radius: 15
 --- !u!114 &5936989125548295485
 MonoBehaviour:
   m_ObjectHideFlags: 0

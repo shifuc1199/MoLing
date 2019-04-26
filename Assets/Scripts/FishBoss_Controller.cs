@@ -78,11 +78,12 @@ public class FishBoss_Controller : EnemyBase
     bool isReset = false;
     public void ResetBoss()
     {
-        AudioManager._instance.PlayBgm("普通");
+     
         isReset = true;
         _machine.ResetState();
         ShootIndex = 0;
         lastindex = 0;
+        AudioManager._instance.PlayBgm("普通");
         _hurtcontroller.Health = _hurtcontroller.MaxHealth;
         CancelInvoke();
         if (NextTimer != null)

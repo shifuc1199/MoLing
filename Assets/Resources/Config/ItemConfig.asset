@@ -17,7 +17,7 @@ MonoBehaviour:
     des: "\u4E00\u628A\u5B9D\u5251"
     ID: sword
     type: 0
-    itemsprite: {fileID: 21300000, guid: 2231205301035a840b9b1c8591460e34, type: 2}
+    itemsprite: {fileID: 21300000, guid: 7a049d00dc0c3bc47a6bb79fdbfb3b5d, type: 3}
   - name: "\u8E6C\u5899\u8DF3\u79D8\u7C4D"
     des: "\u83B7\u5F97\u4EE5\u540E\u53EF\u4EE5\u722C\u5899\u8FDB\u884C\u8E6C\u5899\u8DF3\u8DC3"
     ID: walljump
@@ -38,13 +38,23 @@ MonoBehaviour:
     ID: sitdown
     type: 1
     itemsprite: {fileID: 21300000, guid: b2868458b139fbd4ca0bcf04adc1414a, type: 3}
-  - name: "\u7CBE\u81F4\u5934\u76D4"
-    des: "\u589E\u5F3A\u4E00\u70B9\u6700\u5927\u751F\u547D\u503C"
-    ID: head
+  - name: "\u6625\u7075\u73E0"
+    des: "\u5229\u7528\u6625\u4E4B\u529B\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
+    ID: "\u6625\u7075\u73E0"
     type: 0
-    itemsprite: {fileID: 21300010, guid: bbc36530b0ce17243b904392de9e2b75, type: 3}
-  - name: "\u7CBE\u81F4\u8863\u670D"
-    des: "\u589E\u5F3A\u4E00\u70B9\u6700\u5927\u751F\u547D\u503C"
-    ID: cloth
+    itemsprite: {fileID: 21300000, guid: 048200b5c3461c6489f150eb0b35fc1f, type: 3}
+  - name: "\u590F\u7075\u73E0"
+    des: "\u5229\u7528\u590F\u4E4B\u529B\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
+    ID: "\u590F\u7075\u73E0"
     type: 0
-    itemsprite: {fileID: 21300000, guid: 62a7795a952daec44adf8400530385be, type: 3}
+    itemsprite: {fileID: 21300000, guid: b4e434a9585a03540a07def8d3c86e18, type: 3}
+  - name: "\u79CB\u7075\u73E0"
+    des: "\u5229\u7528\u79CB\u4E4B\u529B\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
+    ID: "\u79CB\u7075\u73E0"
+    type: 0
+    itemsprite: {fileID: 21300000, guid: be24d5894064efc48b841ab2dcc19600, type: 3}
+  - name: "\u51AC\u7075\u73E0"
+    des: "\u5229\u7528\u51AC\u4E4B\u529B\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
+    ID: "\u51AC\u7075\u73E0"
+    type: 0
+    itemsprite: {fileID: 21300000, guid: 6a55fddbc8335824f86e65a03d08a6db, type: 3}

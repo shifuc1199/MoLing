@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+
+public enum BossType
+{
+    鱼,
+    默灵
+}
 public class Trigger : MonoBehaviour
 {
-    
-    public Vector3 pos;
+    public BossType type;
     public GameObject  Boss;
     public GameObject[] Walls;
     // Start is called before the first frame update
@@ -28,8 +33,20 @@ public class Trigger : MonoBehaviour
             if (Boss.activeSelf)
                 return;
 
-            UIManager._instance.GetView<StartView>().SetTitle("邪恶之鱼");
-            AudioManager._instance.PlayBgm("鱼Boss");
+            switch (type)
+            {
+                case BossType.鱼:
+                    UIManager._instance.GetView<StartView>().SetTitle("邪恶之鱼");
+                    AudioManager._instance.PlayBgm("鱼Boss");
+                    break;
+                case BossType.默灵:
+                    UIManager._instance.GetView<StartView>().SetTitle("上代默灵");
+                    AudioManager._instance.PlayBgm("Boss");
+                    break;
+                default:
+                    break;
+            }
+         
            
             Boss.SetActive(true);
             foreach (var item in Walls)

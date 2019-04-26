@@ -13,6 +13,8 @@ public class Boss_AttackState : StateTemplate<Boss_Controller>
     }
     public override void OnEter()//进入的时候执行
     {
+        if (Owner.isToSecond)
+            return;
         if (Owner._hurtcontroller.isdie)
             return;
       
@@ -29,9 +31,13 @@ public class Boss_AttackState : StateTemplate<Boss_Controller>
     {
         if (Owner._hurtcontroller.isdie)
             return;
+        if (Owner.isToSecond)
+            return;
+       
         if (isattack)
         {
 
+          
             if (Vector3.Distance(Owner.transform.position, Owner.dashpos[(index + 1) % Owner.dashpos.Length].position) >= 1)
             {
                 Owner.transform.position = Vector3.MoveTowards(Owner.transform.position, new Vector3(Owner.dashpos[(index + 1) % Owner.dashpos.Length].position.x, Owner.transform.position.y), Time.deltaTime * Owner.dash_spped);
@@ -50,6 +56,8 @@ public class Boss_AttackState : StateTemplate<Boss_Controller>
 
     public override void OnExit()//退出的时候执行
     {
+     
+
         if (Owner._hurtcontroller.isdie)
             return;
         if (attacktimer != null)

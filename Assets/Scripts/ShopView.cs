@@ -24,7 +24,8 @@ public class ShopView : View
     }
     private void OnEnable()
     {
-      if(SelectItem==null)
+       
+        if (SelectItem==null)
         {
             BuyButton.interactable = false;
             BuyAmount = 1;
@@ -32,6 +33,8 @@ public class ShopView : View
             Des.text = "--";
             BuyAmount_text.text = "--";
         }
+
+        CheckCanBuy();
     }
   
     public override void OnCloseClick()

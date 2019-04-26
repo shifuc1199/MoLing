@@ -177,16 +177,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 799437230700663083, guid: 268e056658ce38349a8d756a9a842697,
         type: 3}
-      propertyPath: hitoffable
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 799437230700663083, guid: 268e056658ce38349a8d756a9a842697,
-        type: 3}
-      propertyPath: _speed
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 799437230700663083, guid: 268e056658ce38349a8d756a9a842697,
-        type: 3}
       propertyPath: points.Array.data[0]
       value: 
       objectReference: {fileID: 7687341225246986424}

@@ -45,10 +45,14 @@ public class PlayerAttack : MonoBehaviour,IAttackable {
 
             if (t.GetComponent<EnemyBase>().hitoffable)
             {
+             
+                t.transform.right = transform.position.x > t.transform.position.x ? new Vector2(1, 0) : new Vector2(-1, 0);
+
                 GetComponentInParent<Rigidbody2D>().velocity = new Vector2(0, GetComponentInParent<Rigidbody2D>().velocity.y);
 
                 t.GetComponent<Rigidbody2D>().velocity = Vector2.zero; t.GetComponent<Rigidbody2D>().AddForce(-t.transform.right * 30, ForceMode2D.Impulse);
             }
+
            PlayerInfoController._instance.AddMP(5);
             int a = Random.Range(1, 3);
             AudioManager._instance.PlayAudio("击中"+a);

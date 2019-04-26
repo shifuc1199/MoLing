@@ -27,6 +27,7 @@ public class TrapTrigger : MonoBehaviour
         {
             item.DOPlayBackwards();
         }
+        Destroy(gameObject);
     }
     public void ProduceArrow()
     {

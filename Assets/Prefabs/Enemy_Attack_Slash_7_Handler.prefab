@@ -1006,8 +1006,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AddMoney: 3
   _maxhealth: 3
-  hitoffable: 0
+  hitoffable: 1
   _anim: {fileID: 0}
+  _player: {fileID: 0}
   Sprite_ID: 4
 --- !u!1 &8803358323504953838
 GameObject:

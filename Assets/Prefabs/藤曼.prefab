@@ -255,7 +255,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fce813d16e64b33468e76e8eef84d92b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AddMoney: 0
+  AddMoney: 4
   _maxhealth: 5
   hitoffable: 0
   _anim: {fileID: 0}

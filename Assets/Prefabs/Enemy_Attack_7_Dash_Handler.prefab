@@ -543,7 +543,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AddMoney: 5
-  _maxhealth: 5
+  _maxhealth: 4
   hitoffable: 0
   _speed: 7
   _anim: {fileID: 0}
@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 5298763454603674935}
   - component: {fileID: 5434511984286960041}
   - component: {fileID: 3352283691960209297}
-  - component: {fileID: 3352283691960209298}
+  - component: {fileID: 7235756512569114606}
   m_Layer: 10
   m_Name: Sword
   m_TagString: playerhurt
@@ -961,7 +961,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.730667, y: 0.55870104}
   m_EdgeRadius: 0
---- !u!114 &3352283691960209298
+--- !u!114 &7235756512569114606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -970,7 +970,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5304573794730823791}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ea1784b3674762d49be3233f6be2d411, type: 3}
+  m_Script: {fileID: 11500000, guid: f0325deb8d6349444822da25de00a756, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _attack: 1

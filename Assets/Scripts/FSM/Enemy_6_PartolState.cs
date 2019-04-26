@@ -62,11 +62,12 @@ public class Enemy_6_PartolState : StateTemplate<Enemy_6_Controller>
                     return;
                 if (Owner.points[index].position.x > Owner.transform.position.x)
                 {
-                    Owner.transform.rotation = Quaternion.Euler(0, 180, 0);
+                    Owner.transform.rotation = Quaternion.identity;
+                   
                 }
                 else
                 {
-                    Owner.transform.rotation = Quaternion.identity;
+                    Owner.transform.rotation = Quaternion.Euler(0, 180, 0);
                 }
                 isarrive = false;
                

@@ -12,6 +12,12 @@ public class Enemy_7_AttackState : StateTemplate<Enemy_7_Controller>
 
     }
     float aim_x;
+    public void AttackStop()
+    {
+        isarrive = true;
+        Owner._anim.SetBool("attack", false);
+        timer = Timer.Register(1, () => { Enemy_Dash(); });
+    }
     Timer timer;
     bool isarrive = true;
    

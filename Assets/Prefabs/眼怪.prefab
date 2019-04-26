@@ -112,7 +112,7 @@ GameObject:
   - component: {fileID: 799437230700663077}
   - component: {fileID: 1703578183}
   m_Layer: 9
-  m_Name: "\u773C\u602AHandle"
+  m_Name: "\u773C\u602A"
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -145,11 +145,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ca2151e74cc12b468336a7d3061d64c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AddMoney: 0
   _maxhealth: 3
   hitoffable: 1
-  _player: {fileID: 0}
-  _speed: 10
+  _speed: 7
   _anim: {fileID: 0}
+  points: []
 --- !u!50 &799437230700663077
 Rigidbody2D:
   serializedVersion: 4

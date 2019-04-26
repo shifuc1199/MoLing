@@ -14,6 +14,7 @@ namespace game
         public Dictionary<int, bool> DoorDic = new Dictionary<int, bool>();
         public Transform ForestPoint;
         public GameObject Fish;
+        public GameObject Boss;
         private void Awake()
         {
             _instance = this;
@@ -37,11 +38,16 @@ namespace game
             else
                 DoorDic = SaveData.data.Doors;
         }
-        //private void OnApplicationQuit()
-        //{
-        //    SaveData.Save(false);
-        //}
-   
+        private void OnApplicationQuit()
+        {
+            SaveData.Save(false);
+        }
+        public void ResetGameByFinalBoss()
+        {
+            ChangeCamera(0);
+            Boss.GetComponent<Boss_Controller>().ResetBoss();
+
+        }
         public void ResetGameByBoss()
         {
             ChangeCamera(0);
@@ -59,6 +65,8 @@ namespace game
             player.transform.position = SaveData.isHaveData()?SaveData.data._playerpos.ToVector3():player.ResetPoint;
             if(Fish!=null&&Fish.activeSelf)
             ResetGameByBoss();
+            if (Boss != null && Boss.activeSelf)
+                ResetGameByFinalBoss();
         }
         public void ChangeCamera(GameObject gam)
         {

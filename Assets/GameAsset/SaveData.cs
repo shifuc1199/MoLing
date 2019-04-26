@@ -41,12 +41,12 @@ public class GameData
 public class SaveData 
 {
     public static GameData data=new GameData();
-    public  static  void Save()
+    public  static  void Save(bool Savepos=true)
     {
          
         using (FileStream f = new FileStream(Application.persistentDataPath+"/GameData.data", FileMode.Create))
         {
-            data.UpdateData();
+            data.UpdateData(Savepos);
             BinaryFormatter serilaizer = new BinaryFormatter();
             serilaizer.Serialize(f, data);
             Debug.Log("序列化成功!");

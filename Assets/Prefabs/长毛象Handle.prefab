@@ -114,7 +114,6 @@ GameObject:
   m_Component:
   - component: {fileID: 7415533037118288359}
   - component: {fileID: 7415533037118288377}
-  - component: {fileID: 7415533037118288358}
   m_Layer: 10
   m_Name: "\u68C0\u6D4B\u8303\u56F4 (1)"
   m_TagString: Untagged
@@ -152,19 +151,6 @@ CircleCollider2D:
   m_Offset: {x: 0.14804888, y: -0.103777885}
   serializedVersion: 2
   m_Radius: 8
---- !u!114 &7415533037118288358
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7415533037118288356}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85c9542134edb60488f7d4afbcf1c6f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  controller: {fileID: 7415533037699471950}
 --- !u!1 &7415533037518187269
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +330,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 10
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 50
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -388,6 +374,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7a8c59a4dc959947a5f4e27513288a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AddMoney: 5
   _maxhealth: 5
   hitoffable: 0
   _speed: 5
@@ -397,3 +384,4 @@ MonoBehaviour:
   - {fileID: 7415533037571077656}
   _anim: {fileID: 0}
   trigger: {fileID: 216691021}
+  dash_x: 20

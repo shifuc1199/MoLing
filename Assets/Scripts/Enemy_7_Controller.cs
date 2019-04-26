@@ -12,9 +12,14 @@ public class Enemy_7_Controller : EnemyBase
     public float dash_x;
     public int Sprite_ID;
     // Start is called before the first frame update
+
+    
     new void Start()
     {
         base.Start();
+        int [] index = new int[] {1,5,7,8 };
+        Sprite_ID = index[UnityEngine.Random.Range(0, 4)];
+        ChangeCharacter();
         _anim = GetComponent<Animator>();
         _machine.RegisterState(new Enemy_7_AttackState("attack", this));
         _machine.RegisterState(new Enemy_7_PartolState("partol",this));

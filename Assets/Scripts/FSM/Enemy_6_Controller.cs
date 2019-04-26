@@ -22,7 +22,7 @@ public class Enemy_6_Controller : EnemyBase
         _hurtcontroller._HurtCallBack = new HurtCallBack(() => {
 
             GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("主角攻击特效", transform.position, Quaternion.identity);
-
+        //    _anim.SetTrigger("hurt");
 
             GameObjectPool.GetInstance().ReleaseGameObject("主角攻击特效", temp2, 0.5f);
 

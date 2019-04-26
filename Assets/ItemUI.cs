@@ -22,6 +22,7 @@ public class ItemUI : MonoBehaviour
         }
         else
         {
+ 
             PlayerInfoController._instance.pi.EquipItemDic.Add(item.ID);
             PlayerInfoController._instance.pi.BagItemDic.Remove(item.ID);
             transform.parent = UIManager._instance.GetView<BagView>().EquipmentRoot;

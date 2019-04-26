@@ -15,23 +15,28 @@ public class Boss_AirAttackState : StateTemplate<Boss_Controller>
     {
         if (Owner._hurtcontroller.isdie)
             return;
-
+        if (Owner.isToSecond)
+            return;
         Timer.Register(1, () =>
         {
             index = Owner.GetDashPointIndex();
             Owner.transform.eulerAngles = new Vector3(0, 180 * (index - 1), 0);
-            Owner.transform.position = Owner.dashpos[index].position;
-            airattacktimer = Timer.Register(1f, () => { isairattack = true; Owner._anim.SetTrigger("airattack"); });
+            Owner.transform.position = Owner.dashpos[index].position+new Vector3(0,2);
+            airattacktimer = Timer.Register(1f, () => { Timer.Register(0.75f, () => { isairattack = true; });  Owner._anim.SetTrigger("airattack"); });
         });
 
     }
     public override void OnUpdate()//每帧的时候执行
-    {
+    { 
         if (Owner._hurtcontroller.isdie)
+            return;
+
+        if (Owner.isToSecond)
             return;
         if (!isairattack)
             return;
 
+        Owner.transform.position = Vector3.MoveTowards(Owner.transform.position, Owner.ToSecondPos.position+new Vector3(1.5f,-4f), 10f*Time.deltaTime);
 
     }
 

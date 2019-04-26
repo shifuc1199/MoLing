@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement;
 using DG.Tweening;
 public class StartUI : MonoBehaviour
 {
+    public GameObject Tip;
     private AudioSource audio;
     public GameObject Mask;
     public GameObject continoueButton;
@@ -27,6 +28,17 @@ public class StartUI : MonoBehaviour
             SceneManager.LoadScene("LoadingScene");
         });
          
+    }
+    public void StartGame()
+    {
+        if(SaveData.isHaveData())
+        {
+            Tip.SetActive(true);
+        }
+        else
+        {
+            NewGame();
+        }
     }
     public void NewGame()
     {

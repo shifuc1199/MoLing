@@ -57,6 +57,11 @@ public class PlayerHurtTrigger : MonoBehaviour
             {
                 transform.rotation = Quaternion.identity;
             }
+            if (collision.gameObject.GetComponent<IAttackable>()._attackcallback != null)
+            {
+
+                collision.gameObject.GetComponent<IAttackable>()._attackcallback(gameObject);
+            }
             _hurtcontroller.GetHurt(collision.gameObject.GetComponent<IAttackable>().Attack); //其他的受伤方式 比如障碍物 以及怪物的攻击
         }
 
@@ -132,8 +137,13 @@ public class PlayerHurtTrigger : MonoBehaviour
 	
 	// Update is called once per frame
 	void Update () {
-     
-        _hurtcontroller.MaxHealth =( PlayerInfoController._instance.pi.EquipItemDic.Contains("head")?1:0 )+ (PlayerInfoController._instance.pi.EquipItemDic.Contains("cloth") ? 1 : 0) + 4;
+       
+        _hurtcontroller.MaxHealth =
+             ( PlayerInfoController._instance.pi.EquipItemDic.Contains("春灵珠") ?1:0 )+
+              (PlayerInfoController._instance.pi.EquipItemDic.Contains("夏灵珠") ? 1 : 0)  +
+              (PlayerInfoController._instance.pi.EquipItemDic.Contains("秋灵珠") ? 1 : 0) +
+              (PlayerInfoController._instance.pi.EquipItemDic.Contains("冬灵珠") ? 1 : 0) +
+            4;
         PlayerInfoController._instance.pi.maxhelath = _hurtcontroller.MaxHealth;
     }
 }
