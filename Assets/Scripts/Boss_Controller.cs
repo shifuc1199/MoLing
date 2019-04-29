@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 public class Boss_Controller : EnemyBase
 {
     public Transform[] dashpos;
@@ -15,6 +15,9 @@ public class Boss_Controller : EnemyBase
     public bool isToSecond;
     public Transform ToSecondPos;
     int Stage = 1;
+    bool isWuDi = false;
+    public Transform diePos;
+ 
     // Start is called before the first frame update
     private void Awake()
     {
@@ -24,40 +27,93 @@ public class Boss_Controller : EnemyBase
     {
         base.Start();
         _anim = GetComponent<Animator>();
-        _hurtcontroller._DieCallBack += () => { _anim.SetTrigger("die");  bosstrigger.SetActive(false); };
+        _hurtcontroller._DieCallBack += () => {
+         
+            if (nexttimer != null)
+                nexttimer.Cancel();
+            _anim.SetTrigger("firstdisappear");
+            CancelInvoke();
+            Timer.Register(1, () => {
+                transform.position = new Vector3(diePos.position.x, diePos.position.y ); _anim.SetTrigger("die"); GetComponent<BoxCollider2D>().enabled = false; Timer.Register(0.5f, () => {
+                    transform.DOMoveY(diePos.position.y, 0.5f).SetEase(Ease.Linear); Timer.Register(0.15f, () =>
+                    {
+                        DOTween.Shake(() => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset, x => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset = x, 0.3f, 1f);
+                        AudioManager._instance.PlayBgm("普通");
+                       
+                    });
+                });
+            });
+            Timer.Register(4.5f, () => {
+
+                NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == 2; });
+      
+                DialogView view = UIManager._instance.OpenView<DialogView>();
+                view.SetContenct(npc._callback_name, npc.talks.ToArray());
+
+                _anim.SetTrigger("diedisappear"); game.Scene._instance.ChangeCamera(0); bosstrigger.SetActive(false);
+            });
+            Destroy(gameObject, 5);
+
+
+         
+          
+        };
 
         _hurtcontroller._HurtCallBack += () => {
-
-            if(_hurtcontroller.Health<=10)
+            if (_hurtcontroller.Health > 0)
             {
-                isToSecond = true;
-                if (nexttimer != null)
-                    nexttimer.Cancel();
-                CancelInvoke();
-                lastindex = -1;
-                isReset = true;
+                if (_hurtcontroller.Health <= 10 && Stage == 1)
+                {
+                    isToSecond = true;
+                    if (nexttimer != null)
+                        nexttimer.Cancel();
+                    CancelInvoke();
+                    lastindex = -1;
+                    isReset = true;
 
-                _anim.SetTrigger("disappear");
-                Timer.Register(1, () => {
-                    transform.rotation = Quaternion.identity;
-                    transform.position = ToSecondPos.position;
-                    _anim.SetTrigger("appear");
-                    Timer.Register(0.5f, () =>
+                    _anim.SetTrigger("disappear");
+                    Timer.Register(1, () =>
                     {
-                        _anim.SetTrigger("idle");
-                        Timer.Register(2, () =>
+                        transform.rotation = Quaternion.identity;
+                        transform.position = ToSecondPos.position;
+                        _anim.SetTrigger("appear");
+                        Timer.Register(0.5f, () =>
                         {
-                            _anim.SetTrigger("tosecond");
-                            Stage = 2;
-                            _anim.SetInteger("stage", Stage);
-                            Timer.Register(2f, () => { _anim.SetTrigger("disappear");Timer.Register(1, () => { isToSecond = false; isReset = false; ReleaseSkill(); }); });
+                            _anim.SetTrigger("idle");
+                            Timer.Register(2, () =>
+                            {
+                                _anim.SetTrigger("tosecond");
+                                Stage = 2;
+                                _anim.SetInteger("stage", Stage);
+                                Timer.Register(2f, () =>
+                                {
+                                    _anim.SetTrigger("disappear");
+                                    Timer.Register(1, () => { isToSecond = false; isReset = false; ReleaseSkill(); });
+                                });
+                            });
                         });
+
                     });
-                  
-                });
-                
-               
+
+
+                }
+
+                else if (_anim.IsAnim("Attack2"))
+                {
+                    _anim.SetTrigger("firstdisappear");
+
+
+                    if (nexttimer != null)
+                        nexttimer.Cancel();
+
+
+                    (_machine.GetState("attack") as Boss_AttackState).isattack = false;
+                    Timer.Register(1f, () => { ReleaseSkill(); });
+
+
+                }
             }
+           
             GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("主角攻击特效", transform.position, Quaternion.identity);
 
             GameObjectPool.GetInstance().ReleaseGameObject("主角攻击特效", temp2, 0.5f);
@@ -95,7 +151,7 @@ public class Boss_Controller : EnemyBase
     public void InstanteEffect()
     {
       GameObject temp=  GameObjectPool.GetInstance().GetGameObject("SecondAirAttack",new Vector2(transform.position.x-2.5f, effect.position.y+5),Quaternion.identity);
-        GameObjectPool.GetInstance().ReleaseGameObject("SecondAirAttack", temp, 2);
+        GameObjectPool.GetInstance().ReleaseGameObject("SecondAirAttack", temp, 1);
     }
     
     public void HideCollider()
@@ -111,7 +167,10 @@ public class Boss_Controller : EnemyBase
     int lastindex=-1;
     public void ReleaseSkill()
     {
-        string[] skillname;
+        if (isReset)
+            return;
+
+            string[] skillname;
         if (Stage==1)
        skillname = new string[] { "attack" ,"airattack"};
         else
@@ -138,7 +197,7 @@ public class Boss_Controller : EnemyBase
         }
         lastindex = index;
       
-        if (!isReset)
+       
             _machine.ChangeState(skillname[index]);
     }
     private new void OnTriggerEnter2D(Collider2D collision)

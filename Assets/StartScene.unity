@@ -477,7 +477,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8805fc596084684eaa52334617223d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Tip: {fileID: 0}
+  Tip: {fileID: 317993465}
   Mask: {fileID: 1838634270}
   continoueButton: {fileID: 1549928155}
   leaves: {fileID: 657452613}

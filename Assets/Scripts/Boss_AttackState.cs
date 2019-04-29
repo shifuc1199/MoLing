@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Boss_AttackState : StateTemplate<Boss_Controller>
 {
-    bool isattack = false;
+   public bool isattack = false;
     Timer attacktimer;
     int index;
     public Boss_AttackState(string id, Boss_Controller p) : base(id, p)

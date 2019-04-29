@@ -162,9 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55018e31d73f246469e7afc69e9f04f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AddMoney: 0
+  AddMoney: 5
   _maxhealth: 5
-  hitoffable: 1
+  hitoffable: 0
   MaxSmallBeeAmount: 5
   SmallBeeAmount: 0
 --- !u!114 &5936989124950396334

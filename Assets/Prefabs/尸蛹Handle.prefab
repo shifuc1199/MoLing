@@ -231,7 +231,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2120445490, guid: a189566b7191c5a408475fcd5d2edd2f, type: 3}
       propertyPath: AddMoney
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2120445490, guid: a189566b7191c5a408475fcd5d2edd2f, type: 3}
       propertyPath: _maxhealth
@@ -276,6 +276,10 @@ PrefabInstance:
     - target: {fileID: 2120445490, guid: a189566b7191c5a408475fcd5d2edd2f, type: 3}
       propertyPath: player
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2120445490, guid: a189566b7191c5a408475fcd5d2edd2f, type: 3}
+      propertyPath: hitoffable
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3963512832520283169, guid: a189566b7191c5a408475fcd5d2edd2f,
         type: 3}

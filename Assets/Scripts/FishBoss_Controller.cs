@@ -37,11 +37,11 @@ public class FishBoss_Controller : EnemyBase
             {
                 AudioManager._instance.PlayBgm("普通");
                 DOTween.Shake(() => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset, x => game.Scene._instance.VirtualCamera.GetComponent<CinemachineCameraOffset>().m_Offset = x, 0.3f, 1f);
-
             });
             });  });
             Timer.Register(4.5f, () => {
                 
+
                 _anim.SetTrigger("diedisappear"); game.Scene._instance.ChangeCamera(0); DashBook.SetActive(true); BossTrigger.SetActive(false); });
             Destroy(gameObject,5);  
 

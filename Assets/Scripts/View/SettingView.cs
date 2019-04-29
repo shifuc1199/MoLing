@@ -33,7 +33,7 @@ public class SettingView : View
     }
     public void BackToMenu()
     {
-       
+        SaveData.Save(false);
         SceneManager.LoadScene("StartScene");
     }
     public void ExitGame()

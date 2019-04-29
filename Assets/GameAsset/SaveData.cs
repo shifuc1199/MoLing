@@ -27,12 +27,24 @@ public class SerilizedVector3
 public class GameData
 {
     public Dictionary<int, bool> Doors = new Dictionary<int, bool>();
+    public Dictionary<string,int> ShopItemDatasAmount = new Dictionary<string, int>();
     public SerilizedVector3 _playerpos=new SerilizedVector3();
     public PlayerInfo info;
 
     public void UpdateData(bool IncludePos = true)
     {
-        Doors = game.Scene._instance.DoorDic; 
+
+        foreach (var item in ConfigManager.shopitemconfig.Datas)
+        {
+            if(ShopItemDatasAmount.ContainsKey(item.ID))
+            {
+                ShopItemDatasAmount[item.ID] = item.amount;
+            }
+            else
+            ShopItemDatasAmount.Add(item.ID, item.amount);
+        }
+        
+         Doors = game.Scene._instance.DoorDic; 
         info = PlayerInfoController._instance.pi;
         if (IncludePos)
        _playerpos .Copy( game.Scene._instance.player.transform.position);
@@ -78,7 +90,10 @@ public class SaveData
         {
             BinaryFormatter serilaizer = new BinaryFormatter();
           data=(GameData)  serilaizer.Deserialize(f);
-           
+            foreach (var item in ConfigManager.shopitemconfig.Datas)
+            {
+                item.amount = data.ShopItemDatasAmount[item.ID];
+            } 
             Debug.Log("反序列化成功!");
         }
     }
