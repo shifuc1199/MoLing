@@ -655,16 +655,16 @@ public class PlayerCtr : MonoBehaviour
                 timer = 0;
             }
         }
-        if (_rigi.velocity.y<0&&!isOnWall)
-        {
+        //if (_rigi.velocity.y<0&&!isOnWall)
+        //{
 
-            _rigi.velocity += Vector2.up * Physics2D.gravity.y * 1f * Time.deltaTime;
+        //    _rigi.velocity += Vector2.up * Physics2D.gravity.y * 1f * Time.deltaTime;
             
-        }
-        else if (_rigi.velocity.y > 0 && !isjumpstate)
-        {
-            _rigi.velocity += Vector2.up * Physics2D.gravity.y * (  1) * Time.deltaTime;
-        }
+        //}
+        //else if (_rigi.velocity.y > 0 && !isjumpstate)
+        //{
+        //    _rigi.velocity += Vector2.up * Physics2D.gravity.y * (  1) * Time.deltaTime;
+        //}
 
         GroundAndWallCheck();
         

@@ -14,7 +14,9 @@ public class Boss_BulletState : StateTemplate<Boss_Controller>
         Owner.transform.position = Owner.ToSecondPos.position;
         Owner.transform.rotation = Quaternion.identity;
         Owner._anim.SetTrigger("appear");
-        Timer.Register(1.5f, () => { Owner._anim.SetTrigger("bullet"); });
+        Timer.Register(1.5f, () => {
+            Owner.InvokeRepeating("ShootButterFly", 0.5f, 1.5f);
+            Owner._anim.SetTrigger("bullet"); });
       
 
     }
@@ -32,7 +34,7 @@ public class Boss_BulletState : StateTemplate<Boss_Controller>
     {
         if (Owner._hurtcontroller.isdie)
             return;
-
+        Owner.CancelInvoke("ShootButterFly");
         Owner._anim.SetTrigger("bulletover");
     }
         

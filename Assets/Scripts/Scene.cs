@@ -38,6 +38,10 @@ namespace game
             else
                 DoorDic = SaveData.data.Doors;
         }
+        public void AutoSaveRunPos()
+        {
+            SaveData.Save();
+        }
         private void OnApplicationQuit()
         {
             SaveData.Save(false);

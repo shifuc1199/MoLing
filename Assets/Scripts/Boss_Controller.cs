@@ -17,7 +17,7 @@ public class Boss_Controller : EnemyBase
     int Stage = 1;
     bool isWuDi = false;
     public Transform diePos;
- 
+    public int ButterFlyAmount;
     // Start is called before the first frame update
     private void Awake()
     {
@@ -128,6 +128,7 @@ public class Boss_Controller : EnemyBase
         _machine.RegisterState(new Boss_AirAttackState("airattack", this));
         Timer.Register(2, () => { _anim.SetTrigger("disappear"); });
         Timer.Register(3, () => { ReleaseSkill(); });
+     
     }
     bool isReset;
     public void ResetBoss()
@@ -151,9 +152,18 @@ public class Boss_Controller : EnemyBase
     public void InstanteEffect()
     {
       GameObject temp=  GameObjectPool.GetInstance().GetGameObject("SecondAirAttack",new Vector2(transform.position.x-2.5f, effect.position.y+5),Quaternion.identity);
-        GameObjectPool.GetInstance().ReleaseGameObject("SecondAirAttack", temp, 1);
+      GameObjectPool.GetInstance().ReleaseGameObject("SecondAirAttack", temp, 1);
     }
-    
+    public void ShootButterFly()
+    {
+        for (int i = 0; i < ButterFlyAmount; i++)
+        {
+            GameObject temp = GameObjectPool.GetInstance().GetGameObject("蝴蝶", transform.position+new Vector3(1.5f,0), Quaternion.Euler(new Vector3(0,0, i * 15)));
+            GameObjectPool.GetInstance().ReleaseGameObject("蝴蝶", temp,5);
+           
+        }
+      
+    }
     public void HideCollider()
     {
         GetComponent<BoxCollider2D>().enabled = false;
