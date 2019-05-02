@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c5d0b8a433559b42b601ff91d0a4c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  AddMoney: 1
   _maxhealth: 1
   hitoffable: 1
   _player: {fileID: 0}

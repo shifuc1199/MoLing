@@ -45,7 +45,7 @@ public class Enemy_7_Controller : EnemyBase
         SpriteRenderer[] Body_Sprites = GetComponentsInChildren<SpriteRenderer>();
         foreach (var item in Body_Sprites)
         {
-            Debug.Log("Enemy_Character/Vector Parts 1" + item.gameObject.name);
+ 
             item.sprite = Resources.Load<Sprite>("Sprite/Enemy_Character/Vector Parts "+ Sprite_ID + "/" +item.gameObject.name);
         }
      

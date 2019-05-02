@@ -13,12 +13,15 @@ public class Boss_AirAttackState : StateTemplate<Boss_Controller>
     }
     public override void OnEter()//进入的时候执行
     {
-        if (Owner._hurtcontroller.isdie)
-            return;
-        if (Owner.isToSecond)
-            return;
+       
         Timer.Register(1, () =>
         {
+            if (Owner.isReset)
+                return;
+            if (Owner._hurtcontroller.isdie)
+                return;
+            if (Owner.isToSecond)
+                return;
             index = Owner.GetDashPointIndex();
             Owner.transform.eulerAngles = new Vector3(0, 180 * (index - 1), 0);
             Owner.transform.position = Owner.dashpos[index].position+new Vector3(0,2);
@@ -30,13 +33,14 @@ public class Boss_AirAttackState : StateTemplate<Boss_Controller>
     { 
         if (Owner._hurtcontroller.isdie)
             return;
-
+        if (Owner.isReset)
+            return;
         if (Owner.isToSecond)
             return;
         if (!isairattack)
             return;
 
-        Owner.transform.position = Vector3.MoveTowards(Owner.transform.position, Owner.ToSecondPos.position+new Vector3(1.5f,-4f), 10f*Time.deltaTime);
+        Owner.transform.position = Vector3.MoveTowards(Owner.transform.position, Owner.ToSecondPos.position+new Vector3(0f,-6f), 10f*Time.deltaTime);
 
     }
 

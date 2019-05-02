@@ -35,11 +35,14 @@ public class ShopView : View
     
         base.OnCloseClick();
         BackMask.SetActive(false);
-        if (!PlayerInfoController._instance.pi.Teach["Equip"]&& isBuyEquip)
+      
+        if (!PlayerInfoController._instance.pi.Teach["Equip"] && isBuyEquip)
         {
+            UIManager._instance.GetView<TeachView>().type = TeachType.BuyEquipment;
             UIManager._instance.OpenView<TeachView>();
+         
+            isBuyEquip = false;
         }
-        isBuyEquip = false;
 
     }
     void InitShopView()

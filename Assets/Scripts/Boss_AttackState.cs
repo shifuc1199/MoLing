@@ -13,13 +13,16 @@ public class Boss_AttackState : StateTemplate<Boss_Controller>
     }
     public override void OnEter()//进入的时候执行
     {
-        if (Owner.isToSecond)
-            return;
-        if (Owner._hurtcontroller.isdie)
-            return;
-      
-        Timer.Register(1, () =>
-        {
+       
+         
+         Timer.Register(1, () =>
+         {
+             if (Owner.isToSecond)
+                 return;
+             if (Owner._hurtcontroller.isdie)
+                 return;
+             if (Owner.isReset)
+                return;
             index = Owner.GetDashPointIndex();
             Owner.transform.eulerAngles = new Vector3(0, 180 *( index-1), 0);
             Owner.transform.position = Owner.dashpos[index].position;
@@ -33,7 +36,8 @@ public class Boss_AttackState : StateTemplate<Boss_Controller>
             return;
         if (Owner.isToSecond)
             return;
-       
+        if (Owner.isReset)
+            return;
         if (isattack)
         {
 

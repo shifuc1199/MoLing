@@ -8,6 +8,8 @@ public class PlayerInfo
 {
 
     public int Money;
+    public float max_energy=100;
+    public float energy=100;
     public float health = 4;
     public float maxhelath = 4;
     public float max_mp = 100;

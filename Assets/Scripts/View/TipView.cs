@@ -26,8 +26,9 @@ public class TipView : View
         game.Scene._instance.player.GetComponentInChildren<Animator>().SetTrigger("up");
         Time.timeScale = 1;
         button.GetComponent<Image>().raycastTarget = false;
-        GetComponent<CanvasGroup>().DOFade(0, 1);
-        Timer.Register(1, () => {
+        GetComponent<CanvasGroup>().DOFade(0, 0.8f);
+        Timer.Register(1, () => 
+        {
            
 
             button.GetComponent<Image>().DOFade(0,0);
@@ -44,6 +45,13 @@ public class TipView : View
 
         else if (!PlayerInfoController._instance.pi.BagItemDic.Contains(_item.ID))
             PlayerInfoController._instance.pi.BagItemDic.Add(_item.ID);
+
+        if(_item.ID=="sitdown")
+        {
+            UIManager._instance.GetView<TeachView>().type = TeachType.GetSitDown;
+            UIManager._instance.OpenView<TeachView>() ;
+        }
+
     }
     public void SetItem(Item item)
     {

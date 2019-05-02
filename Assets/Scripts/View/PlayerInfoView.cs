@@ -9,11 +9,17 @@ public class PlayerInfoView : View
     public Text MoneyText; public Text ShopMoneyText;
     public GameObject[] lifehead;
     public Image mpsli;
+    public Image energysli;
     // Start is called before the first frame update
     void Start()
     {
       
         SetMpSlider();
+        SetEnergySli();
+    }
+    public void SetEnergySli()
+    {
+        energysli.DOFillAmount(PlayerInfoController._instance.pi.energy / PlayerInfoController._instance.pi.max_energy, 0.5f);
     }
     public void SetLifeHead()
     {

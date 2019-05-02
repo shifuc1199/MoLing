@@ -11,7 +11,7 @@ public class GameView : View
     public GameObject singalsword;
     public GameObject multisword;
     public Text MedichineAmountText;
-   
+    public Transform pos;
     public float MedichineCool_Time;
     public bool Medichine_Cool;
     public Image Medichine_CoolImage;
@@ -41,7 +41,18 @@ public class GameView : View
         {
             Run_away_timer -= Time.deltaTime;
             Run_away_text.text = (int)Run_away_timer + "秒后坍塌";
-
+            if(Run_away_timer<=0)
+            {
+                Run_away = false;
+                   Run_away_timer = Run_away_Time;
+                UIManager._instance.OpenView<MaskView>();
+                Timer.Register(1,()=>{
+                    Run_away = true;
+                    game.Scene._instance.player.transform.position = pos.position;
+                    SaveData.Save();
+                    game.Scene._instance.ChangeCamera(0);
+                });
+            }
         }
         if (Medichine_Cool)
         {
@@ -60,6 +71,8 @@ public class GameView : View
         MedichineAmountText.text = PlayerInfoController._instance.pi.ItemDic["drug"].ToString();
         dash.SetActive(PlayerInfoController._instance.pi.SkillDic["dash"]);
         singalsword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.Contains("sword"));
-        multisword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.Contains("sword"));
+        multisword.SetActive(PlayerInfoController._instance.pi.SkillDic["triplesword"]);
+
+
     }
 }

@@ -486,7 +486,7 @@ public class PlayerCtr : MonoBehaviour
     {
        
         GetComponent<PlayerCtr>().SitDownEffect.SetActive(false);
-        recovertimer = 0;
+         
         isSitDown = false;
         Inputable = true;
     }
@@ -498,6 +498,12 @@ public class PlayerCtr : MonoBehaviour
     }
     public void Mobile_Sit_Down()
     {
+         
+        if (pic.pi.energy<=0)
+        {
+            return;
+        }
+
         if (!(_anim.IsAnim("Idle")|| _anim.IsAnim("PlayerDown")))
             return;
         if (GetComponent<PlayerHurtTrigger>()._hurtcontroller.Health == GetComponent<PlayerHurtTrigger>()._hurtcontroller.MaxHealth)
@@ -521,9 +527,9 @@ public class PlayerCtr : MonoBehaviour
 
         if ( !isOnWall && Sword.GetComponent<SwordCtr>().isCanMutli)
         {
-            if (PlayerInfoController._instance.pi.mp >= 20)
+            if (PlayerInfoController._instance.pi.mp >= 40)
             {
-               pic.MinusMP(20);
+               pic.MinusMP(40);
             }
             else
                 return;
@@ -553,9 +559,9 @@ public class PlayerCtr : MonoBehaviour
 
         if (!isOnWall &&Sword.GetComponent<SwordCtr>().isCanSingal)
         {
-            if (PlayerInfoController._instance.pi.mp >= 20)
+            if (PlayerInfoController._instance.pi.mp >= 30)
             {
-                pic.MinusMP(10);
+                pic.MinusMP(30);
             }
             else
                 return;
@@ -614,8 +620,11 @@ public class PlayerCtr : MonoBehaviour
       
         if (pic.isMaxHealth())
         {
+            
+          
             SitDownEffect.SetActive(false);
             _anim.SetTrigger("up");
+            recovertimer = 0;
         }
     }
    
@@ -637,13 +646,24 @@ public class PlayerCtr : MonoBehaviour
         
         if(isSitDown)
         {
-            
+            pic.pi.energy -= Time.deltaTime*9;
+            UIManager._instance.GetView<PlayerInfoView>().SetEnergySli();
             recovertimer += Time.deltaTime;
             if(recovertimer>=RecoverHealthTime)
             {
                 recovertimer = 0;
                 SitDownAddHealth(1);
             }
+        }
+
+        if(pic.pi.energy<=0)
+        {
+            pic.pi.energy = 0;
+            UIManager._instance.GetView<PlayerInfoView>().SetEnergySli();
+            SitDownEffect.SetActive(false);
+            _anim.SetTrigger("up");
+            isSitDown = false;
+
         }
 
         if(!isCanAttack)

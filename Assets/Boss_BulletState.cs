@@ -11,11 +11,25 @@ public class Boss_BulletState : StateTemplate<Boss_Controller>
     }
     public override void OnEter()//进入的时候执行
     {
+        if (Owner.isReset)
+            return;
+        
+        if (Owner._hurtcontroller.isdie)
+            return;
+
         Owner.transform.position = Owner.ToSecondPos.position;
         Owner.transform.rotation = Quaternion.identity;
         Owner._anim.SetTrigger("appear");
-        Timer.Register(1.5f, () => {
-            Owner.InvokeRepeating("ShootButterFly", 0.5f, 1.5f);
+        Timer.Register(1.5f, () => 
+        {
+
+            if (Owner.isReset)
+                return;
+            if (Owner._hurtcontroller.isdie)
+                return;
+          
+
+            Owner.InvokeRepeating("ShootButterFly", 0.5f, 2.5f);
             Owner._anim.SetTrigger("bullet"); });
       
 
@@ -24,8 +38,9 @@ public class Boss_BulletState : StateTemplate<Boss_Controller>
     {
         if (Owner._hurtcontroller.isdie)
             return;
+        if (Owner.isReset)
+            return;
 
-         
 
 
     }

@@ -23,23 +23,29 @@ MonoBehaviour:
     ID: "\u6625\u7075\u73E0"
     icon: {fileID: 21300000, guid: 048200b5c3461c6489f150eb0b35fc1f, type: 3}
     des: "\u5229\u7528\u6625\u4E4B\u529B\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
-    price: 0
+    price: 50
     type: 0
   - amount: 1
     ID: "\u590F\u7075\u73E0"
     icon: {fileID: 21300000, guid: b4e434a9585a03540a07def8d3c86e18, type: 3}
     des: "\u5229\u7528\u590F\u4E4B\u529B\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
-    price: 0
+    price: 50
     type: 0
   - amount: 1
     ID: "\u79CB\u7075\u73E0"
     icon: {fileID: 21300000, guid: be24d5894064efc48b841ab2dcc19600, type: 3}
     des: "\u5229\u7528\u79CB\u4E4B\u529B\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
-    price: 0
+    price: 50
     type: 0
   - amount: 1
     ID: "\u51AC\u7075\u73E0"
     icon: {fileID: 21300000, guid: 6a55fddbc8335824f86e65a03d08a6db, type: 3}
     des: "\u5229\u7528\u51AC\u4E4B\u529B\u589E\u52A0\u4E00\u70B9\u751F\u547D\u503C\u4E0A\u9650"
-    price: 0
+    price: 50
+    type: 0
+  - amount: 1
+    ID: sword
+    icon: {fileID: 21300000, guid: 7a049d00dc0c3bc47a6bb79fdbfb3b5d, type: 3}
+    des: "\u4E00\u628A\u5B9D\u5251"
+    price: 100
     type: 0

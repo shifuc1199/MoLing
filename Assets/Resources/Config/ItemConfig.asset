@@ -58,3 +58,8 @@ MonoBehaviour:
     ID: "\u51AC\u7075\u73E0"
     type: 0
     itemsprite: {fileID: 21300000, guid: 6a55fddbc8335824f86e65a03d08a6db, type: 3}
+  - name: "\u4E09\u5251\u79D8\u7C4D"
+    des: "\u53D1\u51FA\u4E09\u628A\u5251\u653B\u51FB\u4E0B\u65B9\u76EE\u6807"
+    ID: triplesword
+    type: 1
+    itemsprite: {fileID: 21300000, guid: fe6752e566340e3458ee62abcb0da41d, type: 3}

@@ -31,14 +31,15 @@ public class PlayerInfoController : MonoBehaviour
         if(pi.Teach.Count==0)
         {
             pi.Teach.Add("Equip", false);
+           
         }
         if (pi.SkillDic.Count == 0)
         {
-
+            pi.SkillDic.Add("triplesword", false);
             pi. SkillDic.Add("sitdown", false);
-            pi. SkillDic.Add("doublejump", true);
+            pi. SkillDic.Add("doublejump", false);
             pi.SkillDic.Add("dash", false);
-            pi. SkillDic.Add("walljump", true);
+            pi. SkillDic.Add("walljump", false);
         }
     }
     void Start()
@@ -59,6 +60,22 @@ public class PlayerInfoController : MonoBehaviour
         pi.mp -= amount;
         UIManager._instance.GetView<PlayerInfoView>().SetMpSlider();
     }
+
+    public void AddEnergy(int amount)
+    {
+        if (pi.energy >= pi.max_energy)
+            return;
+        if (pi.energy + amount > pi.max_energy)
+        {
+            pi.energy = pi.max_energy;
+            UIManager._instance.GetView<PlayerInfoView>().SetEnergySli();
+            return;
+        }
+
+        pi.energy += amount;
+        UIManager._instance.GetView<PlayerInfoView>().SetEnergySli();
+    }
+   
 
     public void AddMP(int amount)
     {

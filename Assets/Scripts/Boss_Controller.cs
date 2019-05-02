@@ -18,10 +18,19 @@ public class Boss_Controller : EnemyBase
     bool isWuDi = false;
     public Transform diePos;
     public int ButterFlyAmount;
+    public Transform WindAttackPos;
     // Start is called before the first frame update
     private void Awake()
     {
         startpos = transform.position;
+    }
+    public void AirAttackEffect()
+    {
+        GameObject temp2 = GameObjectPool.GetInstance().GetGameObject("风刃", WindAttackPos.position, Quaternion.identity);
+        Vector3 pos = player.transform.position - transform.position;
+        pos.z = 0;
+        temp2.transform.right = pos;
+        GameObjectPool.GetInstance().ReleaseGameObject("风刃", temp2, 2f);
     }
     new void Start()
     {
@@ -33,7 +42,8 @@ public class Boss_Controller : EnemyBase
                 nexttimer.Cancel();
             _anim.SetTrigger("firstdisappear");
             CancelInvoke();
-            Timer.Register(1, () => {
+            Timer.Register(1, () => 
+            {
                 transform.position = new Vector3(diePos.position.x, diePos.position.y ); _anim.SetTrigger("die"); GetComponent<BoxCollider2D>().enabled = false; Timer.Register(0.5f, () => {
                     transform.DOMoveY(diePos.position.y, 0.5f).SetEase(Ease.Linear); Timer.Register(0.15f, () =>
                     {
@@ -43,24 +53,26 @@ public class Boss_Controller : EnemyBase
                     });
                 });
             });
-            Timer.Register(4.5f, () => {
+            Timer.Register(1.5f, () => {
 
-                NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == 2; });
-      
+                NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == 103; });
+
                 DialogView view = UIManager._instance.OpenView<DialogView>();
                 view.SetContenct(npc._callback_name, npc.talks.ToArray());
 
-                _anim.SetTrigger("diedisappear"); game.Scene._instance.ChangeCamera(0); bosstrigger.SetActive(false);
+
             });
-            Destroy(gameObject, 5);
+          
 
 
          
           
         };
 
-        _hurtcontroller._HurtCallBack += () => {
-            if (_hurtcontroller.Health > 0)
+        _hurtcontroller._HurtCallBack += () => 
+        {
+
+            if (_hurtcontroller.Health > 0&&!isToSecond)
             {
                 if (_hurtcontroller.Health <= 10 && Stage == 1)
                 {
@@ -119,20 +131,50 @@ public class Boss_Controller : EnemyBase
             GameObjectPool.GetInstance().ReleaseGameObject("主角攻击特效", temp2, 0.5f);
         };
     }
-     
-    private void OnEnable()
+     public void Died()
+    {
+        _anim.SetTrigger("diedisappear");
+        game.Scene._instance.ChangeCamera(0);
+        bosstrigger.SetActive(false);
+        Destroy(gameObject, 1);
+    }
+  public  bool isTalk = false;
+    public void StartPk()
     {
         isReset = false;
         _machine.RegisterState(new Boss_BulletState("bullet", this));
         _machine.RegisterState(new Boss_AttackState("attack", this));
         _machine.RegisterState(new Boss_AirAttackState("airattack", this));
-        Timer.Register(2, () => { _anim.SetTrigger("disappear"); });
-        Timer.Register(3, () => { ReleaseSkill(); });
+        _anim.SetTrigger("disappear");
+        Timer.Register(1, () => { ReleaseSkill(); });
+    }
+    private void OnEnable()
+    {
+
+
+        if (isTalk)
+        {
+            isReset = false;
+            _machine.RegisterState(new Boss_BulletState("bullet", this));
+            _machine.RegisterState(new Boss_AttackState("attack", this));
+            _machine.RegisterState(new Boss_AirAttackState("airattack", this));
+            Timer.Register(2, () => { _anim.SetTrigger("disappear"); });
+            Timer.Register(3, () => { ReleaseSkill(); });
+        }
+        else
+        {
+            NPC npc = ConfigManager.npc_config.npcs.Find((a) => { return a.ID == 102; });
+      
+            DialogView view = UIManager._instance.OpenView<DialogView>();
+            view.SetContenct(npc._callback_name, npc.talks.ToArray());
+        }
+        
      
     }
-    bool isReset;
+   public bool isReset;
     public void ResetBoss()
     {
+        Debug.Log("Reset!!!");
         Stage = 1;
         _anim.SetInteger("stage", Stage);
         if (nexttimer != null)
@@ -151,18 +193,36 @@ public class Boss_Controller : EnemyBase
     }
     public void InstanteEffect()
     {
-      GameObject temp=  GameObjectPool.GetInstance().GetGameObject("SecondAirAttack",new Vector2(transform.position.x-2.5f, effect.position.y+5),Quaternion.identity);
-      GameObjectPool.GetInstance().ReleaseGameObject("SecondAirAttack", temp, 1);
+        if (Stage == 2)
+        {
+            GameObject temp = GameObjectPool.GetInstance().GetGameObject("SecondAirAttack", new Vector2(transform.position.x - 2.5f, effect.position.y + 5), Quaternion.identity);
+            GameObjectPool.GetInstance().ReleaseGameObject("SecondAirAttack", temp, 1);
+        }
     }
+    int shootindex = 0;
     public void ShootButterFly()
     {
-        for (int i = 0; i < ButterFlyAmount; i++)
+        if (shootindex == 0)
         {
-            GameObject temp = GameObjectPool.GetInstance().GetGameObject("蝴蝶", transform.position+new Vector3(1.5f,0), Quaternion.Euler(new Vector3(0,0, i * 15)));
-            GameObjectPool.GetInstance().ReleaseGameObject("蝴蝶", temp,5);
-           
+            for (int i = 0; i < ButterFlyAmount; i++)
+            {
+                GameObject temp = GameObjectPool.GetInstance().GetGameObject("蝴蝶", transform.position + new Vector3(1.5f, 0), Quaternion.Euler(new Vector3(0, 0, i * 15)));
+                GameObjectPool.GetInstance().ReleaseGameObject("蝴蝶", temp, 5);
+
+            }
+            shootindex=1;
         }
-      
+        else
+        {
+            shootindex = 0;
+            for (int i = 0; i < ButterFlyAmount; i++)
+            {
+                GameObject temp = GameObjectPool.GetInstance().GetGameObject("蝴蝶", transform.position + new Vector3(1.5f, 0), Quaternion.Euler(new Vector3(0, 0, i * 15 -7.5f)));
+                GameObjectPool.GetInstance().ReleaseGameObject("蝴蝶", temp, 5);
+
+            }
+        }
+
     }
     public void HideCollider()
     {
@@ -177,8 +237,7 @@ public class Boss_Controller : EnemyBase
     int lastindex=-1;
     public void ReleaseSkill()
     {
-        if (isReset)
-            return;
+         
 
             string[] skillname;
         if (Stage==1)
@@ -193,7 +252,7 @@ public class Boss_Controller : EnemyBase
         switch (skillname[index])
         {
             case "bullet":
-                nexttimer= Timer.Register(8
+                nexttimer= Timer.Register(10
                     , () => { ReleaseSkill(); });
                 break;
             case "airattack":
@@ -206,9 +265,13 @@ public class Boss_Controller : EnemyBase
                 break;
         }
         lastindex = index;
-      
-       
+
+        if (!isReset)
+        {
             _machine.ChangeState(skillname[index]);
+ 
+        }
+        
     }
     private new void OnTriggerEnter2D(Collider2D collision)
     {
@@ -228,6 +291,8 @@ public class Boss_Controller : EnemyBase
     }
     public int GetDashPointIndex()
     {
+       
+         
         float maxDistance = float.MinValue;
         int Index = -1;
         for (int i = 0; i < dashpos.Length; i++)
@@ -238,6 +303,7 @@ public class Boss_Controller : EnemyBase
                 Index = i;
             }
         }
+ 
         return Index;
     }
 }

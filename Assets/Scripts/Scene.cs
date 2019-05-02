@@ -15,6 +15,7 @@ namespace game
         public Transform ForestPoint;
         public GameObject Fish;
         public GameObject Boss;
+        public GameObject TripleSword;
         private void Awake()
         {
             _instance = this;
@@ -37,6 +38,12 @@ namespace game
             }
             else
                 DoorDic = SaveData.data.Doors;
+        }
+        public void SceneJump(string name)
+        {
+            UIManager._instance.OpenView<MaskView>();
+            Timer.Register(1,() => { UnityEngine.SceneManagement.SceneManager.LoadScene(name); });
+          
         }
         public void AutoSaveRunPos()
         {
@@ -111,7 +118,7 @@ namespace game
         // Update is called once per frame
         void Update()
         {
-
+            TripleSword.SetActive(PlayerInfoController._instance.pi.EquipItemDic.Contains("sword"));
         }
     }
 }

@@ -6,7 +6,7 @@ public class ItemUI : MonoBehaviour
 {
    public Item item;
 
-    bool isEquip = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -14,7 +14,7 @@ public class ItemUI : MonoBehaviour
     }
    public void Equip()
     {
-        if (isEquip)
+        if (PlayerInfoController._instance.pi.EquipItemDic.Contains(item.ID))
         {
             PlayerInfoController._instance.pi.BagItemDic.Add(item.ID);
             PlayerInfoController._instance.pi.EquipItemDic.Remove(item.ID);
@@ -28,7 +28,7 @@ public class ItemUI : MonoBehaviour
             transform.parent = UIManager._instance.GetView<BagView>().EquipmentRoot;
         }
         UIManager._instance.GetView<BagView>().TipText.text = "";
-        isEquip = !isEquip;
+ 
         UIManager._instance.GetView<BagView>().SelectGameObject = null;
         transform.GetChild(0).gameObject.SetActive(false);
     }
