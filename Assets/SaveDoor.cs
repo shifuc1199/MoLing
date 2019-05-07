@@ -9,34 +9,40 @@ public class SaveDoor : MonoBehaviour, IInteractClick
     public GameObject button;
     public void InteractClick()
     {
-        
 
-        game.Scene._instance.DoorDic[id] = true;
-        SavePos();
-        button.SetActive(false);
+
+        UIManager._instance.OpenView<TransferView>();
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag=="Player")
         {
+            button.SetActive(true);
             if (game.Scene._instance.DoorDic[id])
                 return;
-          
-            button.SetActive(true);
+
+            game.Scene._instance.DoorDic[id] = true;
+            SavePos();
+           
+           
         }
     }
     void OnTriggerExit2D(Collider2D collision)
     {
+       
         if (collision.gameObject.tag == "Player")
         {
+            button.SetActive(false);
             if (game.Scene._instance.DoorDic[id])
                 return;
 
-            button.SetActive(false);
+            game.Scene._instance.DoorDic[id] = true;
+            SavePos();
         }
     }
     public void SavePos()
     {
+        UIManager._instance.GetView<TransferView>().index = id-1;
         SaveData.Save();
         transform.GetChild(0).gameObject.SetActive(true);
         transform.GetChild(1).gameObject.SetActive(true);

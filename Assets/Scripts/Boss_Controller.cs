@@ -74,7 +74,7 @@ public class Boss_Controller : EnemyBase
 
             if (_hurtcontroller.Health > 0&&!isToSecond)
             {
-                if (_hurtcontroller.Health <= 10 && Stage == 1)
+                if (_hurtcontroller.Health <= 8 && Stage == 1)
                 {
                     isToSecond = true;
                     if (nexttimer != null)

@@ -39,9 +39,9 @@ public class SmallEnemy_4_Controller : EnemyBase
             () =>
         {
 
-      
 
 
+            UIManager._instance.GetView<PlayerInfoView>().SetAddMoney(AddMoney);
             GameObjectPool.GetInstance().ReleaseGameObject("小蜜蜂", gameObject,1);
             father.SmallBeeAmount--;
             GetComponent<BoxCollider2D>().enabled = false;

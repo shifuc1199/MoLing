@@ -38,6 +38,7 @@ public class SettingView : View
     }
     public void ExitGame()
     {
+      
         Application.Quit();
     }
     public void On_Effect_ValueChange(int index)

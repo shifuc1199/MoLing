@@ -24,6 +24,9 @@ namespace game
 
             if (!SaveData.isHaveData())
             {
+           
+                  
+              
 
                 Timer.Register(3, () =>
                 {
@@ -39,6 +42,7 @@ namespace game
             else
                 DoorDic = SaveData.data.Doors;
         }
+     
         public void SceneJump(string name)
         {
             UIManager._instance.OpenView<MaskView>();
@@ -112,9 +116,12 @@ namespace game
         // Start is called before the first frame update
         void Start()
         {
-            
+            if(!SaveData.isHaveData())
+            {
+                SaveData.Save();
+            }
         }
-
+       
         // Update is called once per frame
         void Update()
         {
